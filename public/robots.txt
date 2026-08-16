@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aizaznoorkhuwaja.vercel.app/sitemap.xml

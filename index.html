@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>Aizaz Noor-Portfolio</title>
+    <meta name="title" content="Aizaz Noor-Portfolio" />
+    <meta name="description" content="Portfolio of Aizaz Noor: BSE student at COMSATS, Aspiring AIOps Engineer, MERN-stack developer, and CLI tool creator. Building scalable AI pipelines from Lahore, Pakistan." />
+    <meta name="keywords" content="Aizaz Noor, portfolio, software engineer, AIOps, MERN, React, Node.js, AI, Pakistan" />
+    <meta name="author" content="Aizaz Noor" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Aizaz Noor-Portfolio" />
+    <meta property="og:description" content="Explore projects, tech stack, certifications, and experience of Aizaz Noor — BSE student building production AI and SaaS tools." />
+    <meta property="og:url" content="https://aizaznoorkhuwaja.vercel.app/" />
+    <meta property="og:image" content="/profile.jpeg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aizaz Noor-Portfolio" />
+    <meta name="twitter:description" content="Portfolio of Aizaz Noor: MERN dev, AIOps engineer, CLI tool creator." />
+    <meta name="twitter:image" content="/profile.jpeg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Fonts: Inter (body) + Outfit (display) — async non-blocking load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <!-- Load fonts async — media=print trick prevents render-blocking -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" />
+    </noscript>
+
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════════════
+         NATIVE PRELOADER — renders instantly before React
+         Removed by App.jsx via custom 'app-ready' event
+    ═══════════════════════════════════════════════════ -->
+    <div id="native-preloader" aria-hidden="true">
+      <div class="np-brand">
+        <span class="np-name">Aizaz</span><span class="np-accent">Noor</span>
+      </div>
+      <div class="np-subtitle">
+        <span class="np-line"></span>
+        <span>Personal Portfolio</span>
+        <span class="np-line"></span>
+      </div>
+      <div class="np-track"><div class="np-fill"></div></div>
+    </div>
+    <style>
+      #native-preloader {
+        position: fixed; inset: 0;
+        background: #050507;
+        z-index: 10000;
+        display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+        transition: opacity 0.7s ease, visibility 0.7s ease;
+        font-family: 'Outfit', -apple-system, sans-serif;
+      }
+      #native-preloader.np-exit { opacity: 0; visibility: hidden; }
+      #native-preloader.np-done { display: none; }
+      .np-brand {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800; letter-spacing: -0.03em;
+        margin-bottom: 0.5rem;
+        animation: np-up 0.5s ease both;
+      }
+      .np-name { color: #f1f5f9; }
+      .np-accent { color: #818cf8; }
+      .np-subtitle {
+        display: flex; align-items: center; gap: 1rem;
+        font-size: 0.72rem; font-weight: 500;
+        letter-spacing: 0.3em; text-transform: uppercase;
+        color: rgba(255,255,255,0.3);
+        margin-bottom: 2.5rem;
+        animation: np-up 0.5s 0.1s ease both;
+      }
+      .np-line { display: block; height: 1px; width: 28px; background: rgba(255,255,255,0.12); }
+      .np-track {
+        width: 240px; height: 2px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 2px; overflow: hidden;
+      }
+      .np-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #818cf8, #38bdf8);
+        box-shadow: 0 0 10px rgba(129,140,248,0.6);
+        border-radius: 2px;
+        animation: np-load 1.1s cubic-bezier(0.4,0,0.2,1) forwards;
+      }
+      @keyframes np-load { from { width: 0%; } to { width: 100%; } }
+      @keyframes np-up {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+    <script>
+      // Remove native preloader once React fires the 'app-ready' event
+      document.addEventListener('app-ready', function() {
+        var el = document.getElementById('native-preloader');
+        if (!el) return;
+        el.classList.add('np-exit');
+        setTimeout(function() { el.classList.add('np-done'); }, 750);
+      });
+    </script>
+
+    <div id="root">
+      <!-- Semantic HTML Fallback for AI Crawlers, Search Engines & No-JS Readers -->
+      <header>
+        <h1>Aizaz Noor — Software Engineering Student &amp; AIOps Engineer</h1>
+        <p>Building scalable AI pipelines, MERN-stack web applications, and high-performance CLI tools from Lahore, Pakistan.</p>
+      </header>
+      <main>
+        <section id="about">
+          <h2>About Me</h2>
+          <p>BSE student at COMSATS University Islamabad (Lahore Campus). Passionate about distributed systems, DevOps, cloud infrastructure, local LLM orchestration, and building resilient software that solves real-world problems.</p>
+        </section>
+
+        <section id="experience">
+          <h2>Work Experience</h2>
+          <article>
+            <h3>Software Engineering Intern</h3>
+            <p>Developing scalable web services, backend APIs, and modern frontend interfaces using React, Node.js, and cloud tools.</p>
+          </article>
+        </section>
+
+        <section id="projects">
+          <h2>Featured Projects</h2>
+          <article>
+            <h3>01. Newton's Glitch</h3>
+            <p>Physics-based JavaFX game with gravity-flip mechanics and scale-dependent collision. Custom physics engine built from scratch. Flip the world, survive the chaos.</p>
+            <p><strong>Technologies:</strong> Java, JavaFX, Physics Engine, Game Dev</p>
+            <p><a href="https://github.com/Aizaz-Noor/Newtons-Glitch">View on GitHub</a></p>
+          </article>
+          <article>
+            <h3>02. ANK-CINEMA</h3>
+            <p>Terminal media downloader. Cross-platform CLI tool with parallel multi-source search, deduplication, and magnet enrichment via aria2c.</p>
+            <p><strong>Technologies:</strong> Python, CLI, aria2c, Parallel Search</p>
+            <p><a href="https://github.com/Aizaz-Noor/ANK-CINEMA">View on GitHub</a></p>
+          </article>
+          <article>
+            <h3>03. Weekly Habit Tracker</h3>
+            <p>Interactive single-page habit tracker with weekly grid visualization, multi-week streak calculation, and local storage persistence.</p>
+            <p><strong>Technologies:</strong> React, Vite, Tailwind CSS, State Mgmt</p>
+            <p><a href="https://github.com/Aizaz-Noor/habit-tracker">View on GitHub</a> | <a href="https://habit-tracker-beryl-chi.vercel.app">Live Demo</a></p>
+          </article>
+          <article>
+            <h3>04. Hostel Kharcha Manager</h3>
+            <p>Terminal-based collaborative expense tracker built in C++ with custom hash map data structures and a full TUI.</p>
+            <p><strong>Technologies:</strong> C++, Terminal UI, Data Structures</p>
+            <p><a href="https://github.com/Aizaz-Noor/Hostel-Kharcha-Manager">View on GitHub</a></p>
+          </article>
+        </section>
+
+        <section id="skills">
+          <h2>Technologies &amp; Skills</h2>
+          <p><strong>Languages:</strong> Java, Python, C++, JavaScript (ES6+), HTML5, CSS3</p>
+          <p><strong>Frontend &amp; 3D:</strong> React 19, Vite, Three.js, React Three Fiber, Tailwind CSS</p>
+          <p><strong>Backend &amp; Database:</strong> Node.js, Express, MongoDB, REST APIs</p>
+          <p><strong>Tools &amp; DevOps:</strong> Git, GitHub, Linux, Bash, Vercel, Docker</p>
+        </section>
+
+        <section id="contact">
+          <h2>Get In Touch</h2>
+          <p>Open to internships: SaaS, backend, CLI, or AI-adjacent work.</p>
+          <ul>
+            <li><strong>Email:</strong> <a href="mailto:aizaznoorkhuwaja@gmail.com">aizaznoorkhuwaja@gmail.com</a></li>
+            <li><strong>Location:</strong> Lahore, Pakistan</li>
+            <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/aizaz-noor">linkedin.com/in/aizaz-noor</a></li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/Aizaz-Noor">github.com/Aizaz-Noor</a></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
