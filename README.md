@@ -1,4 +1,4 @@
-# Aizaz Noor — 3D Software Engineering Portfolio
+# Aizaz Noor 3D-Portfolio
 
 > A high-performance, interactive 3D portfolio and software showcase engineered with React 19, Three.js, React Three Fiber, Vite 8, Apple-grade Liquid Glass design system, and Emil Kowalski tactile spring physics.
 
@@ -10,11 +10,11 @@
 
 ---
 
-## ✦ Overview
+## Overview
 
 This repository contains the source code for **Aizaz Noor**'s personal portfolio and software showcase. Designed for maximum responsiveness, visual elegance, and performance, it pairs a hardware-accelerated 3D WebGL particle tunnel with an Apple-inspired Liquid Glass UI layer.
 
-### 🌟 Key Highlights
+### Key Highlights
 
 - **3D WebGL Particle Tunnel & VisionOS Parallax:**
   - Driven by `@react-three/fiber` with custom GLSL vertex and fragment shaders.
@@ -36,14 +36,14 @@ This repository contains the source code for **Aizaz Noor**'s personal portfolio
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
 - **Production URL:** [https://aizaznoorkhuwaja.vercel.app/](https://aizaznoorkhuwaja.vercel.app/)
 - **Fallback URL:** [https://portfolio-seven-opal-48.vercel.app/](https://portfolio-seven-opal-48.vercel.app/)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core Frontend
 - **Framework:** React 19 (`react`, `react-dom`)
@@ -68,7 +68,7 @@ This repository contains the source code for **Aizaz Noor**'s personal portfolio
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 portfolio/
@@ -113,7 +113,7 @@ portfolio/
 
 ---
 
-## 💻 Getting Started
+## Getting Started
 
 Follow these steps to run the portfolio locally on your machine.
 
@@ -149,7 +149,7 @@ http://localhost:5173
 
 ---
 
-## 📜 Available Scripts
+## Available Scripts
 
 | Script | Command | Description |
 |---|---|---|
@@ -160,7 +160,7 @@ http://localhost:5173
 
 ---
 
-## ⚡ Performance Architecture
+## Performance Architecture
 
 1. **WebGL Off-Screen & Tab-Hidden Pause:**
    When the browser tab is hidden or backgrounded, `Background3D.jsx` pauses WebGL frame updates to preserve battery and CPU/GPU cycles.
@@ -177,25 +177,13 @@ http://localhost:5173
 
 ---
 
-## 🌐 Deployment
-
-Configured for continuous deployment via **Vercel**:
-
-1. Push your changes to the `main` branch on GitHub.
-2. Connect your GitHub repository to Vercel.
-3. Vercel will automatically detect Vite and run:
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-
----
-
-## 📄 License
+## License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
 
 ---
 
-## 👤 Author
+## Author
 
 **Aizaz Noor**
 - **Website:** [aizaznoorkhuwaja.vercel.app](https://aizaznoorkhuwaja.vercel.app/)
