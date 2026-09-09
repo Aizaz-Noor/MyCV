@@ -58,7 +58,7 @@ const TechCard = React.memo(function TechCard({ item }) {
       <div className="tech-card-inner">
         <div className="tech-card-front">
           <Icon className="tech-card-icon" size={36} style={{ color: item.color }} aria-hidden="true" />
-          <h4 className="tech-card-name">{item.name}</h4>
+          <h3 className="tech-card-name">{item.name}</h3>
         </div>
         <div className="tech-card-back">
           <Icon size={24} style={{ color: item.color, marginBottom: '0.5rem', flexShrink: 0 }} aria-hidden="true" />

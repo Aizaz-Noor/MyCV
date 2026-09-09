@@ -36,3 +36,5 @@ coverage/
 *.cache
 
 testsprite_tests\tmp\config.json
+.claude/
+skills-lock.json

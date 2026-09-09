@@ -78,7 +78,7 @@ export default function Background3D() {
           inset: 0,
           width: '100vw',
           height: '100vh',
-          zIndex: -1,
+          zIndex: 0,
           background: '#050507',
           pointerEvents: 'none'
         }}
@@ -89,7 +89,7 @@ export default function Background3D() {
   return (
     <div
       ref={canvasRef}
-      style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: -1, pointerEvents: 'none' }}
+      style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', zIndex: 0, pointerEvents: 'none' }}
     >
       <Canvas
         dpr={[1, isMobile ? 1 : 1.5]}

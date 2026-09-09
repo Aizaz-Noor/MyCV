@@ -73,6 +73,8 @@ export default function About() {
                   src="/about-photo-color-portrait.jpeg"
                   alt="Aizaz Noor"
                   className="about-photo"
+                  width="400"
+                  height="500"
                   loading="lazy"
                 />
                 <div className="about-photo-vignette" />

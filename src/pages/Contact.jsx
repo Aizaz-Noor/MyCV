@@ -179,7 +179,7 @@ export default function Contact() {
               <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 150px' }}>
                   <div className={`floating-input-group ${errors.name ? 'error' : ''}`}>
-                    <input type="text" id="name" name="name" placeholder=" " maxLength="100" onChange={handleChange} />
+                    <input type="text" id="name" name="name" autoComplete="name" placeholder=" " maxLength="100" onChange={handleChange} />
                     <label htmlFor="name">Name</label>
                   </div>
                   {errors.name && <span className="error-msg">{errors.name}</span>}
@@ -187,7 +187,7 @@ export default function Contact() {
                 
                 <div style={{ flex: '1 1 150px' }}>
                   <div className={`floating-input-group ${errors.email ? 'error' : ''}`}>
-                    <input type="email" id="email" name="email" placeholder=" " maxLength="255" onChange={handleChange} />
+                    <input type="email" id="email" name="email" autoComplete="email" placeholder=" " maxLength="255" onChange={handleChange} />
                     <label htmlFor="email">Email</label>
                   </div>
                   {errors.email && <span className="error-msg">{errors.email}</span>}

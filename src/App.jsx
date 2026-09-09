@@ -64,7 +64,7 @@ export default function App() {
           inset: 0,
           width: '100vw',
           height: '100vh',
-          zIndex: 0,
+          zIndex: 1,
           backgroundColor: 'rgba(5, 7, 12, 0.4)',
           pointerEvents: 'none',
         }}

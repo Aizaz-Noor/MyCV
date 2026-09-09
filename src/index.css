@@ -45,7 +45,7 @@
 html, body, #root {
   width: 100%;
   min-height: 100vh;
-  background: transparent;
+  background-color: #050507;
   color: var(--text-1);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -914,19 +914,47 @@ p, span, a, li, .tag, input, textarea, .btn, .btn *, .floating-input-group *, .n
   border-left: 5px solid rgba(129, 140, 248, 0.45);
 }
 
-/* ── Floating Context Menu Bubble — matches navbar pill ────────────── */
+/* ── Floating Context Menu Bubble — rich dark glass with pristine legibility ── */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 5, 8, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+  pointer-events: none;
+}
+
+.nav-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .context-menu-bubble {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
   width: 100%;
-  padding: 12px 14px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: var(--glass-border);
+  padding: 16px 14px;
+  background: linear-gradient(
+    160deg,
+    rgba(16, 18, 26, 0.96) 0%,
+    rgba(10, 12, 18, 0.98) 100%
+  );
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 24px;
-  box-shadow: var(--glass-shadow), var(--glass-glow);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    0 4px 16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
   display: flex;
   flex-direction: column;
   gap: 4px;

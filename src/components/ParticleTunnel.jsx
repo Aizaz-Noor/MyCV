@@ -44,6 +44,7 @@ const fragmentShader = `
 export default function ParticleTunnel({ count = 1500 }) {
   const meshRef  = useRef();
   const matRef   = useRef();
+  const timeRef  = useRef(0);
   const depth    = 280;
 
   const { positions, sizes, depths } = useMemo(() => {
@@ -67,8 +68,9 @@ export default function ParticleTunnel({ count = 1500 }) {
   }, [count]);
 
   useFrame((state, delta) => {
+    timeRef.current += delta;
     if (meshRef.current)  meshRef.current.rotation.z += delta * 0.04;
-    if (matRef.current)   matRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+    if (matRef.current)   matRef.current.uniforms.uTime.value = timeRef.current;
   });
 
   return (

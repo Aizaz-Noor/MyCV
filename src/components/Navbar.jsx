@@ -106,6 +106,12 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Dimmer backdrop for mobile context menu */}
+      <div
+        className={`nav-backdrop${isMobileMenuOpen ? ' active' : ''}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
       <nav
         className={`navbar${scrolled ? ' scrolled' : ''}`}
         role="navigation"
@@ -125,7 +131,7 @@ export default function Navbar() {
         </div>
 
         {/* ── Desktop Nav Links ─────────────────────── */}
-        <div className="navbar-links" role="list">
+        <div className="navbar-links">
           {/* Sliding pill — dark tint for light glass */}
           <div
             className="nav-indicator"
