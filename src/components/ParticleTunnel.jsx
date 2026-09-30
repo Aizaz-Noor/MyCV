@@ -48,20 +48,25 @@ export default function ParticleTunnel({ count = 1500 }) {
   const depth    = 280;
 
   const { positions, sizes, depths } = useMemo(() => {
+    let seed = 123456789;
+    const random = () => {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
     const positions = new Float32Array(count * 3);
     const sizes     = new Float32Array(count);
     const depths    = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      const radius = 2 + Math.random() * 16;
-      const angle  = Math.random() * Math.PI * 2;
-      const z      = (Math.random() - 0.5) * depth;
+      const radius = 2 + random() * 16;
+      const angle  = random() * Math.PI * 2;
+      const z      = (random() - 0.5) * depth;
 
       positions[i * 3]     = Math.cos(angle) * radius;
       positions[i * 3 + 1] = Math.sin(angle) * radius;
       positions[i * 3 + 2] = z;
 
-      sizes[i]  = 0.6 + Math.random() * 1.8;
+      sizes[i]  = 0.6 + random() * 1.8;
       depths[i] = (z + depth / 2) / depth; // normalise 0→1
     }
     return { positions, sizes, depths };

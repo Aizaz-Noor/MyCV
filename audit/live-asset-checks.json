@@ -1,0 +1,104 @@
+﻿[
+    {
+        "Path":  "/resume.pdf",
+        "Status":  200,
+        "Bytes":  338665,
+        "Type":  "application/pdf"
+    },
+    {
+        "Path":  "/robots.txt",
+        "Status":  200,
+        "Bytes":  81,
+        "Type":  "text/plain; charset=UTF-8"
+    },
+    {
+        "Path":  "/sitemap.xml",
+        "Status":  200,
+        "Bytes":  278,
+        "Type":  "application/xml; charset=UTF-8"
+    },
+    {
+        "Path":  "/favicon.png",
+        "Status":  200,
+        "Bytes":  91605,
+        "Type":  "image/png"
+    },
+    {
+        "Path":  "/logo.png",
+        "Status":  200,
+        "Bytes":  107989,
+        "Type":  "image/png"
+    },
+    {
+        "Path":  "/about-photo-color-portrait.jpeg",
+        "Status":  200,
+        "Bytes":  80809,
+        "Type":  "image/jpeg"
+    },
+    {
+        "Path":  "/pfala.pdf",
+        "Status":  200,
+        "Bytes":  78145,
+        "Type":  "application/pdf"
+    },
+    {
+        "Path":  "/Mlsa%20Cui%20lahore.pdf",
+        "Status":  200,
+        "Bytes":  231897,
+        "Type":  "application/pdf"
+    },
+    {
+        "Path":  "/web_nuxes.pdf",
+        "Status":  200,
+        "Bytes":  88308,
+        "Type":  "application/pdf"
+    },
+    {
+        "Path":  "/404_squad.pdf",
+        "Status":  200,
+        "Bytes":  71609,
+        "Type":  "application/pdf"
+    },
+    {
+        "Path":  "/event_emperors.pdf",
+        "Status":  200,
+        "Bytes":  67761,
+        "Type":  "application/pdf"
+    },
+    {
+        "Path":  "/assets/index-BxHStcIY.js",
+        "Status":  200,
+        "Bytes":  29041,
+        "Type":  "application/javascript; charset=utf-8"
+    },
+    {
+        "Path":  "/assets/rolldown-runtime-Dw2cE7zH.js",
+        "Status":  200,
+        "Bytes":  685,
+        "Type":  "application/javascript; charset=utf-8"
+    },
+    {
+        "Path":  "/assets/icons-vendor-DJf9qS7b.js",
+        "Status":  200,
+        "Bytes":  30443,
+        "Type":  "application/javascript; charset=utf-8"
+    },
+    {
+        "Path":  "/assets/r3f-vendor-De0DkJsG.js",
+        "Status":  200,
+        "Bytes":  887036,
+        "Type":  "application/javascript; charset=utf-8"
+    },
+    {
+        "Path":  "/assets/react-vendor-C7bFXxmV.js",
+        "Status":  200,
+        "Bytes":  178298,
+        "Type":  "application/javascript; charset=utf-8"
+    },
+    {
+        "Path":  "/assets/index-Dw_Cl1et.css",
+        "Status":  200,
+        "Bytes":  49356,
+        "Type":  "text/css; charset=utf-8"
+    }
+]

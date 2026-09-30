@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Reveal from '../components/Reveal';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 const EXPERIENCES = [
   {
@@ -35,6 +35,7 @@ const EXPERIENCES = [
 export default function Experience() {
   const [activeItems, setActiveItems] = useState([]);
   const itemRefs = useRef([]);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const observers = [];
@@ -80,7 +81,7 @@ export default function Experience() {
             <div
               key={exp.num}
               ref={(el) => (itemRefs.current[i] = el)}
-              className={`exp-timeline-item ${i % 2 === 0 ? 'left' : 'right'} ${activeItems.includes(i) ? 'visible' : ''}`}
+              className={`exp-timeline-item ${i % 2 === 0 ? 'left' : 'right'} ${reducedMotion || activeItems.includes(i) ? 'visible' : ''}`}
             >
               <div className="exp-timeline-dot">
                 {exp.current && <span className="exp-dot-pulse" />}

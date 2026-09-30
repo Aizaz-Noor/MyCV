@@ -1,34 +1,41 @@
-import { Suspense, useEffect, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import Navbar          from './components/Navbar';
-import Preloader       from './components/Preloader';
 import ScrollProgress  from './components/ScrollProgress';
 import ErrorBoundary   from './components/ErrorBoundary';
 import CustomCursor    from './components/CustomCursor';
 import Footer          from './components/Footer';
-import { useMousePosition } from './hooks/useMousePosition';
+import { useOptionalGraphics } from './hooks/useOptionalGraphics';
 
 import Hero from './pages/Hero';
-const About          = lazy(() => import('./pages/About'));
-const Experience     = lazy(() => import('./pages/Experience'));
-const TechStack      = lazy(() => import('./pages/TechStack'));
-const Projects       = lazy(() => import('./pages/Projects'));
-const Certifications = lazy(() => import('./pages/Certifications'));
-const Profiles       = lazy(() => import('./pages/Profiles'));
-const Contact        = lazy(() => import('./pages/Contact'));
+import About from './pages/About';
+import Experience from './pages/Experience';
+import TechStack from './pages/TechStack';
+import Projects from './pages/Projects';
+import Certifications from './pages/Certifications';
+import Profiles from './pages/Profiles';
+import Contact from './pages/Contact';
 const Background3D   = lazy(() => import('./components/Background3D'));
 
+const SECTIONS = [
+  { id: 'home', name: 'Home', Component: Hero },
+  { id: 'about', name: 'About', Component: About },
+  { id: 'experience', name: 'Experience', Component: Experience },
+  { id: 'techstack', name: 'Skills', Component: TechStack },
+  { id: 'work', name: 'Projects', Component: Projects },
+  { id: 'certifications', name: 'Credentials', Component: Certifications },
+  { id: 'profiles', name: 'Profiles', Component: Profiles },
+  { id: 'contact', name: 'Contact', Component: Contact },
+];
+
 export default function App() {
+  const showGraphics = useOptionalGraphics();
+
   useEffect(() => {
-    // Signal native preloader (in index.html) to fade out
-    document.dispatchEvent(new CustomEvent('app-ready'));
-
-    document.body.style.overflow = 'auto';
-    document.body.style.overflowX = 'hidden';
-    document.documentElement.style.overflow = 'auto';
-    document.documentElement.style.overflowX = 'hidden';
+    const id = window.location.hash.slice(1);
+    if (!SECTIONS.some((section) => section.id === id)) return;
+    const frame = window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+    return () => window.cancelAnimationFrame(frame);
   }, []);
-
-  useMousePosition();
 
   return (
     <>
@@ -47,15 +54,18 @@ export default function App() {
       </a>
       <CustomCursor />
       <ScrollProgress />
-      <Preloader />
-      <ErrorBoundary>
+      <ErrorBoundary fallback={null}>
         <Navbar />
       </ErrorBoundary>
 
       {/* LAYER 1: The 3D WebGL Background */}
-      <Suspense fallback={null}>
-        <Background3D />
-      </Suspense>
+      {showGraphics && (
+        <ErrorBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <Background3D />
+          </Suspense>
+        </ErrorBoundary>
+      )}
 
       {/* LAYER 1.5: Global Scrim */}
       <div
@@ -72,30 +82,20 @@ export default function App() {
 
       {/* LAYER 2: 2D HTML/CSS Foreground */}
       <main id="main-content" tabIndex="-1" style={{ position: 'relative', zIndex: 10, width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', outline: 'none' }}>
-        <Hero />
-        <ErrorBoundary>
-          <Suspense fallback={null}>
-            <About />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Experience />
-          </Suspense>
-          <Suspense fallback={null}>
-            <TechStack />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Projects />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Certifications />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Profiles />
-          </Suspense>
-          <Suspense fallback={null}>
-            <Contact />
-          </Suspense>
-        </ErrorBoundary>
+        {SECTIONS.map((section) => {
+          const Section = section.Component;
+          const fallback = (
+            <section id={section.id} className="section-container">
+              <p>{section.name} is temporarily unavailable.</p>
+              {section.id === 'contact' && <a href="mailto:aizaznoorkhuwaja@gmail.com">Email Aizaz directly</a>}
+            </section>
+          );
+          return (
+            <ErrorBoundary key={section.id} fallback={fallback}>
+              <Section />
+            </ErrorBoundary>
+          );
+        })}
         <Footer />
       </main>
     </>

@@ -104,6 +104,7 @@ export default function Certifications() {
                         target="_blank"
                         rel="noreferrer"
                         className="cert-overlay-link"
+                        aria-label={`View ${cert.title} credential (opens in a new tab)`}
                       >
                         <span>View Credential</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

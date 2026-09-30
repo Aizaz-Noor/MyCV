@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import MagneticButton from '../components/MagneticButton';
 import ResumeModal from '../components/ResumeModal';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 const ROLES = [
-  'Aspiring AIOps Engineer',
+  'Exploring AIOps',
   'MERN Stack Developer',
   'SaaS Builder',
   'CLI Tool Creator',
@@ -12,6 +13,7 @@ const ROLES = [
 export default function Hero() {
   const [visible, setVisible] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   // Typewriter: useRef + direct DOM write — zero React re-renders during typing
   const typeRef = useRef(null);
@@ -28,6 +30,7 @@ export default function Hero() {
 
   // Typewriter loop — writes directly to DOM, no state updates
   useEffect(() => {
+    if (reducedMotion) return;
     const tick = () => {
       const current = ROLES[roleIndexRef.current];
       const isDeleting = isDeletingRef.current;
@@ -60,7 +63,7 @@ export default function Hero() {
 
     timeoutRef.current = setTimeout(tick, 400);
     return () => clearTimeout(timeoutRef.current);
-  }, []);
+  }, [reducedMotion]);
 
 
   return (
@@ -76,8 +79,8 @@ export default function Hero() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(24px)',
+              opacity: visible || reducedMotion ? 1 : 0,
+              transform: visible || reducedMotion ? 'translateY(0)' : 'translateY(24px)',
               transition: 'opacity 0.7s 0.1s ease, transform 0.7s 0.1s cubic-bezier(0.16,1,0.3,1)',
             }}
           >
@@ -87,7 +90,7 @@ export default function Hero() {
 
           {/* Typed tagline */}
           <p
-            aria-live="polite"
+            aria-hidden="true"
             className="g-text"
             style={{
               fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
@@ -96,12 +99,12 @@ export default function Hero() {
               marginBottom: '1.25rem',
               maxWidth: '700px',
               minHeight: '2rem',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(24px)',
+              opacity: visible || reducedMotion ? 1 : 0,
+              transform: visible || reducedMotion ? 'translateY(0)' : 'translateY(24px)',
               transition: 'opacity 0.7s 0.3s ease, transform 0.7s 0.3s cubic-bezier(0.16,1,0.3,1)',
             }}
           >
-            <span ref={typeRef} />
+            <span ref={typeRef}>{reducedMotion ? 'Software engineering student and freelance developer' : ''}</span>
             <span className="cursor" />
           </p>
 
@@ -111,12 +114,12 @@ export default function Hero() {
             style={{
               maxWidth: '540px',
               marginBottom: '2.5rem',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(24px)',
+              opacity: visible || reducedMotion ? 1 : 0,
+              transform: visible || reducedMotion ? 'translateY(0)' : 'translateY(24px)',
               transition: 'opacity 0.7s 0.45s ease, transform 0.7s 0.45s cubic-bezier(0.16,1,0.3,1)',
             }}
           >
-            Software Engineering undergraduate building MERN stack web applications while exploring DevOps, cloud technologies, and AI automation.
+            Software Engineering student and freelance developer building web applications and developer tools, with an interest in DevOps and AI automation.
           </p>
         </div>
 
@@ -128,28 +131,19 @@ export default function Hero() {
             marginBottom: '4rem',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(24px)',
+            opacity: visible || reducedMotion ? 1 : 0,
+            transform: visible || reducedMotion ? 'translateY(0)' : 'translateY(24px)',
             transition: 'opacity 0.7s 0.6s ease, transform 0.7s 0.6s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
           <MagneticButton 
             href="#work" 
-            onClick={(e) => {
-              e.preventDefault();
-              const el = document.getElementById('work');
-              if (el) {
-                const top = el.getBoundingClientRect().top + window.scrollY - 80;
-                window.scrollTo({ top, behavior: 'smooth' });
-              }
-            }}
             className="btn btn-primary"
           >
-            Work
+            View selected projects
           </MagneticButton>
           <MagneticButton
-            href="#"
-            onClick={(e) => { e.preventDefault(); setResumeOpen(true); }}
+            onClick={() => setResumeOpen(true)}
             className="btn btn-ghost"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -161,30 +155,6 @@ export default function Hero() {
 
         <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
 
-        {/* Stats strip */}
-        <div
-          className="hero-stats-strip animated-border"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.7s 0.75s ease, transform 0.7s 0.75s cubic-bezier(0.16,1,0.3,1)',
-          }}
-        >
-          <div className="hero-stat">
-            <span className="hero-stat-num">15</span>
-            <span className="hero-stat-label">Open Source Projects</span>
-          </div>
-          <div className="hero-stat-divider" />
-          <div className="hero-stat">
-            <span className="hero-stat-num">5</span>
-            <span className="hero-stat-label">Core Languages</span>
-          </div>
-          <div className="hero-stat-divider" />
-          <div className="hero-stat">
-            <span className="hero-stat-num">4+</span>
-            <span className="hero-stat-label">Featured Systems Shipped</span>
-          </div>
-        </div>
       </div>
     </section>
   );

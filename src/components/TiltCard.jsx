@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export default function TiltCard({ children, className = '', style = {} }) {
   const cardRef = useRef(null);
   const innerRef = useRef(null);
   const ticking = useRef(false);
+  const reducedMotion = useReducedMotion();
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current || !innerRef.current) return;
+    if (reducedMotion || !cardRef.current || !innerRef.current) return;
     
     if (!ticking.current) {
       window.requestAnimationFrame(() => {

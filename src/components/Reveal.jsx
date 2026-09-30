@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export default function Reveal({ children, delay = 0, className = '', style = {} }) {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setIsVisible(true);
@@ -17,15 +20,15 @@ export default function Reveal({ children, delay = 0, className = '', style = {}
 
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible
+        opacity: isVisible || reducedMotion ? 1 : 0,
+        transform: isVisible || reducedMotion
           ? 'translateY(0) scale(1)'
           : 'translateY(28px) scale(0.97)',
         transition: `opacity 0.7s ${delay}s cubic-bezier(0.16,1,0.3,1),

@@ -20,14 +20,6 @@ const NAV_COLS = [
   },
 ];
 
-const scrollTo = (id) => {
-  const el = document.getElementById(id);
-  if (el) {
-    const top = el.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-};
-
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -64,7 +56,6 @@ export default function Footer() {
                   <li key={id}>
                     <a
                       href={`#${id}`}
-                      onClick={(e) => { e.preventDefault(); scrollTo(id); }}
                       className="footer-nav-link"
                     >
                       {label}
@@ -114,9 +105,9 @@ export default function Footer() {
               © 2026 Aizaz Noor. All rights reserved.
             </span>
           </div>
-          <button
+          <a
+            href="#home"
             className="back-to-top-pill"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             aria-label="Back to top"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -125,7 +116,7 @@ export default function Footer() {
               <polyline points="18 15 12 9 6 15" />
             </svg>
             Back to top
-          </button>
+          </a>
         </div>
       </div>
 

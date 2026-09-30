@@ -46,26 +46,28 @@ const TechCard = React.memo(function TechCard({ item }) {
   const Icon = item.icon;
 
   return (
-    <div
+    <button
+      type="button"
       ref={cardRef}
       className={`tech-card-container animated-border ${active ? 'active' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
-      onClick={(e) => { e.stopPropagation(); setActive(!active); }}
+      onClick={() => setActive((value) => !value)}
       style={{ '--card-glow': item.glow }}
       aria-label={`${item.name} — ${item.desc}`}
+      aria-pressed={active}
     >
-      <div className="tech-card-inner">
-        <div className="tech-card-front">
+      <span className="tech-card-inner">
+        <span className="tech-card-front">
           <Icon className="tech-card-icon" size={36} style={{ color: item.color }} aria-hidden="true" />
-          <h3 className="tech-card-name">{item.name}</h3>
-        </div>
-        <div className="tech-card-back">
+          <span className="tech-card-name">{item.name}</span>
+        </span>
+        <span className="tech-card-back">
           <Icon size={24} style={{ color: item.color, marginBottom: '0.5rem', flexShrink: 0 }} aria-hidden="true" />
-          <p className="tech-card-desc">{item.desc}</p>
-        </div>
-      </div>
-    </div>
+          <span className="tech-card-desc">{item.desc}</span>
+        </span>
+      </span>
+    </button>
   );
 });
 

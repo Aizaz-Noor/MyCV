@@ -53,6 +53,13 @@ html, body, #root {
   overflow-x: hidden;
 }
 
+html { scroll-behavior: smooth; }
+
+:where(a, button, input, textarea):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 a { color: inherit; text-decoration: none; }
 
 /* ── Grain Texture Overlay ─────────────────────────────────────── */
@@ -635,7 +642,7 @@ p, span, a, li, .tag, input, textarea, .btn, .btn *, .floating-input-group *, .n
   scroll-margin-top: 90px;
 }
 .section-container#home {
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 .section-content {
   max-width: 1100px;
@@ -840,7 +847,7 @@ p, span, a, li, .tag, input, textarea, .btn, .btn *, .floating-input-group *, .n
   margin-bottom: 8px;
 }
 .timeline-desc {
-  font-size: 0.82rem;
+  font-size: 0.95rem;
   line-height: 1.65;
   color: var(--text-2);
 }
@@ -876,7 +883,7 @@ p, span, a, li, .tag, input, textarea, .btn, .btn *, .floating-input-group *, .n
   padding: 5px 12px;
   border-radius: 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   color: var(--text-2);
   text-align: center;
   white-space: nowrap;
@@ -1087,6 +1094,12 @@ a.text-link:hover {
   flex: 0 0 calc(50% - 8px);
   max-width: 200px;
   border-radius: 24px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -1101,6 +1114,7 @@ a.text-link:hover {
 }
 
 .tech-card-inner {
+  display: block;
   position: relative;
   width: 100%;
   height: 100%;
@@ -1269,7 +1283,8 @@ a.text-link:hover {
     font-size: 1.05rem;
     font-weight: 500;
     color: #fff;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   
   @media (max-width: 768px) {
@@ -1601,6 +1616,8 @@ a.text-link:hover {
   color: var(--accent) !important;
   transform: scale(1.05) !important;
 }
+
+.contact-info-item > div:last-child { min-width: 0; }
 
 /* ── Input Focus — accent border ────────────────────────────────── */
 .floating-input-group input:focus,
@@ -1948,6 +1965,10 @@ a.text-link:hover {
   opacity: 1;
 }
 
+.cert-item:focus-within .cert-overlay {
+  opacity: 1;
+}
+
 .cert-overlay-link {
   display: inline-flex;
   align-items: center;
@@ -2066,12 +2087,13 @@ a.text-link:hover {
 
 /* ── Accessibility: Reduced Motion ──────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  html { scroll-behavior: auto !important; }
   .cursor-dot, .cursor-outline {
     display: none !important;
   }
@@ -2141,132 +2163,6 @@ a.text-link:hover {
   border-color: rgba(129, 140, 248, 0.75);
   background: rgba(129, 140, 248, 0.08);
   box-shadow: 0 0 16px rgba(129, 140, 248, 0.15);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PRELOADER UPGRADE
-═══════════════════════════════════════════════════════════════ */
-.preloader-screen {
-  position: fixed;
-  inset: 0;
-  background: #050507;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-}
-
-.preloader-screen.preloader-exit {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.preloader-particles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.preloader-particle {
-  position: absolute;
-  width: 3px; height: 3px;
-  border-radius: 50%;
-  background: rgba(129, 140, 248, 0.4);
-  top: calc(var(--i, 0) * 5% + 5%);
-  left: calc(var(--i, 0) * 4.8% + 2%);
-  animation: particle-drift 4s ease-in-out infinite alternate;
-  animation-delay: calc(var(--i, 0) * 0.2s);
-}
-
-@keyframes particle-drift {
-  from { transform: translateY(0) scale(1); opacity: 0.25; }
-  to   { transform: translateY(-20px) scale(1.6); opacity: 0.7; }
-}
-
-.preloader-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 3rem;
-  animation: preloader-fade-up 0.6s ease both;
-}
-
-.preloader-brand-main {
-  display: flex;
-  gap: 0.4rem;
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.preloader-name { color: #ffffff; }
-.preloader-accent { color: var(--accent); }
-
-.preloader-brand-subtitle {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-}
-
-.subtitle-line {
-  display: block;
-  height: 1px;
-  width: 30px;
-  background: rgba(255,255,255,0.15);
-}
-
-.preloader-track {
-  width: 260px;
-  height: 2px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-.preloader-fill {
-  position: absolute;
-  left: 0; top: 0;
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  box-shadow: 0 0 12px rgba(129, 140, 248, 0.6);
-  border-radius: 2px;
-  transition: width 0.08s linear;
-}
-
-.preloader-tagline {
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-}
-
-.preloader-tagline-word {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.18);
-  animation: tagline-cycle 3.2s ease infinite;
-  animation-delay: calc(var(--w, 0) * 0.8s);
-}
-
-@keyframes tagline-cycle {
-  0%, 100% { color: rgba(255,255,255,0.18); }
-  25%       { color: rgba(129, 140, 248, 0.9); }
-}
-
-@keyframes preloader-fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2438,18 +2334,19 @@ a.text-link:hover {
 /* ═══════════════════════════════════════════════════════════════
    RESUME MODAL
 ═══════════════════════════════════════════════════════════════ */
-.resume-modal-backdrop {
-  position: fixed;
-  inset: 0;
+.resume-modal-dialog {
+  width: calc(100vw - 2rem);
+  max-width: 860px;
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-1);
+  margin: auto;
+}
+.resume-modal-dialog::backdrop {
   background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  animation: modal-fade-in 0.25s ease;
+  backdrop-filter: blur(12px);
 }
 
 @keyframes modal-fade-in {
@@ -2460,7 +2357,7 @@ a.text-link:hover {
 .resume-modal-card {
   width: 100%;
   max-width: 860px;
-  height: min(90vh, 720px);
+  height: min(90dvh, 720px);
   background: rgba(10,10,14,0.97);
   backdrop-filter: blur(12px) saturate(200%);
   -webkit-backdrop-filter: blur(12px) saturate(200%);
@@ -2486,9 +2383,10 @@ a.text-link:hover {
   border-bottom: 1px solid rgba(255,255,255,0.07);
   flex-shrink: 0;
 }
+.resume-modal-header h2 { font-size: 1.2rem; }
 
 .resume-modal-close {
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
@@ -2510,6 +2408,7 @@ a.text-link:hover {
   padding: 1rem;
   overflow: hidden;
 }
+.resume-modal-body iframe { border: 0; border-radius: 12px; }
 
 .resume-modal-footer {
   padding: 1rem 1.5rem;
@@ -2906,8 +2805,7 @@ a.text-link:hover {
   }
 
   /* ── Slow the conic-gradient border rotation on touch ─────────── */
-  /* Conic-gradient animation forces GPU repaint every frame.        */
-  /* 8s vs 4s = same visual feel, 50% fewer repaints.               */
+  /* Keep decorative motion less prominent on touch devices. */
   .glass-panel::after,
   .animated-border::after,
   .tech-card-container::after {
@@ -2923,5 +2821,31 @@ a.text-link:hover {
   .floating-icon {
     animation: none !important;
     opacity: 0.04 !important;
+  }
+}
+
+/* Accessible form, integration and touch states */
+.honeypot { display: none; }
+.form-status { color: var(--text-1); font-size: 0.95rem; line-height: 1.5; }
+.github-stats { text-align: center; }
+.github-stats-values { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+.github-stats-values > div { display: flex; flex-direction: column; gap: 0.25rem; }
+.github-stats-values strong { color: var(--text-1); font: 700 2rem/1 ui-monospace, monospace; }
+.github-stats-values span { color: var(--text-2); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.github-stats > p, .chart-fallback { margin-top: 1rem; color: var(--text-2); line-height: 1.5; }
+.github-stats a, .chart-fallback a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.nav-icon, .hamburger-btn { min-width: 44px; min-height: 44px; }
+
+@media (max-width: 767px) {
+  .nav-right-section { width: auto; }
+}
+
+@media (hover: none) {
+  .cert-overlay { opacity: 1; inset: auto 12px 12px; background: transparent !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-panel::after, .animated-border::after, .tech-card-container::after {
+    animation: none !important;
   }
 }

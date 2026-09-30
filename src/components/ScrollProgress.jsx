@@ -11,13 +11,13 @@ export default function ScrollProgress() {
     observer.observe(document.body);
 
     let ticking = false;
+    let frameId;
     const onScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
+        frameId = window.requestAnimationFrame(() => {
           if (barRef.current) {
             const prog = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
             barRef.current.style.width = `${prog}%`;
-            barRef.current.setAttribute('aria-valuenow', Math.round(prog));
           }
           ticking = false;
         });
@@ -31,6 +31,7 @@ export default function ScrollProgress() {
 
     return () => {
       window.removeEventListener('scroll', onScroll);
+      if (frameId !== undefined) window.cancelAnimationFrame(frameId);
       observer.disconnect();
     };
   }, []);
@@ -39,11 +40,7 @@ export default function ScrollProgress() {
     <div
       ref={barRef}
       className="scroll-progress-bar"
-      role="progressbar"
-      aria-label="Page scroll progress"
-      aria-valuenow={0}
-      aria-valuemin={0}
-      aria-valuemax={100}
+      aria-hidden="true"
       style={{ width: '0%' }}
     />
   );

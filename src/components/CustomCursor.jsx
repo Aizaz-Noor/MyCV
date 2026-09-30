@@ -6,7 +6,7 @@ export default function CustomCursor() {
 
   useEffect(() => {
     // Only enable custom cursor on fine pointer (desktop mouse/trackpad)
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (!window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
 
     const dot     = dotRef.current;
     const outline = outlineRef.current;

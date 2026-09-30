@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import GithubStats from '../components/GithubStats';
 import Reveal from '../components/Reveal';
 import TiltCard from '../components/TiltCard';
@@ -7,7 +7,7 @@ const PROJECTS = [
   {
     num: '01',
     name: "Newton's Glitch",
-    desc: "Physics-based JavaFX game featuring custom 60 FPS 2D physics engine handling 100+ rigid body collisions without external libraries. Built with gravity-flip mechanics and scale-dependent collision.",
+    desc: "Physics-based JavaFX game with a custom 2D physics engine, gravity-flip mechanics, and scale-dependent collision.",
     tags: ['Java', 'JavaFX', 'Physics Engine', 'Game Dev'],
     url: 'https://github.com/Aizaz-Noor/Newtons-Glitch',
     diagram: (
@@ -25,7 +25,7 @@ const PROJECTS = [
   {
     num: '02',
     name: 'ANK-CINEMA',
-    desc: 'Cross-platform terminal CLI media downloader featuring parallel multi-source search engine achieving sub-second torrent resolution and magnet enrichment via aria2c.',
+    desc: 'Cross-platform terminal media downloader with parallel search, deduplication, and magnet enrichment via aria2c.',
     tags: ['Python', 'CLI', 'aria2c', 'Parallel Search'],
     url: 'https://github.com/Aizaz-Noor/ANK-CINEMA',
     diagram: (
@@ -43,7 +43,7 @@ const PROJECTS = [
   {
     num: '03',
     name: 'Weekly Habit Tracker',
-    desc: 'Interactive single-page habit tracker featuring multi-week streak calculation engine, zero-latency local storage state management, and responsive weekly grid visualization.',
+    desc: 'Single-page habit tracker with multi-week streak calculations, local storage persistence, and a responsive weekly grid.',
     tags: ['React', 'Vite', 'Tailwind CSS', 'State Mgmt'],
     url: 'https://github.com/Aizaz-Noor/habit-tracker',
     demoUrl: 'https://habit-tracker-beryl-chi.vercel.app',
@@ -114,7 +114,7 @@ const ProjectCard = React.memo(function ProjectCard({ project }) {
         {/* Name */}
         <h3 style={{
           fontFamily: 'inherit',
-          fontSize: '1.05rem',
+          fontSize: '1.25rem',
           fontWeight: 700,
           color: 'var(--text-1)',
           letterSpacing: '-0.01em',
@@ -124,7 +124,7 @@ const ProjectCard = React.memo(function ProjectCard({ project }) {
         </h3>
 
         {/* Desc */}
-        <p style={{ fontSize: '0.85rem', lineHeight: 1.65, marginBottom: '1rem', color: 'var(--text-2)' }}>
+        <p style={{ fontSize: '1rem', lineHeight: 1.65, marginBottom: '1rem', color: 'var(--text-2)' }}>
           {project.desc}
         </p>
 

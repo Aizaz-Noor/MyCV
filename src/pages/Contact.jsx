@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
-import MagneticButton from '../components/MagneticButton';
+import React, { useEffect, useRef, useState } from 'react';
+import { sendContact, validateContact } from '../services/contact';
+
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'e7f3a8dd-fb55-4527-9641-6b23afd91138';
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [errors, setErrors] = useState({});
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    // Keep native validation in the no-JavaScript form; use inline errors after hydration.
+    formRef.current.noValidate = true;
+  }, []);
 
   const handleChange = (e) => {
     const { name } = e.target;
     setSubmitError(null);
+    setIsSuccess(false);
     setErrors(prev => {
       if (!prev[name]) return prev;
       const newErrors = { ...prev };
@@ -21,27 +30,11 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData(form);
-    
-    // Inject access_key from env or default fallback
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "e7f3a8dd-fb55-4527-9641-6b23afd91138";
-    formData.set('access_key', accessKey);
-    
-    const newErrors = {};
-    const emailStr = formData.get('email');
-    if (!formData.get('name')) newErrors.name = 'Required';
-    
-    if (!emailStr) {
-      newErrors.email = 'Required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailStr)) {
-      newErrors.email = 'Invalid email address';
-    }
-
-    if (!formData.get('subject')) newErrors.subject = 'Required';
-    if (!formData.get('message')) newErrors.message = 'Required';
+    const { values, errors: newErrors } = validateContact(new FormData(form));
     
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      form.elements[Object.keys(newErrors)[0]]?.focus();
       return;
     }
     
@@ -50,27 +43,13 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
-      
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: 'POST',
-        body: json,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      });
-      
-      if (response.ok) {
-        setIsSuccess(true);
-        form.reset();
-        setTimeout(() => setIsSuccess(false), 5000);
-      } else {
-        setSubmitError("Failed to deliver message. Please reach out directly via email.");
-      }
+      await sendContact(values, ACCESS_KEY);
+      setIsSuccess(true);
+      form.reset();
     } catch (error) {
-      setSubmitError("Network error. Please try again or email directly.");
+      setSubmitError(error.name === 'AbortError'
+        ? 'The request timed out. Please try again or email me directly.'
+        : 'The message could not be delivered. Please try again or email me directly.');
     } finally {
       setIsSubmitting(false);
     }
@@ -81,41 +60,13 @@ export default function Contact() {
         
         <div className="section-header-centered" style={{ marginBottom: '4rem' }}>
           <h2 className="heading-lg accent-underline" style={{ marginBottom: '1.5rem' }}>
-            Get In Touch: <span className="g-text">Ask Me Anything</span>
+            Get <span className="g-text">in touch</span>
           </h2>
 
           <p className="text-body" style={{ maxWidth: '420px', marginBottom: '3rem' }}>
             Open to software engineering roles, internships, backend, CLI, or AI-adjacent work.
           </p>
 
-          <div style={{ marginBottom: '2rem', maxWidth: '600px', width: '100%' }}>
-            <h3 style={{
-              fontSize: '1rem',
-              color: 'var(--text-1)',
-              marginBottom: '1.5rem',
-              borderBottom: '1px solid var(--border)',
-              paddingBottom: '0.5rem',
-              display: 'inline-block'
-            }}>
-              What I'm Building Toward
-            </h3>
-            <ul style={{
-              listStyleType: 'none',
-              padding: 0,
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-              color: 'var(--text-1)',
-              fontSize: '0.95rem',
-              lineHeight: 1.6,
-              textAlign: 'left'
-            }}>
-              <li><span style={{ color: 'var(--accent)', marginRight: '8px' }}>▹</span>Strengthening my foundation in DevOps, cloud infrastructure, and CI/CD practices.</li>
-              <li><span style={{ color: 'var(--accent)', marginRight: '8px' }}>▹</span>Exploring AI automation, intelligent workflows, and agent-based applications.</li>
-              <li><span style={{ color: 'var(--accent)', marginRight: '8px' }}>▹</span>Building scalable, reliable, and maintainable software that solves real-world problems.</li>
-            </ul>
-          </div>
         </div>
 
         {/* 2-Panel Layout Unified Card */}
@@ -166,52 +117,57 @@ export default function Contact() {
 
           </div>
 
-          {/* Right Panel: Formspree Form */}
+          {/* Right Panel: Contact form */}
           <div style={{ flex: '1 1 400px' }}>
             <form 
+              ref={formRef}
               action="https://api.web3forms.com/submit" 
               method="POST"
               onSubmit={handleSubmit}
-              noValidate
               style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
             >
-              <input type="hidden" name="access_key" value="e7f3a8dd-fb55-4527-9641-6b23afd91138" />
+              <input type="hidden" name="access_key" value={ACCESS_KEY} />
+              <input type="checkbox" name="botcheck" tabIndex={-1} className="honeypot" aria-hidden="true" />
               <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 150px' }}>
                   <div className={`floating-input-group ${errors.name ? 'error' : ''}`}>
-                    <input type="text" id="name" name="name" autoComplete="name" placeholder=" " maxLength="100" onChange={handleChange} />
+                    <input type="text" id="name" name="name" autoComplete="name" placeholder=" " maxLength={100} required onChange={handleChange} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'name-error' : undefined} />
                     <label htmlFor="name">Name</label>
                   </div>
-                  {errors.name && <span className="error-msg">{errors.name}</span>}
+                  {errors.name && <span id="name-error" className="error-msg">{errors.name}</span>}
                 </div>
                 
                 <div style={{ flex: '1 1 150px' }}>
                   <div className={`floating-input-group ${errors.email ? 'error' : ''}`}>
-                    <input type="email" id="email" name="email" autoComplete="email" placeholder=" " maxLength="255" onChange={handleChange} />
+                    <input type="email" id="email" name="email" autoComplete="email" placeholder=" " maxLength={255} required onChange={handleChange} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'email-error' : undefined} />
                     <label htmlFor="email">Email</label>
                   </div>
-                  {errors.email && <span className="error-msg">{errors.email}</span>}
+                  {errors.email && <span id="email-error" className="error-msg">{errors.email}</span>}
                 </div>
               </div>
 
               <div>
                 <div className={`floating-input-group ${errors.subject ? 'error' : ''}`}>
-                  <input type="text" id="subject" name="subject" placeholder=" " maxLength="150" onChange={handleChange} />
+                  <input type="text" id="subject" name="subject" placeholder=" " maxLength={150} required onChange={handleChange} aria-invalid={Boolean(errors.subject)} aria-describedby={errors.subject ? 'subject-error' : undefined} />
                   <label htmlFor="subject">Subject</label>
                 </div>
-                {errors.subject && <span className="error-msg">{errors.subject}</span>}
+                {errors.subject && <span id="subject-error" className="error-msg">{errors.subject}</span>}
               </div>
 
               <div>
                 <div className={`floating-input-group ${errors.message ? 'error' : ''}`}>
-                  <textarea id="message" name="message" placeholder=" " maxLength="3000" onChange={handleChange}></textarea>
+                  <textarea id="message" name="message" placeholder=" " maxLength={3000} required onChange={handleChange} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'message-error' : undefined}></textarea>
                   <label htmlFor="message">Message</label>
                 </div>
-                {errors.message && <span className="error-msg">{errors.message}</span>}
+                {errors.message && <span id="message-error" className="error-msg">{errors.message}</span>}
               </div>
 
+              {Object.keys(errors).length > 0 && (
+                <p role="alert" className="form-status">Please correct the highlighted fields.</p>
+              )}
+
               {submitError && (
-                <div style={{
+                <div role="alert" style={{
                   padding: '0.75rem 1rem',
                   borderRadius: '10px',
                   background: 'rgba(239, 68, 68, 0.1)',
@@ -238,11 +194,12 @@ export default function Contact() {
                     Sending...
                   </>
                 ) : isSuccess ? (
-                  '✓ Message Delivered!'
+                  'Send another message'
                 ) : (
                   'Send Message'
                 )}
               </button>
+              {isSuccess && <p role="status" className="form-status">Your message was sent. Thank you.</p>}
             </form>
           </div>
 

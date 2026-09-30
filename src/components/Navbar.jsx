@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useScrollSpy } from '../hooks/useScrollSpy';
 
-// Allowlist of valid section IDs — prevents hash-injection / open-redirect
 const NAV_LINKS = [
   { label: 'Home',       idx: 0, id: 'home' },
   { label: 'About',      idx: 1, id: 'about' },
@@ -12,8 +11,6 @@ const NAV_LINKS = [
   { label: 'Profiles',   idx: 6, id: 'profiles' },
   { label: 'Contact',    idx: 7, id: 'contact' },
 ];
-
-const ALLOWED_IDS = new Set(NAV_LINKS.map(l => l.id));
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,6 +24,7 @@ export default function Navbar() {
 
   const desktopLinkRefs = useRef({});
   const mobileLinkRefs = useRef({});
+  const hamburgerRef = useRef(null);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
@@ -55,7 +53,10 @@ export default function Navbar() {
       if (!e.target.closest('.navbar')) setIsMobileMenuOpen(false);
     };
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        hamburgerRef.current?.focus();
+      }
     };
     document.addEventListener('click', handleOutsideClick);
     document.addEventListener('keydown', handleKeyDown);
@@ -65,16 +66,14 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
-  // Validated scroll-to — only accepts allowlisted section IDs
-  const scrollTo = useCallback((id) => {
-    if (!ALLOWED_IDS.has(id)) return; // reject unknown / injected IDs
+  const handleNavigate = (id) => {
     setIsMobileMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  }, []);
+    window.requestAnimationFrame(() => {
+      const target = document.getElementById(id);
+      target?.setAttribute('tabindex', '-1');
+      target?.focus({ preventScroll: true });
+    });
+  };
 
   // Desktop sliding indicator
   useEffect(() => {
@@ -118,17 +117,14 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         {/* ── Logo ─────────────────────────────────── */}
-        <div
+        <a
           className="navbar-brand"
-          onClick={() => scrollTo('home')}
-          style={{ cursor: 'pointer' }}
-          role="button"
-          tabIndex={0}
+          href="#home"
+          onClick={() => handleNavigate('home')}
           aria-label="Go to top"
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') scrollTo('home'); }}
         >
           <img src="/logo.png" alt="Aizaz Noor Khuwaja" className="navbar-custom-logo" />
-        </div>
+        </a>
 
         {/* ── Desktop Nav Links ─────────────────────── */}
         <div className="navbar-links">
@@ -158,10 +154,10 @@ export default function Navbar() {
               href={`#${id}`}
               ref={(el) => (desktopLinkRefs.current[id] = el)}
               className={activeSection === id ? 'active' : ''}
-              onClick={(e) => { e.preventDefault(); scrollTo(id); }}
+              onClick={() => handleNavigate(id)}
               onMouseEnter={() => setHoveredSection(id)}
               onMouseLeave={() => setHoveredSection(null)}
-              aria-current={activeSection === id ? 'page' : undefined}
+              aria-current={activeSection === id ? 'location' : undefined}
               style={{ zIndex: 1, position: 'relative' }}
             >
               {label}
@@ -200,12 +196,12 @@ export default function Navbar() {
           {/* Hamburger — mobile only */}
           <button
             type="button"
+            ref={hamburgerRef}
             className="hamburger-btn"
             onClick={() => setIsMobileMenuOpen(prev => !prev)}
             aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav-menu"
-            aria-haspopup="true"
           >
             {isMobileMenuOpen ? (
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -223,7 +219,6 @@ export default function Navbar() {
         <div
           id="mobile-nav-menu"
           className={`context-menu-bubble${isMobileMenuOpen ? ' open' : ''}`}
-          role="menu"
           aria-label="Navigation menu"
         >
           <div className="context-menu-links" style={{ position: 'relative' }}>
@@ -251,10 +246,9 @@ export default function Navbar() {
                 href={`#${id}`}
                 ref={(el) => (mobileLinkRefs.current[id] = el)}
                 className={`context-menu-link${activeSection === id ? ' active' : ''}`}
-                onClick={(e) => { e.preventDefault(); scrollTo(id); }}
+                onClick={() => handleNavigate(id)}
                 style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}
-                role="menuitem"
-                aria-current={activeSection === id ? 'page' : undefined}
+                aria-current={activeSection === id ? 'location' : undefined}
               >
                 {label}
               </a>

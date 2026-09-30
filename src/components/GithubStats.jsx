@@ -1,106 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
+import { loadGithubStats } from '../services/github';
 
-export default React.memo(function GithubStats() {
-  const [stats, setStats] = useState({ repos: 15, stars: 15, forks: 1 });
-  const [loading, setLoading] = useState(true);
+const CACHE_KEY = 'gh_stats_cache_v2';
+const CACHE_TTL = 60 * 60 * 1000;
+
+function readCache() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(CACHE_KEY));
+    if (stored && Number.isFinite(stored.timestamp) &&
+      Number.isFinite(stored.data?.repos) &&
+      Number.isFinite(stored.data?.stars) &&
+      Number.isFinite(stored.data?.forks)) {
+      return { ...stored, fresh: Date.now() - stored.timestamp < CACHE_TTL };
+    }
+  } catch {
+    // Storage may be disabled or contain stale schema.
+  }
+  return null;
+}
+
+function GithubStats() {
+  const [cached] = useState(readCache);
+  const [stats, setStats] = useState(cached?.data ?? null);
+  const [status, setStatus] = useState(
+    cached?.fresh ? 'ready' : 'loading'
+  );
 
   useEffect(() => {
-    async function fetchStats() {
-      const CACHE_KEY = 'gh_stats_cache_v1';
-      const CACHE_TTL = 3600000; // 1 hour
+    if (cached?.fresh) return;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    let active = true;
 
+    loadGithubStats(fetch, controller.signal).then((fresh) => {
+      if (!active) return;
+      setStats(fresh);
+      setStatus('ready');
       try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (Date.now() - parsed.timestamp < CACHE_TTL) {
-            setStats(parsed.data);
-            setLoading(false);
-            return;
-          }
-        }
-      } catch (e) {
-        // Fallthrough if localStorage is restricted
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: fresh }));
+      } catch {
+        // Live values still render when storage is unavailable.
       }
+    }).catch(() => {
+      if (active) setStatus(cached ? 'stale' : 'unavailable');
+    }).finally(() => clearTimeout(timeout));
 
-      try {
-        const [userRes, reposRes] = await Promise.all([
-          fetch('https://api.github.com/users/Aizaz-Noor'),
-          fetch('https://api.github.com/users/Aizaz-Noor/repos?per_page=100')
-        ]);
-
-        if (!userRes.ok) throw new Error('Failed to fetch user');
-        if (!reposRes.ok) throw new Error('Failed to fetch repos');
-
-        const [userData, reposData] = await Promise.all([
-          userRes.json(),
-          reposRes.json()
-        ]);
-
-        let totalStars = 0;
-        let totalForks = 0;
-
-        for (const repo of reposData) {
-          totalStars += repo.stargazers_count || 0;
-          totalForks += repo.forks_count || 0;
-        }
-
-        const freshStats = {
-          repos: userData.public_repos || 15,
-          stars: totalStars,
-          forks: totalForks,
-        };
-
-        setStats(freshStats);
-        try {
-          localStorage.setItem(CACHE_KEY, JSON.stringify({
-            timestamp: Date.now(),
-            data: freshStats,
-          }));
-        } catch (e) {}
-      } catch (error) {
-        console.error("Error fetching GitHub stats:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchStats();
-  }, []);
-
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', opacity: 0.5, justifyContent: 'center' }}>
-        <div>
-          <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-1)', fontFamily: 'monospace' }}>...</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Repositories</div>
-        </div>
-        <div>
-          <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-1)', fontFamily: 'monospace' }}>...</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Stars</div>
-        </div>
-        <div>
-          <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-1)', fontFamily: 'monospace' }}>...</div>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Forks</div>
-        </div>
-      </div>
-    );
-  }
+    return () => {
+      active = false;
+      clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [cached]);
 
   return (
-    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <div>
-        <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-1)', fontFamily: 'monospace' }}>{stats.repos}</div>
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Repositories</div>
+    <div className="github-stats" aria-live="polite">
+      <div className="github-stats-values">
+        {[
+          ['Repositories', 'repos'],
+          ['Total stars', 'stars'],
+          ['Total forks', 'forks'],
+        ].map(([label, key]) => (
+          <div key={key}>
+            <strong>{stats ? stats[key] : status === 'loading' ? '…' : '—'}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
       </div>
-      <div>
-        <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-1)', fontFamily: 'monospace' }}>{stats.stars}</div>
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Stars</div>
-      </div>
-      <div>
-        <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-1)', fontFamily: 'monospace' }}>{stats.forks}</div>
-        <div style={{ fontSize: '0.85rem', color: 'var(--text-2)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Forks</div>
-      </div>
+      {status === 'stale' && <p>GitHub is unavailable. Showing previously saved counts.</p>}
+      {status === 'unavailable' && <p>GitHub counts are unavailable. <a href="https://github.com/Aizaz-Noor">View the profile</a>.</p>}
     </div>
   );
-});
+}
+
+export default memo(GithubStats);

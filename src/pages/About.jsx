@@ -1,21 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import TiltCard from '../components/TiltCard';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export default function About() {
   const checklistRef = useRef(null);
   const [visibleItems, setVisibleItems] = useState([]);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const items = checklistRef.current?.querySelectorAll('.checklist-item');
     if (!items) return;
+    if (reducedMotion) return;
+
+    const timers = [];
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           items.forEach((_, i) => {
-            setTimeout(() => {
+            timers.push(setTimeout(() => {
               setVisibleItems((prev) => [...prev, i]);
-            }, i * 160);
+            }, i * 160));
           });
           observer.disconnect();
         }
@@ -24,8 +29,11 @@ export default function About() {
     );
 
     if (checklistRef.current) observer.observe(checklistRef.current);
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      timers.forEach(clearTimeout);
+    };
+  }, [reducedMotion]);
 
   const traits = [
     {
@@ -132,8 +140,8 @@ export default function About() {
                     display: 'flex',
                     gap: '1rem',
                     alignItems: 'flex-start',
-                    opacity: visibleItems.includes(i) ? 1 : 0,
-                    transform: visibleItems.includes(i) ? 'translateX(0)' : 'translateX(-20px)',
+                    opacity: reducedMotion || visibleItems.includes(i) ? 1 : 0,
+                    transform: reducedMotion || visibleItems.includes(i) ? 'translateX(0)' : 'translateX(-20px)',
                     transition: 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1)',
                   }}
                 >

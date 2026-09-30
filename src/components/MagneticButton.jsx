@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 /**
  * MagneticButton — cursor-tracking pull effect.
@@ -6,10 +7,11 @@ import { useRef } from 'react';
  */
 export default function MagneticButton({ children, className, href, onClick, ...props }) {
   const ref = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   const handleMouseMove = (e) => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || reducedMotion) return;
     const { width, height, left, top } = el.getBoundingClientRect();
     const x = (e.clientX - (left + width / 2)) * 0.25;
     const y = (e.clientY - (top + height / 2)) * 0.25;
