@@ -37,3 +37,7 @@ Updated 1 October 2026. This record follows the [baseline audit](portfolio-audit
 No browser was available during this work. Screenshots, keyboard/focus behavior in a real browser, contrast over composited surfaces, WebGL failures, 320–1440 px layouts, 200% text zoom, and Web Vitals still require a browser pass. No live contact submission was sent, so recipient/delivery and provider-side spam settings remain unverified. The deployed Vercel site has not been updated by these local source changes.
 
 Further design and architecture work should use verified project screenshots/case studies when supplied, consolidate duplicated static/React content through a build-time content source, and split the large global stylesheet when new component work justifies it. These are remaining enhancements rather than the B01–B19 defects above.
+
+## Subsequent visual upgrade
+
+The October 2026 redesign replaced the old project/skill cards, profiles section, and live GitHub statistics with verified case studies and integrated profile links. Some source locations in this historical remediation report therefore no longer exist. Current design decisions, content provenance, and browser checks are documented in [`visual-upgrade.md`](visual-upgrade.md).

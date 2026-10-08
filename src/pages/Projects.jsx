@@ -1,219 +1,232 @@
-import React from 'react';
-import GithubStats from '../components/GithubStats';
-import Reveal from '../components/Reveal';
-import TiltCard from '../components/TiltCard';
-
-const PROJECTS = [
-  {
-    num: '01',
-    name: "Newton's Glitch",
-    desc: "Physics-based JavaFX game with a custom 2D physics engine, gravity-flip mechanics, and scale-dependent collision.",
-    tags: ['Java', 'JavaFX', 'Physics Engine', 'Game Dev'],
-    url: 'https://github.com/Aizaz-Noor/Newtons-Glitch',
-    diagram: (
-      <div className="arch-diagram">
-        <div className="arch-box">Input</div>
-        <div className="arch-arrow" />
-        <div className="arch-box arch-accent">Gravity Engine</div>
-        <div className="arch-arrow" />
-        <div className="arch-box">Collision</div>
-        <div className="arch-arrow" />
-        <div className="arch-box">Render</div>
-      </div>
-    )
-  },
-  {
-    num: '02',
-    name: 'ANK-CINEMA',
-    desc: 'Cross-platform terminal media downloader with parallel search, deduplication, and magnet enrichment via aria2c.',
-    tags: ['Python', 'CLI', 'aria2c', 'Parallel Search'],
-    url: 'https://github.com/Aizaz-Noor/ANK-CINEMA',
-    diagram: (
-      <div className="arch-diagram">
-        <div className="arch-box">Parallel Search</div>
-        <div className="arch-arrow" />
-        <div className="arch-box">Dedup</div>
-        <div className="arch-arrow" />
-        <div className="arch-box arch-accent">Magnet Enrich</div>
-        <div className="arch-arrow" />
-        <div className="arch-box">Download</div>
-      </div>
-    )
-  },
-  {
-    num: '03',
-    name: 'Weekly Habit Tracker',
-    desc: 'Single-page habit tracker with multi-week streak calculations, local storage persistence, and a responsive weekly grid.',
-    tags: ['React', 'Vite', 'Tailwind CSS', 'State Mgmt'],
-    url: 'https://github.com/Aizaz-Noor/habit-tracker',
-    demoUrl: 'https://habit-tracker-beryl-chi.vercel.app',
-    diagram: (
-      <div className="arch-diagram">
-        <div className="arch-box">Habit Input</div>
-        <div className="arch-arrow" />
-        <div className="arch-box arch-accent">Streak Engine</div>
-        <div className="arch-arrow" />
-        <div className="arch-box">Weekly Grid</div>
-      </div>
-    )
-  },
-  {
-    num: '04',
-    name: 'Hostel Kharcha Manager',
-    desc: 'Terminal-based collaborative expense tracker built in C++ with custom hash map data structures, automated budget report generation, and a full TUI.',
-    tags: ['C++', 'Terminal UI', 'Data Structures'],
-    url: 'https://github.com/Aizaz-Noor/Hostel-Kharcha-Manager',
-    diagram: (
-      <div className="arch-diagram">
-        <div className="arch-box">Terminal UI</div>
-        <div className="arch-arrow" />
-        <div className="arch-box arch-accent">Hash Map</div>
-        <div className="arch-arrow" />
-        <div className="arch-box">Reports</div>
-      </div>
-    )
-  },
-];
-
-const ProjectCard = React.memo(function ProjectCard({ project }) {
-  const cardRef = React.useRef(null);
-
-  const handleMouseMove = React.useCallback((e) => {
-    const rect = cardRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    cardRef.current.style.setProperty('--mx', `${e.clientX - rect.left}px`);
-    cardRef.current.style.setProperty('--my', `${e.clientY - rect.top}px`);
-  }, []);
-
+import { useState } from "react";
+import Reveal from "../components/Reveal";
+import { featuredProjects, moreProjects } from "../data/projects";
+function TandemDiagram() {
   return (
-    <TiltCard style={{ height: '100%' }}>
-      <div
-        ref={cardRef}
-        className="glass-panel project-card"
-        onMouseMove={handleMouseMove}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-      >
-        {/* Number */}
-        <div
-          className="g-text"
-          style={{
-            fontSize: '0.65rem',
-            fontWeight: 700,
-            letterSpacing: '0.2em',
-            marginBottom: '1rem',
-            fontFamily: 'monospace',
-          }}
-        >
-          {project.num}
-        </div>
-
-        {/* Name */}
-        <h3 style={{
-          fontFamily: 'inherit',
-          fontSize: '1.25rem',
-          fontWeight: 700,
-          color: 'var(--text-1)',
-          letterSpacing: '-0.01em',
-          marginBottom: '0.75rem',
-        }}>
-          {project.name}
-        </h3>
-
-        {/* Desc */}
-        <p style={{ fontSize: '1rem', lineHeight: 1.65, marginBottom: '1rem', color: 'var(--text-2)' }}>
-          {project.desc}
-        </p>
-
-        {/* Tags */}
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '1.5rem', flexGrow: 1, alignContent: 'flex-start' }}>
-          {project.tags.map((t) => (
-            <span key={t} className="tag">{t}</span>
-          ))}
-        </div>
-
-        {/* Architecture Diagram */}
-        {project.diagram && (
-          <div style={{ marginBottom: '1.5rem' }}>
-            {project.diagram}
-          </div>
-        )}
-
-        {/* Links */}
-        <div style={{ marginTop: 'auto', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <a href={project.url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="project-link-text" style={{
-            fontSize: '0.8rem',
-            letterSpacing: '0.04em',
-            fontWeight: 500,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            color: 'var(--text-1)',
-            textDecoration: 'none',
-          }}>
-            View on GitHub
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </a>
-          {project.demoUrl && project.demoUrl !== '#' && (
-            <a href={project.demoUrl} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="project-link-text g-text" style={{
-              fontSize: '0.8rem',
-              letterSpacing: '0.04em',
-              fontWeight: 500,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}>
-              Live Demo
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </a>
-          )}
+    <div
+      className="network-diagram"
+      aria-label="Tandem architecture: network adapters connect to the desktop interface and Python sidecar, with local dispatcher or optional cloud tunnel"
+    >
+      <div className="diagram-heading">
+        <span className="diagram-dot" /> TANDEM <span>System overview</span>
+      </div>
+      <div className="adapter-row">
+        <span>Wi-Fi</span>
+        <span>Ethernet</span>
+        <span>USB tether</span>
+      </div>
+      <div className="network-path" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="network-hub">
+        <span className="hub-mark">⇌</span>
+        <div>
+          <strong>One control surface</strong>
+          <small>Tauri / React → Python sidecar</small>
         </div>
       </div>
-    </TiltCard>
+      <div className="network-path single-path" aria-hidden="true">
+        <i />
+      </div>
+      <div className="mode-row">
+        <div>
+          <span>01</span>
+          <strong>Local dispatcher</strong>
+          <small>Separate app connections</small>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>Cloud tunnel</strong>
+          <small>Compatible server required</small>
+        </div>
+      </div>
+      <p className="diagram-caption">
+        Architecture illustration · not an app screenshot
+      </p>
+    </div>
   );
-});
-
-export default function Work() {
+}
+function ScreenshotPreview({ project }) {
+  const [view, setView] = useState("dashboard");
   return (
-    <section className="section-container" id="work">
-      <div className="section-content">
-        <div className="section-header-centered">
-          <h2 className="heading-lg accent-underline" style={{ marginBottom: '3rem' }}>
-            Project Showcase: <span className="g-text">What I've Built</span>
+    <>
+      <div
+        className="preview-switch"
+        role="group"
+        aria-label="LifeFlow interface preview"
+      >
+        <button
+          type="button"
+          aria-pressed={view === "dashboard"}
+          onClick={() => setView("dashboard")}
+        >
+          Staff portal
+        </button>
+        <button
+          type="button"
+          aria-pressed={view === "home"}
+          onClick={() => setView("home")}
+        >
+          Public landing
+        </button>
+      </div>
+      <figure className="project-browser">
+        <div className="browser-bar" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <small>
+            LifeFlow /{" "}
+            {view === "dashboard" ? "staff dashboard" : "public homepage"}
+          </small>
+          <b>↗</b>
+        </div>
+        <img
+          key={view}
+          className="preview-image"
+          src={
+            view === "dashboard"
+              ? project.image
+              : "/projects/lifeflow-home.webp"
+          }
+          alt={
+            view === "dashboard"
+              ? project.imageAlt
+              : "LifeFlow public homepage with donor registration and blood donation information"
+          }
+          width="1440"
+          height="698"
+          loading="lazy"
+        />
+        <figcaption>Actual interface · repository screenshot</figcaption>
+      </figure>
+    </>
+  );
+}
+export default function Projects() {
+  return (
+    <section id="work" className="section-container work-section">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">01 / Selected work</p>
+          <h2>
+            Built to be <em>useful.</em>
           </h2>
         </div>
-
-        <div className="projects-grid">
-          {PROJECTS.map((p, idx) => (
-            <Reveal key={p.num} delay={idx * 0.08} className={`project-tile project-tile-${idx}`}>
-              <ProjectCard project={p} />
-            </Reveal>
-          ))}
-        </div>
-
-        <div>
-          <div className="section-header-centered" style={{ marginTop: '4rem', maxWidth: '100%' }}>
-            <h3 style={{
-              fontSize: '1rem',
-              color: 'var(--text-1)',
-              marginBottom: '1.5rem',
-              borderBottom: '1px solid var(--border)',
-              paddingBottom: '0.5rem',
-              display: 'inline-block'
-            }}>
-              Engineering, Measured
-            </h3>
-            <GithubStats />
-          </div>
-        </div>
+        <p>
+          A few things I've brought from
+          <br />
+          an idea into working software.
+        </p>
       </div>
+      <div className="featured-projects">
+        {featuredProjects.map((project) => (
+          <article
+            className={`featured-project project-${project.id}`}
+            key={project.id}
+          >
+            <div className="project-visual">
+              {project.image ? (
+                <ScreenshotPreview project={project} />
+              ) : (
+                <TandemDiagram />
+              )}
+            </div>
+            <Reveal className="project-story">
+              <div className="project-meta">
+                <span>{project.number}</span>
+                <span>{project.category}</span>
+              </div>
+              <h3>{project.name}</h3>
+              <p className="project-subtitle">{project.subtitle}</p>
+              <p className="project-description">{project.description}</p>
+              <div className="tag-list">
+                {project.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <dl className="case-notes">
+                <div>
+                  <dt>The problem</dt>
+                  <dd>{project.problem}</dd>
+                </div>
+                <div>
+                  <dt>The approach</dt>
+                  <dd>{project.approach}</dd>
+                </div>
+                <div>
+                  <dt>The result</dt>
+                  <dd>{project.outcome}</dd>
+                </div>
+              </dl>
+              <div className="project-actions">
+                {project.demo && (
+                  <a href={project.demo} target="_blank" rel="noreferrer">
+                    Explore demo <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+                <a href={project.repo} target="_blank" rel="noreferrer">
+                  Source code <span aria-hidden="true">↗</span>
+                </a>
+                {project.release && (
+                  <a href={project.release} target="_blank" rel="noreferrer">
+                    Releases <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            </Reveal>
+          </article>
+        ))}
+      </div>
+      <div className="more-work-heading">
+        <h3>More explorations</h3>
+        <span>Smaller projects. Same curiosity.</span>
+      </div>
+      <div className="project-index">
+        {moreProjects.map((project, index) => (
+          <Reveal key={project.name} delay={index * 0.04}>
+            <article className="project-row">
+              <span className="row-number">0{index + 3}</span>
+              <div>
+                <p className="eyebrow">{project.category}</p>
+                <h4>{project.name}</h4>
+                <p>{project.description}</p>
+                <small>{project.tags}</small>
+              </div>
+              <div className="row-actions">
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${project.name} source code`}
+                >
+                  Code ↗
+                </a>
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${project.name} live demo`}
+                  >
+                    Demo ↗
+                  </a>
+                )}
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+      <a
+        className="all-projects"
+        href="https://github.com/Aizaz-Noor?tab=repositories"
+        target="_blank"
+        rel="noreferrer"
+      >
+        See all repositories on GitHub <span aria-hidden="true">↗</span>
+      </a>
     </section>
   );
 }

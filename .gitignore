@@ -38,3 +38,10 @@ coverage/
 testsprite_tests\tmp\config.json
 .claude/
 skills-lock.json
+
+# Browser verification artifacts
+playwright-report/
+test-results/
+audit/redesign-*.png
+audit/browser-check.cjs
+audit/optimize-assets.mjs

@@ -1,42 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
-import { useReducedMotion } from '../hooks/useReducedMotion';
-
-export default function Reveal({ children, delay = 0, className = '', style = {} }) {
+import { useEffect, useRef } from "react";
+import { useReducedMotion } from "../hooks/useReducedMotion";
+export default function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  style = {},
+}) {
   const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const reducedMotion = useReducedMotion();
-
+  const reduce = useReducedMotion();
   useEffect(() => {
-    if (reducedMotion) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
+    const element = ref.current;
+    if (reduce || !element.animate || !("IntersectionObserver" in window))
+      return;
+    let animation;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        animation = element.animate(
+          [
+            { opacity: 0, transform: "translateY(16px)" },
+            { opacity: 1, transform: "translateY(0)" },
+          ],
+          {
+            duration: 500,
+            delay: delay * 1000,
+            easing: "cubic-bezier(0.23,1,0.32,1)",
+          },
+        );
         observer.disconnect();
-      }
-    }, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [reducedMotion]);
-
+      },
+      { threshold: 0.08 },
+    );
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      animation?.cancel();
+    };
+  }, [reduce, delay]);
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: isVisible || reducedMotion ? 1 : 0,
-        transform: isVisible || reducedMotion
-          ? 'translateY(0) scale(1)'
-          : 'translateY(28px) scale(0.97)',
-        transition: `opacity 0.7s ${delay}s cubic-bezier(0.16,1,0.3,1),
-                     transform 0.7s ${delay}s cubic-bezier(0.16,1,0.3,1)`,
-        height: '100%',
-        ...style
-      }}
-    >
+    <div ref={ref} className={className} style={style}>
       {children}
     </div>
   );

@@ -1,12 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export default function ScrollProgress() {
   const barRef = useRef(null);
 
   useEffect(() => {
-    let maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    let maxScroll = Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight,
+    );
     const observer = new ResizeObserver(() => {
-      maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      maxScroll = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
     });
     observer.observe(document.body);
 
@@ -17,7 +23,7 @@ export default function ScrollProgress() {
         frameId = window.requestAnimationFrame(() => {
           if (barRef.current) {
             const prog = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
-            barRef.current.style.width = `${prog}%`;
+            barRef.current.style.transform = `scaleX(${prog / 100})`;
           }
           ticking = false;
         });
@@ -25,12 +31,12 @@ export default function ScrollProgress() {
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     // Initial call
     onScroll();
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener("scroll", onScroll);
       if (frameId !== undefined) window.cancelAnimationFrame(frameId);
       observer.disconnect();
     };
@@ -41,7 +47,7 @@ export default function ScrollProgress() {
       ref={barRef}
       className="scroll-progress-bar"
       aria-hidden="true"
-      style={{ width: '0%' }}
+      style={{ transform: "scaleX(0)" }}
     />
   );
 }
