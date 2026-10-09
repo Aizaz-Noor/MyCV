@@ -161,6 +161,39 @@ test("ongoing motion pauses, persists, resumes and stops offscreen", async ({
   expect(await page.locator(".skill-group li svg").count()).toBeGreaterThan(15);
 });
 
+test("decorative motion cannot create horizontal page overflow", async ({
+  page,
+}) => {
+  for (const width of [320, 390, 768]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    await page.getByRole("button", { name: "Pause animations" }).click();
+    await page.getByRole("button", { name: "Resume animations" }).click();
+    for (const section of await page.locator("main > section").all())
+      await section.scrollIntoViewIfNeeded();
+    for (const time of [4500, 12000, 25000]) {
+      await page.evaluate((time) => {
+        document
+          .getAnimations()
+          .filter(
+            (a) =>
+              a instanceof CSSAnimation &&
+              a.effect.getTiming().iterations === Infinity,
+          )
+          .forEach((a) => {
+            a.currentTime = time;
+          });
+      }, time);
+      await page.waitForTimeout(100);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+    }
+  }
+});
+
 test("automated accessibility checks on desktop and mobile", async ({
   page,
 }) => {

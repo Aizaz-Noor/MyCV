@@ -45,3 +45,5 @@ test-results/
 audit/redesign-*.png
 audit/browser-check.cjs
 audit/optimize-assets.mjs
+
+audit/redesign-*.webm

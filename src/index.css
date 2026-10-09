@@ -1723,8 +1723,10 @@ h2 em {
 .portfolio-shell {
   position: relative;
   isolation: isolate;
+  overflow-x: clip;
 }
 .ambient-scene {
+  contain: paint;
   position: fixed;
   inset: 0;
   z-index: -1;
