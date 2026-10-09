@@ -1,3 +1,4 @@
+import MotionSurface from "../components/MotionSurface";
 import { useState } from "react";
 import Reveal from "../components/Reveal";
 import { featuredProjects, moreProjects } from "../data/projects";
@@ -127,13 +128,13 @@ export default function Projects() {
             className={`featured-project project-${project.id}`}
             key={project.id}
           >
-            <div className="project-visual">
+            <MotionSurface className="project-visual">
               {project.image ? (
                 <ScreenshotPreview project={project} />
               ) : (
                 <TandemDiagram />
               )}
-            </div>
+            </MotionSurface>
             <Reveal className="project-story">
               <div className="project-meta">
                 <span>{project.number}</span>

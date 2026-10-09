@@ -1,10 +1,12 @@
 import Reveal from "../components/Reveal";
+import TechIcon from "../components/TechIcon";
+import MotionSurface from "../components/MotionSurface";
 const GROUPS = [
   {
     name: "Interfaces",
     number: "01",
-    tools: ["React", "JavaScript", "TypeScript", "HTML / CSS", "JavaFX"],
-    description: "Responsive web experiences and interactive applications.",
+    tools: ["React", "JavaScript", "TypeScript", "HTML", "CSS", "JavaFX"],
+    description: "Responsive experiences and interactive applications.",
   },
   {
     name: "Logic & data",
@@ -15,7 +17,7 @@ const GROUPS = [
   {
     name: "Workflow",
     number: "03",
-    tools: ["Git / GitHub", "Vite", "Linux", "Docker", "Bash", "Vercel"],
+    tools: ["Git", "GitHub", "Vite", "Linux", "Docker", "Bash", "Vercel"],
     description: "The tools I use and explore to build, test, and ship.",
   },
 ];
@@ -24,7 +26,7 @@ export default function TechStack() {
     <section id="techstack" className="section-container skills-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">04 / Toolkit</p>
+          <p className="eyebrow">04 / My development toolkit</p>
           <h2>
             The tools behind
             <br />
@@ -32,27 +34,29 @@ export default function TechStack() {
           </h2>
         </div>
         <p>
-          Chosen for the problem.
-          <br />
-          Not collected for the badge.
+          From interface to infrastructure.
+          <br />A toolkit that keeps growing.
         </p>
       </div>
       <div className="skill-groups">
         {GROUPS.map((group, index) => (
           <Reveal key={group.name} delay={index * 0.06}>
-            <article className="skill-group">
+            <MotionSurface className="skill-group">
               <div className="skill-group-top">
                 <span>{group.number}</span>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">&lt;/&gt;</span>
               </div>
               <h3>{group.name}</h3>
               <p>{group.description}</p>
               <ul>
                 {group.tools.map((tool) => (
-                  <li key={tool}>{tool}</li>
+                  <li key={tool}>
+                    <TechIcon name={tool} size={26} />
+                    <span>{tool}</span>
+                  </li>
                 ))}
               </ul>
-            </article>
+            </MotionSurface>
           </Reveal>
         ))}
       </div>

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
+import { usePortfolioMotion } from "../hooks/usePortfolioMotion";
 export default function Reveal({
   children,
   delay = 0,
@@ -7,10 +7,10 @@ export default function Reveal({
   style = {},
 }) {
   const ref = useRef(null);
-  const reduce = useReducedMotion();
+  const { enabled } = usePortfolioMotion();
   useEffect(() => {
     const element = ref.current;
-    if (reduce || !element.animate || !("IntersectionObserver" in window))
+    if (!enabled || !element.animate || !("IntersectionObserver" in window))
       return;
     let animation;
     const observer = new IntersectionObserver(
@@ -18,11 +18,11 @@ export default function Reveal({
         if (!entry.isIntersecting) return;
         animation = element.animate(
           [
-            { opacity: 0, transform: "translateY(16px)" },
-            { opacity: 1, transform: "translateY(0)" },
+            { opacity: 0, transform: "translateY(36px) scale(.97)" },
+            { opacity: 1, transform: "translateY(0) scale(1)" },
           ],
           {
-            duration: 500,
+            duration: 750,
             delay: delay * 1000,
             easing: "cubic-bezier(0.23,1,0.32,1)",
           },
@@ -36,7 +36,7 @@ export default function Reveal({
       observer.disconnect();
       animation?.cancel();
     };
-  }, [reduce, delay]);
+  }, [enabled, delay]);
   return (
     <div ref={ref} className={className} style={style}>
       {children}

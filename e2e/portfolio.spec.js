@@ -108,30 +108,59 @@ test("no-JavaScript fallback retains current project and contact links", async (
   ).toBeVisible();
   await context.close();
 });
-test("default page needs no WebGL and survives a blocked enhancement", async ({
-  page,
-}) => {
+test("automatic desktop graphics fail gracefully", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  const graphicsRequests = [];
-  page.on("request", (request) => {
-    if (request.url().includes("Background3D"))
-      graphicsRequests.push(request.url());
+  let attempted = false;
+  await page.route("**/components/Background3D.jsx*", (route) => {
+    attempted = true;
+    return route.abort();
   });
   await page.goto("/");
-  await expect(page.getByRole("button", { name: "Enable 3D" })).toBeVisible();
-  expect(graphicsRequests).toEqual([]);
-  await page.route("**/components/Background3D.jsx*", (route) => route.abort());
-  await page.getByRole("button", { name: "Enable 3D" }).click();
+  await expect.poll(() => attempted).toBe(true);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Explore my work" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Pause 3D" }).click();
-  await expect(page.getByRole("button", { name: "Enable 3D" })).toHaveAttribute(
-    "aria-pressed",
-    "false",
+  await expect(page.locator(".sculpture-fallback")).toHaveCSS("opacity", "1");
+  await page.getByRole("button", { name: "Pause animations" }).click();
+  await expect(page.locator(".portfolio-shell")).toHaveAttribute(
+    "data-motion",
+    "paused",
   );
 });
+
+test("ongoing motion pauses, persists, resumes and stops offscreen", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 1000 });
+  await page.goto("/");
+  await page.waitForTimeout(1500);
+  const satellite = page.locator(".satellite-0");
+  const transform = () =>
+    satellite.evaluate((el) => getComputedStyle(el).transform);
+  const start = await transform();
+  await page.waitForTimeout(350);
+  expect(await transform()).not.toBe(start);
+  await page.getByRole("button", { name: "Pause animations" }).click();
+  const paused = await transform();
+  await page.waitForTimeout(350);
+  expect(await transform()).toBe(paused);
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Resume animations" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Resume animations" }).click();
+  const resumed = await transform();
+  await page.waitForTimeout(350);
+  expect(await transform()).not.toBe(resumed);
+  await page.locator("#contact").scrollIntoViewIfNeeded();
+  await expect(page.locator(".kinetic-art")).toHaveClass(/motion-offscreen/);
+  const offscreen = await transform();
+  await page.waitForTimeout(350);
+  expect(await transform()).toBe(offscreen);
+  expect(await page.locator(".skill-group li svg").count()).toBeGreaterThan(15);
+});
+
 test("automated accessibility checks on desktop and mobile", async ({
   page,
 }) => {

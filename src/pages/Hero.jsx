@@ -1,26 +1,50 @@
 import { lazy, Suspense, useState } from "react";
+import {
+  FiArrowDownRight,
+  FiArrowUpRight,
+  FiGithub,
+  FiLinkedin,
+  FiFileText,
+  FiCode,
+  FiCpu,
+  FiLayers,
+} from "react-icons/fi";
 import ResumeModal from "../components/ResumeModal";
 import ErrorBoundary from "../components/ErrorBoundary";
+import TechIcon from "../components/TechIcon";
 import { useOptionalGraphics } from "../hooks/useOptionalGraphics";
 const Background3D = lazy(() => import("../components/Background3D"));
+const ORBIT_TOOLS = ["React", "Python", "Node.js", "TypeScript"];
+const TICKER = [
+  "React",
+  "Python",
+  "TypeScript",
+  "Node.js",
+  "C++",
+  "Java",
+  "Docker",
+  "Git",
+];
 export default function Hero() {
   const [resumeOpen, setResumeOpen] = useState(false);
-  const [graphics, setGraphics] = useState(false);
+  const [ready, setReady] = useState(false);
   const graphicsAllowed = useOptionalGraphics();
   return (
-    <section id="home" className="studio-hero section-container">
+    <section id="home" className="studio-hero section-container kinetic-hero">
       <div className="hero-topline">
         <span>
-          <i className="status-dot" /> Student & freelance developer
+          <i className="status-dot" /> Software engineering student & freelance
+          developer
         </span>
         <span>
-          Based in Lahore, PK <span aria-hidden="true">↗</span>
+          Lahore, Pakistan <FiArrowUpRight aria-hidden="true" />
         </span>
       </div>
       <div className="hero-layout">
         <div className="hero-copy">
           <p className="eyebrow hero-enter">
-            Code with purpose. Design with care.
+            <span className="code-bracket">&lt;/&gt;</span> Developer. Builder.
+            Curious mind.
           </p>
           <h1 className="hero-name hero-enter">
             Aizaz
@@ -30,93 +54,148 @@ export default function Hero() {
             </span>
           </h1>
           <p className="hero-description hero-enter">
-            I build thoughtful web experiences
-            <br className="desktop-break" /> and tools that solve everyday
-            problems.
+            From an idea to an interface.
+            <br />
+            From a problem to working software.
           </p>
+          <div className="hero-capabilities hero-enter">
+            <span>
+              <FiCode aria-hidden="true" /> Web development
+            </span>
+            <span>
+              <FiCpu aria-hidden="true" /> Developer tools
+            </span>
+            <span>
+              <FiLayers aria-hidden="true" /> Exploring AIOps
+            </span>
+          </div>
           <div className="hero-actions hero-enter">
             <a className="studio-button" href="#work">
-              Explore my work <span aria-hidden="true">↘</span>
+              Explore my work <FiArrowDownRight aria-hidden="true" />
             </a>
             <button
               className="text-button"
               type="button"
               onClick={() => setResumeOpen(true)}
             >
-              View résumé <span aria-hidden="true">↗</span>
+              <FiFileText aria-hidden="true" /> View résumé{" "}
+              <FiArrowUpRight aria-hidden="true" />
             </button>
           </div>
+          <div className="hero-social hero-enter">
+            <a
+              href="https://github.com/Aizaz-Noor"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiGithub aria-hidden="true" /> GitHub
+            </a>
+            <a
+              href="https://linkedin.com/in/aizaz-noor"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FiLinkedin aria-hidden="true" /> LinkedIn
+            </a>
+            <span className="hero-note">Always learning by building.</span>
+          </div>
         </div>
-        <div className="hero-art" aria-label="Decorative orbital illustration">
-          {graphics && graphicsAllowed && (
-            <div className="hero-webgl">
+        <div
+          className={`hero-art kinetic-art ${ready && graphicsAllowed ? "webgl-ready" : ""}`}
+        >
+          <div className="scene-crosshair" aria-hidden="true">
+            <span>+</span>
+            <span>+</span>
+            <span>+</span>
+            <span>+</span>
+          </div>
+          <div className="sculpture-fallback" aria-hidden="true">
+            <div className="sculpture-sphere" />
+            <div className="sculpture-band band-one" />
+            <div className="sculpture-band band-two" />
+            <div className="sculpture-band band-three" />
+          </div>
+          {graphicsAllowed && (
+            <div className="hero-webgl" aria-hidden="true">
               <ErrorBoundary fallback={null}>
                 <Suspense fallback={null}>
-                  <Background3D />
+                  <Background3D onReady={() => setReady(true)} />
                 </Suspense>
               </ErrorBoundary>
             </div>
           )}
-          <div className="orbit-scene" aria-hidden="true">
-            <div className="orbit-ring orbit-ring-one" />
-            <div className="orbit-ring orbit-ring-two" />
-            <div className="orbit-ring orbit-ring-three" />
-            <div className="orbit-core">
-              <span>AN</span>
-              <small>BUILD / EXPLORE / REPEAT</small>
+          <div className="tech-orbit" aria-hidden="true">
+            {ORBIT_TOOLS.map((name, index) => (
+              <div key={name} className={`tech-satellite satellite-${index}`}>
+                <div>
+                  <TechIcon name={name} size={30} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="code-floating code-floating-top" aria-hidden="true">
+            <span className="code-window-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="code-comment">// turn ideas into reality</span>
+            <code>
+              <b>const</b> developer = {"{"}
+              <br />
+              <span>name:</span> <em>'Aizaz Noor'</em>,<br />
+              <span>mindset:</span> <em>'keep building'</em>
+              <br />
+              {"}"};
+            </code>
+          </div>
+          <div
+            className="code-floating code-floating-bottom"
+            aria-hidden="true"
+          >
+            <FiCode />
+            <div>
+              <strong>Build. Test. Improve.</strong>
+              <span>One thoughtful iteration at a time.</span>
             </div>
-            <span className="orbit-node node-one" />
-            <span className="orbit-node node-two" />
+            <i className="status-dot" />
           </div>
-          <div className="art-label art-label-top">
-            <span className="tiny-cross" aria-hidden="true">
-              +
-            </span>{" "}
-            Ideas → working software
+          <div className="scene-caption">
+            <span>CREATIVE CODE / LIVE MOTION</span>
+            <span aria-hidden="true">01 — ∞</span>
           </div>
-          <div className="art-label art-label-bottom">
-            <span>WEB · SYSTEMS · AUTOMATION</span>
-            <span aria-hidden="true">[ 01 / ∞ ]</span>
-          </div>
-          {graphicsAllowed && (
-            <button
-              type="button"
-              className="graphics-toggle"
-              aria-pressed={graphics}
-              onClick={() => setGraphics((value) => !value)}
+        </div>
+      </div>
+      <div
+        className="tech-ticker"
+        role="region"
+        tabIndex={0}
+        aria-label="Technologies I work with"
+      >
+        <div className="ticker-track">
+          {[0, 1].map((copy) => (
+            <div
+              className="ticker-group"
+              key={copy}
+              aria-hidden={copy === 1 ? "true" : undefined}
             >
-              {graphics ? "Pause 3D" : "Enable 3D"}{" "}
-              <span aria-hidden="true">{graphics ? "Ⅱ" : "▷"}</span>
-            </button>
-          )}
+              {TICKER.map((name) => (
+                <span key={name}>
+                  <TechIcon name={name} size={21} />
+                  {name}
+                  <i aria-hidden="true">✦</i>
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="hero-bottom">
-        <p>
-          React interfaces. Python tools.
-          <br />
-          Always learning by building.
-        </p>
-        <a href="#work">
-          Selected work below <span aria-hidden="true">↓</span>
-        </a>
-        <div className="hero-social">
-          <a
-            href="https://github.com/Aizaz-Noor"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub ↗
-          </a>
-          <a
-            href="https://linkedin.com/in/aizaz-noor"
-            target="_blank"
-            rel="noreferrer"
-          >
-            LinkedIn ↗
-          </a>
-        </div>
-      </div>
+      <a href="#work" className="hero-scroll-cue">
+        <span className="scroll-mouse" aria-hidden="true">
+          <i />
+        </span>
+        Scroll to explore <FiArrowDownRight aria-hidden="true" />
+      </a>
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </section>
   );

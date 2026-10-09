@@ -2,7 +2,7 @@
 
 The source for [aizaznoorkhuwaja.vercel.app](https://aizaznoorkhuwaja.vercel.app/). This is a static React 19 and Vite portfolio for a software engineering student and freelance developer. It presents selected projects, experience, skills, credentials, and contact options.
 
-The page works without WebGL. The default hero is a lightweight orbital illustration. Eligible desktop visitors can explicitly enable a contained Three.js enhancement; it loads only after that interaction and pauses offscreen. Mobile and reduced-motion visitors see the static background. The HTML contains a readable no-JavaScript fallback with project and contact links.
+The hero automatically animates a 3D sculpture on eligible desktop devices after idle time. Mobile visitors get animated CSS graphics instead. Orbiting brand icons, floating code panels, a technology ribbon, scroll reveals, and pointer tilt provide ongoing motion. A persistent pause control and the operating system's reduced-motion preference stop animations. Graphics pause offscreen and in hidden tabs; content remains usable if WebGL fails. The HTML also contains a readable no-JavaScript fallback with project and contact links.
 
 ## Run locally
 
@@ -43,7 +43,6 @@ After a deployment, check the homepage at 1440, 768, 390, and 320 CSS-pixel widt
 
 Project performance claims and public biography text should be backed by examples or verified records before publication. This repository does not currently declare a software license.
 
-
 ## Browser regression checks
 
 ```powershell
@@ -51,6 +50,8 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-The suite starts its own local server on port 4173 and tests responsive layouts, keyboard navigation, résumé focus, project previews, contact success/failure with intercepted requests, no-JavaScript content, blocked 3D loading, and desktop/mobile accessibility. On Windows, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to an installed Chrome executable to use it instead. Generated reports are in `playwright-report/`; traces are retained for failures.
+The suite starts its own local server on port 4173 and tests responsive layouts, keyboard navigation, résumé focus, project previews, contact success/failure with intercepted requests, no-JavaScript content, automatic 3D failure recovery, ongoing motion, pause persistence, offscreen suspension, and desktop/mobile accessibility. On Windows, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to an installed Chrome executable to use it instead. Generated reports are in `playwright-report/`; traces are retained for failures.
 
 See [`audit/visual-upgrade.md`](audit/visual-upgrade.md) for the redesign plan, project sources, motion/performance decisions, and verification scope.
+
+See [`audit/motion-upgrade.md`](audit/motion-upgrade.md) for the current motion implementation and validation.

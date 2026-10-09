@@ -1,3 +1,5 @@
+import AmbientBackground from "./components/AmbientBackground";
+import MotionDirector from "./components/MotionDirector";
 import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import ScrollProgress from "./components/ScrollProgress";
@@ -36,6 +38,8 @@ export default function App() {
       </a>
       <ScrollProgress />
       <Navbar />
+      <AmbientBackground />
+      <MotionDirector />
       <main id="main-content" tabIndex={-1}>
         {SECTIONS.map((section) => (
           <ErrorBoundary
