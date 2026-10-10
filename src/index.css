@@ -3,11 +3,15 @@
   --bg: #0b0d12;
   --surface: #141923;
   --border: #2a3140;
-  --text-1: #f3f4f6;
+  --text-1: #f1f5f9;
   --text-2: #aab3c2;
   --text-3: #97a3b7;
-  --accent: #a7a4f5;
-  --accent-dim: #a7a4f518;
+  --accent: #818cf8;
+  --accent-dim: #818cf81f;
+  /* Recovered from 9e05c14 / eb4fc83: Hyper Indigo & Frost White. */
+  --accent-frost: #f1f5f9;
+  --accent-gradient: linear-gradient(135deg, var(--accent-frost) 30%, var(--accent));
+  --accent-gradient-hover: linear-gradient(135deg, #ffffff 20%, var(--accent));
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   font-family: "Inter", system-ui, sans-serif;
@@ -282,7 +286,7 @@ h2 em {
   aspect-ratio: 1;
   position: relative;
   isolation: isolate;
-  background: radial-gradient(ellipse at 50% 50%, #a7a4f513, transparent 65%);
+  background: radial-gradient(ellipse at 50% 50%, #818cf813, transparent 65%);
   border: 1px solid #ffffff09;
   border-radius: 50% 50% 6px 6px;
 }
@@ -1271,8 +1275,8 @@ h2 em {
     background 180ms ease;
 }
 .preview-switch button[aria-pressed="true"] {
-  background: #a7a4f518;
-  border-color: #a7a4f533;
+  background: #818cf818;
+  border-color: #818cf833;
   color: var(--text-1);
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -1337,21 +1341,21 @@ h2 em {
 .ambient-light-one {
   top: -35%;
   right: -30%;
-  background: radial-gradient(circle, #7050ad3d, transparent 68%);
+  background: radial-gradient(circle, #818cf83d, transparent 68%);
   animation: ambient-drift 18s ease-in-out infinite alternate;
 }
 .ambient-light-two {
   top: 35%;
   left: -35%;
-  background: radial-gradient(circle, #1d84902e, transparent 68%);
+  background: radial-gradient(circle, #64748b2e, transparent 68%);
   animation: ambient-drift 22s ease-in-out -7s infinite alternate-reverse;
 }
 .ambient-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(#a7a4f506 1px, transparent 1px),
-    linear-gradient(90deg, #a7a4f506 1px, transparent 1px);
+    linear-gradient(#818cf806 1px, transparent 1px),
+    linear-gradient(90deg, #818cf806 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: linear-gradient(transparent, #000 20%, #000 60%, transparent);
 }
@@ -1392,7 +1396,7 @@ h2 em {
   gap: 9px;
   padding: 12px 16px;
   min-height: 44px;
-  border: 1px solid #a7a4f54d;
+  border: 1px solid #818cf84d;
   border-radius: 30px;
   background: #11172aeb;
   backdrop-filter: blur(16px);
@@ -1401,7 +1405,7 @@ h2 em {
   box-shadow: 0 10px 30px #02030a66;
 }
 .motion-control svg {
-  color: #b1a3ff;
+  color: var(--accent);
 }
 .kinetic-hero {
   padding-top: 132px;
@@ -1424,7 +1428,7 @@ h2 em {
 }
 .code-bracket {
   font: 700 17px monospace;
-  color: #b1a3ff;
+  color: var(--accent);
   margin-right: 8px;
 }
 .kinetic-hero .hero-description {
@@ -1445,7 +1449,7 @@ h2 em {
   gap: 7px;
 }
 .hero-capabilities svg {
-  color: #ada0ff;
+  color: var(--accent);
 }
 .kinetic-hero .hero-actions {
   margin-top: 30px;
@@ -1455,8 +1459,8 @@ h2 em {
   height: 17px;
 }
 .kinetic-hero .studio-button {
-  background: var(--accent);
-  box-shadow: 0 7px 28px #a7a4f520;
+  background: var(--accent-gradient);
+  box-shadow: 0 7px 28px #818cf820;
   border-radius: 8px;
 }
 .kinetic-hero .hero-social {
@@ -1478,7 +1482,7 @@ h2 em {
 .kinetic-art {
   border: 0;
   border-radius: 0;
-  background: radial-gradient(ellipse, #7565c521 0%, transparent 68%);
+  background: radial-gradient(ellipse, #818cf821 0%, transparent 68%);
   aspect-ratio: 1;
   perspective: 1000px;
   min-width: 0;
@@ -1487,7 +1491,7 @@ h2 em {
   content: "";
   inset: 12%;
   position: absolute;
-  border: 1px solid #a7a4f521;
+  border: 1px solid #818cf821;
   border-radius: 50%;
   background: transparent;
 }
@@ -1495,7 +1499,7 @@ h2 em {
   content: "";
   position: absolute;
   inset: 5%;
-  border: 1px dashed #a7a4f51c;
+  border: 1px dashed #818cf81c;
   border-radius: 50%;
   animation: halo-rotate 70s linear infinite;
   pointer-events: none;
@@ -1527,29 +1531,29 @@ h2 em {
   border-radius: 50%;
   background: radial-gradient(
     circle at 30% 20%,
-    #c9b8f6,
-    #7054a7 35%,
-    #242845 75%
+    #f1f5f9,
+    #818cf8 35%,
+    #232a3e 75%
   );
   box-shadow:
     inset -16px -24px 35px #090c26,
-    0 0 60px #9889ed30;
+    0 0 60px #818cf830;
 }
 .sculpture-band {
   position: absolute;
   inset: 0;
-  border: 8px solid #aa97e8;
+  border: 8px solid #818cf8;
   border-radius: 50%;
   box-shadow:
-    0 0 14px #a294ff22,
-    inset 0 0 10px #a294ff22;
+    0 0 14px #818cf822,
+    inset 0 0 10px #818cf822;
 }
 .band-one {
   transform: rotateX(65deg);
 }
 .band-two {
   transform: rotateY(65deg) rotateZ(35deg);
-  border-color: #97cee8;
+  border-color: #cbd5e1;
 }
 .band-three {
   transform: rotateY(-65deg) rotateZ(-35deg);
@@ -1583,7 +1587,7 @@ h2 em {
   height: 100%;
   display: grid;
   place-items: center;
-  border: 1px solid #a7a4f545;
+  border: 1px solid #818cf845;
   border-radius: 16px;
   background: #151b2bed;
   box-shadow: 0 10px 30px #03061670;
@@ -1621,7 +1625,7 @@ h2 em {
   position: absolute;
   z-index: 3;
   background: #141a2bde;
-  border: 1px solid #a7a4f52e;
+  border: 1px solid #818cf82e;
   box-shadow: 0 16px 35px #02061766;
   backdrop-filter: blur(12px);
   border-radius: 12px;
@@ -1687,7 +1691,7 @@ h2 em {
 }
 .code-floating-bottom > svg {
   font-size: 28px;
-  color: #b6a8ff;
+  color: var(--accent);
 }
 .code-floating-bottom strong {
   display: block;
@@ -1716,7 +1720,7 @@ h2 em {
   position: relative;
   margin-top: 42px;
   padding-block: 24px;
-  border-block: 1px solid #a7a4f526;
+  border-block: 1px solid #818cf826;
   mask-image: linear-gradient(
     90deg,
     transparent,
@@ -1745,7 +1749,7 @@ h2 em {
 }
 .ticker-group i {
   font-style: normal;
-  color: #a7a4f568;
+  color: #818cf868;
   padding-left: 24px;
   font-size: 12px;
 }
@@ -1766,7 +1770,7 @@ h2 em {
 .scroll-mouse {
   width: 16px;
   height: 25px;
-  border: 1px solid #a7a4f570;
+  border: 1px solid #818cf870;
   border-radius: 10px;
   position: relative;
 }
@@ -1775,7 +1779,7 @@ h2 em {
   width: 2px;
   height: 5px;
   border-radius: 2px;
-  background: #b8acff;
+  background: #a5b4fc;
   top: 5px;
   left: 6px;
   animation: scroll-wheel 2s var(--ease-out) infinite;
@@ -1797,7 +1801,7 @@ h2 em {
   transform-style: preserve-3d;
 }
 .skill-group {
-  border: 1px solid #a7a4f529;
+  border: 1px solid #818cf829;
   border-radius: 16px;
   padding: 28px;
   background: linear-gradient(135deg, #182035c7, #101621c7);
@@ -1815,8 +1819,8 @@ h2 em {
   gap: 10px;
 }
 .skill-group li {
-  background: #a7a4f508;
-  border: 1px solid #a7a4f515;
+  background: #818cf808;
+  border: 1px solid #818cf815;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -1829,7 +1833,7 @@ h2 em {
 }
 .project-visual {
   background: linear-gradient(135deg, #242440, #182331);
-  border: 1px solid #a7a4f52b;
+  border: 1px solid #818cf82b;
   box-shadow: 0 24px 80px #05081730;
   border-radius: 16px;
 }
@@ -1849,10 +1853,10 @@ h2 em {
   }
 }
 .portrait-frame img {
-  border: 1px solid #a7a4f533;
+  border: 1px solid #818cf833;
   box-shadow:
-    20px 20px 0 -1px #a7a4f506,
-    20px 20px 0 0 #a7a4f526;
+    20px 20px 0 -1px #818cf806,
+    20px 20px 0 0 #818cf826;
   border-radius: 14px;
   filter: saturate(0.9);
 }
@@ -1866,7 +1870,7 @@ h2 em {
 }
 @media (hover: hover) and (pointer: fine) {
   .skill-group:hover {
-    border-color: #a7a4f566;
+    border-color: #818cf866;
   }
   .skill-group li:hover .tech-brand-icon {
     transform: translateY(-2px);
@@ -2211,4 +2215,43 @@ h2 em {
  .contact-fields-row {
    gap: 16px;
  }
+}
+
+/* One recovered accent gradient; readable solid fallback for unsupported browsers. */
+.studio-button,
+.btn-primary,
+.btn-submit-glass {
+  background: var(--accent-gradient);
+}
+@media (hover: hover) {
+  .kinetic-hero .studio-button:hover,
+  .studio-button:hover,
+  .btn-primary:hover,
+  .btn-submit-glass:hover:not(:disabled):not(.success) {
+    background: var(--accent-gradient-hover);
+  }
+}
+/* Delivery success remains a semantic green state, rather than an accent. */
+.btn-submit-glass.success {
+  background: #b6d8c5;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .kinetic-hero .hero-name > span,
+  .section-heading h2 em,
+  .g-text,
+  .brand-symbol > span {
+    background: var(--accent-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+@media (forced-colors: active) {
+  .kinetic-hero .hero-name > span,
+  .section-heading h2 em,
+  .g-text,
+  .brand-symbol > span {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+  }
 }

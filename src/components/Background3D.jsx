@@ -34,17 +34,17 @@ function Sculpture() {
         <mesh>
           <torusKnotGeometry args={[1.28, 0.36, 180, 28, 2, 3]} />
           <meshStandardMaterial
-            color="#b7a3ff"
+            color="#818cf8"
             metalness={0.75}
             roughness={0.23}
-            emissive="#6950b8"
+            emissive="#4f46e5"
             emissiveIntensity={0.23}
           />
         </mesh>
         <mesh scale={1.015}>
           <torusKnotGeometry args={[1.28, 0.36, 100, 12, 2, 3]} />
           <meshBasicMaterial
-            color="#c4b2ff"
+            color="#f1f5f9"
             wireframe
             transparent
             opacity={0.14}
@@ -54,15 +54,15 @@ function Sculpture() {
       <group ref={orbit} rotation={[0.7, 0.25, 0]}>
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[2.35, 0.012, 8, 100]} />
-          <meshBasicMaterial color="#75e0f6" transparent opacity={0.65} />
+          <meshBasicMaterial color="#cbd5e1" transparent opacity={0.65} />
         </mesh>
         <mesh position={[2.35, 0, 0]}>
           <sphereGeometry args={[0.075, 16, 16]} />
-          <meshBasicMaterial color="#b4eeff" />
+          <meshBasicMaterial color="#f1f5f9" />
         </mesh>
         <mesh position={[-2.35, 0, 0]}>
           <sphereGeometry args={[0.05, 16, 16]} />
-          <meshBasicMaterial color="#ac9aff" />
+          <meshBasicMaterial color="#818cf8" />
         </mesh>
       </group>
       <Stars
@@ -105,9 +105,9 @@ export default function Background3D({ onReady }) {
         onCreated={onReady}
       >
         <ambientLight intensity={1.4} />
-        <directionalLight position={[3, 4, 5]} intensity={4} color="#dbd0ff" />
-        <pointLight position={[-3, 1, 2]} intensity={35} color="#61dafa" />
-        <pointLight position={[1, -3, 1]} intensity={20} color="#a182ff" />
+        <directionalLight position={[3, 4, 5]} intensity={4} color="#f1f5f9" />
+        <pointLight position={[-3, 1, 2]} intensity={35} color="#cbd5e1" />
+        <pointLight position={[1, -3, 1]} intensity={20} color="#818cf8" />
         <Sculpture />
       </Canvas>
     </div>
