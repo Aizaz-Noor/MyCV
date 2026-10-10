@@ -37,7 +37,7 @@ export default function Experience() {
       <div className="experience-list">
         {EXPERIENCE.map((item) => (
           <Reveal key={item.title}>
-            <article className="experience-row">
+            <article className="experience-row ios-surface">
               <div className="experience-period">
                 <i className="status-dot" />
                 {item.period}

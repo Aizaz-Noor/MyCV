@@ -1,0 +1,553 @@
+/* Recovered from d67c57f: glass materials, floating pill navigation,
+   context-menu bubble, status capsule, specular rim and tactile controls.
+   Namespaced tokens and classes avoid importing the old global stylesheet. */
+:root {
+  --ios-glass-bg: linear-gradient(
+    135deg,
+    #ffffff29 0%,
+    #232a3ed1 45%,
+    #ffffff1f 100%
+  );
+  --ios-glass-blur: blur(28px) saturate(190%);
+  --ios-glass-border: 1px solid #ffffff3d;
+  --ios-glass-shadow:
+    0 16px 40px #00000066, 0 2px 10px #00000040, inset 0 1px 0 #ffffff59;
+  --ios-material-bg: linear-gradient(145deg, #242a3be6, #121824ed);
+  --ios-radius: 28px;
+}
+.ios-header {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1080px;
+  z-index: 42;
+  transition:
+    top 350ms var(--ease-out),
+    width 350ms var(--ease-out),
+    max-width 350ms var(--ease-out);
+}
+.ios-nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  padding: 8px 16px;
+  background: var(--ios-glass-bg);
+  background-color: #121827e6;
+  border: var(--ios-glass-border);
+  border-radius: 999px;
+  backdrop-filter: var(--ios-glass-blur);
+  -webkit-backdrop-filter: var(--ios-glass-blur);
+  box-shadow: var(--ios-glass-shadow);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  transition: border-radius 350ms var(--ease-out);
+}
+.ios-nav::before,
+.ios-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0 16px auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffffff59, transparent);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.ios-nav-brand {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+.ios-nav-brand img {
+  width: 140px;
+  height: 25px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.ios-desktop-links {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 2px;
+}
+.ios-desktop-links a,
+.ios-mobile-links a {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #e5e8f0;
+  border-radius: 999px;
+  transition: color 160ms ease;
+}
+.ios-desktop-links a[aria-current],
+.ios-mobile-links a[aria-current] {
+  color: #fff;
+  font-weight: 650;
+}
+.ios-selection-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  background: #ffffff21;
+  border: 1px solid #ffffff33;
+  box-shadow: inset 0 1px 0 #ffffff40;
+  transition:
+    transform 300ms var(--ease-out),
+    width 300ms var(--ease-out),
+    height 300ms var(--ease-out),
+    opacity 150ms ease;
+}
+.ios-nav-actions {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+.ios-nav-actions a,
+.ios-menu-toggle {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: transparent;
+  color: #e5e8f0;
+  border: 1px solid transparent;
+  transition:
+    background 150ms ease,
+    transform 120ms ease;
+}
+.ios-nav-actions svg {
+  width: 19px;
+  height: 19px;
+}
+.ios-menu-toggle {
+  display: none;
+}
+.ios-nav-actions a:hover,
+.ios-menu-toggle:hover {
+  background: #ffffff14;
+  border-color: #ffffff1a;
+}
+.ios-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 41;
+  background: #040508b3;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 220ms ease,
+    visibility 220ms;
+}
+.ios-nav-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.ios-mobile-menu {
+  display: none;
+}
+.ios-nav-actions a:active,
+.ios-menu-toggle:active,
+.ios-menu-resume:active,
+.studio-button:active,
+.text-button:active,
+.preview-switch button:active,
+.btn-submit-glass:active {
+  transform: scale(0.97);
+  transition: transform 100ms ease-out;
+}
+.ios-surface {
+  position: relative;
+  background: var(--ios-material-bg);
+  border: 1px solid #ffffff1f;
+  border-radius: var(--ios-radius);
+  box-shadow:
+    inset 0 1px 0 #ffffff1a,
+    0 18px 48px #03040a29;
+}
+.project-visual.ios-surface {
+  position: sticky;
+  border-radius: 32px;
+  padding: 24px;
+}
+.ios-surface.project-visual::before {
+  inset-inline: 28px;
+}
+.project-browser {
+  border-radius: 18px;
+  background: #101722;
+  border-color: #ffffff1a;
+}
+.browser-bar {
+  background: #1b2433;
+  color: #c3cbdb;
+  padding: 14px;
+}
+.browser-bar > span:nth-child(1) {
+  background: #ee938e;
+}
+.browser-bar > span:nth-child(2) {
+  background: #e0c279;
+}
+.browser-bar > span:nth-child(3) {
+  background: #86c9ad;
+}
+.browser-bar small {
+  font:
+    11px/1.4 -apple-system,
+    BlinkMacSystemFont,
+    "Inter",
+    sans-serif;
+}
+.project-browser figcaption {
+  background: #151d2b;
+  color: #b4bdcf;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.preview-switch {
+  background: #080b14a6;
+  border: 1px solid #ffffff14;
+  padding: 4px;
+  border-radius: 999px;
+  width: fit-content;
+  max-width: 100%;
+}
+.preview-switch button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: #bfc9db;
+  background: transparent;
+}
+.preview-switch button[aria-pressed="true"] {
+  color: #fff;
+  background: #ffffff1f;
+  box-shadow:
+    inset 0 1px 0 #ffffff30,
+    0 2px 6px #0003;
+}
+.preview-enlarge {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.preview-enlarge img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--preview-ratio);
+  object-fit: contain;
+}
+.preview-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  color: var(--text-2);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.preview-hint svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.preview-dialog {
+  width: min(1200px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ffffff3d;
+  border-radius: 24px;
+  color: var(--text-1);
+  background: #151b28;
+  box-shadow: 0 30px 100px #0009;
+}
+.preview-dialog::backdrop {
+  background: #03050bd9;
+  backdrop-filter: blur(12px);
+}
+.preview-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.preview-dialog-header h4 {
+  font-size: 18px;
+}
+.preview-dialog-header button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #ffffff26;
+  border-radius: 50%;
+  background: #ffffff0a;
+}
+.preview-dialog img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.preview-dialog p {
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 14px;
+}
+.dynamic-status-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff1f, #232a3ea6);
+  border: 1px solid #ffffff38;
+  box-shadow:
+    0 8px 24px #0003,
+    inset 0 1px 0 #ffffff40;
+}
+.studio-button {
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 #fff5,
+    0 8px 24px #a7a4f51a;
+}
+.text-button {
+  border-radius: 999px;
+  padding-inline: 16px;
+}
+.tag-list > span {
+  border-radius: 999px;
+  background: #ffffff05;
+  padding-inline: 12px;
+}
+.experience-list {
+  display: grid;
+  gap: 18px;
+}
+.experience-row.ios-surface {
+  padding: 28px;
+  margin: 0;
+}
+.skill-group.ios-surface {
+  padding: 30px;
+  border-color: #ffffff1f;
+}
+.skill-group li {
+  border-radius: 14px;
+}
+.contact-unified-card.ios-surface {
+  padding: 40px;
+  gap: 48px;
+}
+.contact-info-item {
+  border-radius: 20px;
+  padding: 18px;
+  background: #ffffff04;
+  border: 1px solid #ffffff10;
+}
+.floating-input-group input,
+.floating-input-group textarea {
+  border-radius: 16px;
+  background: #090d16a6;
+}
+.btn-submit-glass {
+  border-radius: 999px;
+}
+.credential-list {
+  background: #141b27a6;
+  border: 1px solid #ffffff1f;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.credential-list li:first-child {
+  border-top: 0;
+}
+.credential-list a {
+  padding-inline: 24px;
+}
+.credential-list a:hover {
+  background: #ffffff06;
+}
+@media (min-width: 1024px) {
+  .ios-header.is-scrolled {
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .ios-header.is-scrolled .ios-nav {
+    border-radius: 0;
+    border-width: 0 0 1px;
+    padding-inline: max(24px, calc((100vw - 1180px) / 2));
+  }
+}
+@media (max-width: 1023px) {
+  .ios-header,
+  .ios-header.is-scrolled {
+    top: max(14px, env(safe-area-inset-top));
+    width: calc(100% - 32px);
+    max-width: 480px;
+  }
+  .ios-nav {
+    min-height: 56px;
+    padding: 5px 10px;
+  }
+  .ios-nav-brand img {
+    width: 100px;
+    height: 18px;
+  }
+  .ios-desktop-links {
+    display: none;
+  }
+  .ios-menu-toggle {
+    display: grid;
+  }
+  .ios-nav-resume {
+    display: none !important;
+  }
+  .ios-mobile-menu {
+    display: block;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    width: 100%;
+    max-height: calc(100dvh - 110px);
+    overflow-y: auto;
+    padding: 16px;
+    border-radius: 24px;
+    background: linear-gradient(160deg, #10121af5, #0a0c12fa);
+    border: 1px solid #ffffff2e;
+    backdrop-filter: blur(32px) saturate(190%);
+    -webkit-backdrop-filter: blur(32px) saturate(190%);
+    box-shadow:
+      0 24px 60px #0009,
+      inset 0 1px 0 #ffffff40;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.96);
+    transform-origin: top right;
+    transition:
+      opacity 220ms ease,
+      transform 300ms var(--ease-out),
+      visibility 220ms;
+  }
+  .ios-mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  .ios-menu-caption {
+    color: #aab3c2;
+    font-size: 11px;
+    text-align: center;
+    margin: 0 0 12px;
+  }
+  .ios-mobile-links {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .ios-mobile-links a {
+    min-width: 160px;
+    font-size: 14px;
+  }
+  .ios-menu-resume {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    margin-top: 14px;
+    background: #ffffff0d;
+    color: #e5e8f0;
+    font-size: 13px;
+  }
+  .project-visual.ios-surface {
+    position: relative;
+    top: auto;
+  }
+  .contact-unified-card.ios-surface {
+    padding: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .project-visual.ios-surface {
+    padding: 16px;
+    border-radius: 24px;
+  }
+  .preview-switch button {
+    padding-inline: 12px;
+    font-size: 11px;
+  }
+  .experience-row.ios-surface,
+  .skill-group.ios-surface {
+    padding: 24px;
+  }
+  .contact-unified-card.ios-surface {
+    padding: 20px;
+  }
+  .contact-info-item {
+    padding: 14px;
+  }
+  .credential-list a {
+    padding-inline: 16px;
+  }
+  .dynamic-status-capsule {
+    border-radius: 18px;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .ios-nav,
+  .ios-mobile-menu,
+  .ios-surface,
+  .dynamic-status-capsule {
+    background: #1b2230;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ios-header,
+  .ios-nav,
+  .ios-selection-pill,
+  .ios-mobile-menu {
+    transition: none;
+  }
+}
+[data-ui-motion="paused"] .ios-selection-pill,
+[data-ui-motion="paused"] .ios-mobile-menu {
+  transition: none;
+}
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .ios-nav,
+  .ios-mobile-menu {
+    background: #1b2230;
+  }
+}

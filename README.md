@@ -34,7 +34,7 @@ npm audit
 - Navigation uses ordinary section links. The résumé viewer uses a native modal dialog; `/resume.pdf` remains downloadable directly.
 - The contact form submits through [Web3Forms](https://docs.web3forms.com/getting-started/api-reference). Its browser access key may be supplied with `VITE_WEB3FORMS_ACCESS_KEY`. The form also includes the current public fallback key. Browser keys are public; configure provider-side restrictions and abuse controls in the provider dashboard. Do not place server secrets in `VITE_` variables.
 - Project content is curated in `src/data/projects.js` from verified GitHub READMEs. No live GitHub or contribution-chart requests are required to render the page.
-- `public/projects/` contains optimized WebP screenshots from the LifeFlow repository. See `audit/visual-upgrade.md` for provenance and design decisions.
+- `public/projects/` contains verified NovaWorks screenshots and a real Tandem dashboard capture. See `audit/project-image-provenance.json` and `audit/ios-integration.md` for sources and capture details.
 - The site is deployed as static files on Vercel. Vercel project settings and the contact recipient account are managed outside this repository.
 
 ## Manual verification
@@ -55,3 +55,7 @@ The suite starts its own local server on port 4173 and tests responsive layouts,
 See [`audit/visual-upgrade.md`](audit/visual-upgrade.md) for the redesign plan, project sources, motion/performance decisions, and verification scope.
 
 See [`audit/motion-upgrade.md`](audit/motion-upgrade.md) for the current motion implementation and validation.
+
+## Apple/iOS component integration
+
+The floating glass desktop navbar and mobile context menu recover the original design from `d67c57f`. Shared materials live in `src/ios-theme.css` and apply to project previews, experience, toolkit, credentials and contact. NovaWorks and Tandem use actual screenshots with accessible full-size previews. See [`audit/ios-integration.md`](audit/ios-integration.md) for the implementation plan, code examples, validation scope and further recommendations.

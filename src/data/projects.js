@@ -1,25 +1,40 @@
-// Content verified against public GitHub READMEs on 2026-10-08.
+// Content verified against public GitHub READMEs on 2026-10-10.
 export const featuredProjects = [
   {
-    id: "lifeflow",
+    id: "novaworks",
     number: "01",
-    category: "Web application / academic project",
-    name: "LifeFlow",
-    subtitle: "A clearer view of blood-bank operations.",
+    category: "AI web application / team project",
+    name: "NovaWorks",
+    subtitle: "From meeting notes to assigned work.",
     description:
-      "A React frontend bringing donor records, blood inventory, requests, and staff workflows into one coherent interface.",
+      "An AI-assisted workspace that turns a meeting's final decisions into saved projects, tasks, owners, deadlines, and effort estimates.",
     problem:
-      "Blood-bank staff need to navigate inventory and patient requests without losing context.",
+      "Moving from a meeting to assigned work requires repeated manual entry and makes final decisions easy to lose.",
     approach:
-      "Separate public donor pages from a modular staff portal, with dedicated views for inventory, screening, and reporting.",
+      "Validate AI-extracted work as a complete batch, save it atomically, and give administrators, managers, and developers role-scoped views.",
     outcome:
-      "A portfolio demonstration of healthcare workflows. The public demo is not a live clinical service.",
-    tags: ["React 19", "Tailwind CSS", "Vite"],
-    image: "/projects/lifeflow-dashboard.webp",
-    imageAlt:
-      "LifeFlow staff dashboard showing blood inventory, requests, and operational metrics",
-    repo: "https://github.com/Aizaz-Noor/LifeFlow-BloodBank-Frontend",
-    demo: "https://life-flow-blood-bank-frontend.vercel.app",
+      "A working shared demo with persistent storage, duplicate-safe replay, and fictional demo accounts.",
+    role: "Product direction, UI/UX, frontend, integration, and repository ownership with Code Nomads.",
+    tags: ["React 19", "Express 5", "PostgreSQL", "AI integration"],
+    previews: [
+      {
+        label: "Admin workspace",
+        image: "/projects/novaworks-workspace.png",
+        alt: "NovaWorks administrator workspace showing three projects created from meeting decisions",
+        width: 1366,
+        height: 768,
+      },
+      {
+        label: "Project details",
+        image: "/projects/novaworks-project.png",
+        alt: "NovaWorks project details with task owners, deadlines, and effort estimates",
+        width: 1280,
+        height: 1345,
+      },
+    ],
+    caption: "Actual interface · fictional demo data",
+    repo: "https://github.com/Aizaz-Noor/Nova-Works",
+    demo: "https://nova-works-zeta.vercel.app",
   },
   {
     id: "tandem",
@@ -36,6 +51,16 @@ export const featuredProjects = [
     outcome:
       "Published Windows installers and an operational guide. Local mode distributes separate connections; multi-adapter speed gains remain unverified.",
     tags: ["Tauri", "React", "TypeScript", "Python"],
+    previews: [
+      {
+        label: "Dashboard",
+        image: "/projects/tandem-dashboard.webp",
+        alt: "Tandem desktop dashboard showing network speed meters and adapter controls in the offline backend state",
+        width: 1366,
+        height: 900,
+      },
+    ],
+    caption: "Actual app interface · local capture with backend offline",
     repo: "https://github.com/Aizaz-Noor/Tandem",
     release: "https://github.com/Aizaz-Noor/Tandem/releases/latest",
   },

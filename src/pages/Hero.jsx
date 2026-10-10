@@ -32,7 +32,7 @@ export default function Hero() {
   return (
     <section id="home" className="studio-hero section-container kinetic-hero">
       <div className="hero-topline">
-        <span>
+        <span className="dynamic-status-capsule">
           <i className="status-dot" /> Software engineering student & freelance
           developer
         </span>

@@ -1,0 +1,39 @@
+{
+  "recordedDate": "2026-10-10",
+  "novaWorks": {
+    "tree": "cef75b694b7438d485fdcdfbf0eeed4e0828f323",
+    "assets": [
+      {
+        "source": "docs/assets/laptop-workspace.png",
+        "sourceUrl": "https://github.com/Aizaz-Noor/Nova-Works/blob/cef75b694b7438d485fdcdfbf0eeed4e0828f323/docs/assets/laptop-workspace.png",
+        "destination": "public/projects/novaworks-workspace.png",
+        "remoteBlob": "bbf7ed1d1b1e91e1f469de4a5c3ded95c90b92fd",
+        "localBlob": "bbf7ed1d1b1e91e1f469de4a5c3ded95c90b92fd",
+        "matches": true
+      },
+      {
+        "source": "docs/assets/project-detail.png",
+        "sourceUrl": "https://github.com/Aizaz-Noor/Nova-Works/blob/cef75b694b7438d485fdcdfbf0eeed4e0828f323/docs/assets/project-detail.png",
+        "destination": "public/projects/novaworks-project.png",
+        "remoteBlob": "c32fb4102db6631d91f67d604eb0f25c722b54f5",
+        "localBlob": "c32fb4102db6631d91f67d604eb0f25c722b54f5",
+        "matches": true
+      }
+    ],
+    "commit": "cef75b694b7438d485fdcdfbf0eeed4e0828f323"
+  },
+  "tandem": {
+    "sourceRepository": "https://github.com/Aizaz-Noor/Tandem",
+    "localSourceCommit": "02c4aa025fa0ca6624667f7d46f1d5e5de1df3a2",
+    "source": "tandem-ui/src",
+    "capture": "Actual frontend rendered in an isolated local Vite copy; Tauri/backend unavailable in browser; no network engine started; no adapters or speed metrics fabricated.",
+    "viewport": {
+      "width": 1366,
+      "height": 900
+    },
+    "fontRequests": "External Google fonts blocked during capture; application fallback fonts used.",
+    "destination": "public/projects/tandem-dashboard.webp",
+    "encoding": "WebP quality 90; full uncropped screenshot",
+    "sha256": "ce7270d28b3604aa8a099045a9456d7d59a5fceebcce425298dc9cef541e6dcb"
+  }
+}

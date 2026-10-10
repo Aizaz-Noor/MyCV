@@ -1,111 +1,7 @@
 import MotionSurface from "../components/MotionSurface";
-import { useState } from "react";
+import ProjectPreview from "../components/ProjectPreview";
 import Reveal from "../components/Reveal";
 import { featuredProjects, moreProjects } from "../data/projects";
-function TandemDiagram() {
-  return (
-    <div
-      className="network-diagram"
-      aria-label="Tandem architecture: network adapters connect to the desktop interface and Python sidecar, with local dispatcher or optional cloud tunnel"
-    >
-      <div className="diagram-heading">
-        <span className="diagram-dot" /> TANDEM <span>System overview</span>
-      </div>
-      <div className="adapter-row">
-        <span>Wi-Fi</span>
-        <span>Ethernet</span>
-        <span>USB tether</span>
-      </div>
-      <div className="network-path" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="network-hub">
-        <span className="hub-mark">⇌</span>
-        <div>
-          <strong>One control surface</strong>
-          <small>Tauri / React → Python sidecar</small>
-        </div>
-      </div>
-      <div className="network-path single-path" aria-hidden="true">
-        <i />
-      </div>
-      <div className="mode-row">
-        <div>
-          <span>01</span>
-          <strong>Local dispatcher</strong>
-          <small>Separate app connections</small>
-        </div>
-        <div>
-          <span>02</span>
-          <strong>Cloud tunnel</strong>
-          <small>Compatible server required</small>
-        </div>
-      </div>
-      <p className="diagram-caption">
-        Architecture illustration · not an app screenshot
-      </p>
-    </div>
-  );
-}
-function ScreenshotPreview({ project }) {
-  const [view, setView] = useState("dashboard");
-  return (
-    <>
-      <div
-        className="preview-switch"
-        role="group"
-        aria-label="LifeFlow interface preview"
-      >
-        <button
-          type="button"
-          aria-pressed={view === "dashboard"}
-          onClick={() => setView("dashboard")}
-        >
-          Staff portal
-        </button>
-        <button
-          type="button"
-          aria-pressed={view === "home"}
-          onClick={() => setView("home")}
-        >
-          Public landing
-        </button>
-      </div>
-      <figure className="project-browser">
-        <div className="browser-bar" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <small>
-            LifeFlow /{" "}
-            {view === "dashboard" ? "staff dashboard" : "public homepage"}
-          </small>
-          <b>↗</b>
-        </div>
-        <img
-          key={view}
-          className="preview-image"
-          src={
-            view === "dashboard"
-              ? project.image
-              : "/projects/lifeflow-home.webp"
-          }
-          alt={
-            view === "dashboard"
-              ? project.imageAlt
-              : "LifeFlow public homepage with donor registration and blood donation information"
-          }
-          width="1440"
-          height="698"
-          loading="lazy"
-        />
-        <figcaption>Actual interface · repository screenshot</figcaption>
-      </figure>
-    </>
-  );
-}
 export default function Projects() {
   return (
     <section id="work" className="section-container work-section">
@@ -128,12 +24,8 @@ export default function Projects() {
             className={`featured-project project-${project.id}`}
             key={project.id}
           >
-            <MotionSurface className="project-visual">
-              {project.image ? (
-                <ScreenshotPreview project={project} />
-              ) : (
-                <TandemDiagram />
-              )}
+            <MotionSurface className="project-visual ios-surface">
+              <ProjectPreview project={project} />
             </MotionSurface>
             <Reveal className="project-story">
               <div className="project-meta">
@@ -149,6 +41,12 @@ export default function Projects() {
                 ))}
               </div>
               <dl className="case-notes">
+                {project.role && (
+                  <div>
+                    <dt>My role</dt>
+                    <dd>{project.role}</dd>
+                  </div>
+                )}
                 <div>
                   <dt>The problem</dt>
                   <dd>{project.problem}</dd>

@@ -80,7 +80,7 @@ export default function Contact() {
         </div>
 
         {/* 2-Panel Layout Unified Card */}
-        <div className="contact-unified-card">
+        <div className="contact-unified-card ios-surface">
           {/* Left Panel: Info Cards */}
           <div
             style={{
