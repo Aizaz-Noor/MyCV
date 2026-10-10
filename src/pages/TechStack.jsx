@@ -28,14 +28,13 @@ export default function TechStack() {
         <div>
           <p className="eyebrow">04 / My development toolkit</p>
           <h2>
-            The tools behind
+            My development
             <br />
-            <em>the thinking.</em>
+            <em>toolkit.</em>
           </h2>
         </div>
         <p>
-          From interface to infrastructure.
-          <br />A toolkit that keeps growing.
+          Languages, frameworks, and tools I use across coursework, freelance work, and personal projects.
         </p>
       </div>
       <div className="skill-groups">

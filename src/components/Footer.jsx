@@ -9,7 +9,7 @@ export default function Footer() {
           an.
         </a>
         <p>© {new Date().getFullYear()} Aizaz Noor</p>
-        <p>Made with curiosity, in Lahore.</p>
+        <p>Aizaz Noor / Lahore, Pakistan.</p>
         <a href="#home">Back to top ↑</a>
       </div>
     </footer>

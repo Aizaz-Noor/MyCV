@@ -9,13 +9,11 @@ export default function Projects() {
         <div>
           <p className="eyebrow">01 / Selected work</p>
           <h2>
-            Built to be <em>useful.</em>
+            Selected <em>projects.</em>
           </h2>
         </div>
         <p>
-          A few things I've brought from
-          <br />
-          an idea into working software.
+          Web applications, desktop software, and the engineering decisions behind them.
         </p>
       </div>
       <div className="featured-projects">
@@ -81,7 +79,7 @@ export default function Projects() {
       </div>
       <div className="more-work-heading">
         <h3>More explorations</h3>
-        <span>Smaller projects. Same curiosity.</span>
+        <span>Coursework, experiments, and utilities.</span>
       </div>
       <div className="project-index">
         {moreProjects.map((project, index) => (

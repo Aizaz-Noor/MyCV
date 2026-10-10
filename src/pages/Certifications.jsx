@@ -41,13 +41,11 @@ export default function Certifications() {
         <div>
           <p className="eyebrow">05 / Credentials & community</p>
           <h2>
-            Beyond <em>the screen.</em>
+            Credentials &amp; <em>community.</em>
           </h2>
         </div>
         <p>
-          Learning with others.
-          <br />
-          Contributing to the community.
+          Courses, workshops, and university activities.
         </p>
       </div>
       <Reveal>

@@ -32,10 +32,6 @@ export default function Hero() {
   return (
     <section id="home" className="studio-hero section-container kinetic-hero">
       <div className="hero-topline">
-        <span className="dynamic-status-capsule">
-          <i className="status-dot" /> Software engineering student & freelance
-          developer
-        </span>
         <span>
           Lahore, Pakistan <FiArrowUpRight aria-hidden="true" />
         </span>
@@ -43,8 +39,8 @@ export default function Hero() {
       <div className="hero-layout">
         <div className="hero-copy">
           <p className="eyebrow hero-enter">
-            <span className="code-bracket">&lt;/&gt;</span> Developer. Builder.
-            Curious mind.
+            <span className="code-bracket">&lt;/&gt;</span> Web applications
+            &amp; developer tools
           </p>
           <h1 className="hero-name hero-enter">
             Aizaz
@@ -54,9 +50,8 @@ export default function Hero() {
             </span>
           </h1>
           <p className="hero-description hero-enter">
-            From an idea to an interface.
-            <br />
-            From a problem to working software.
+            I build web applications and developer tools, from AI-assisted
+            workflows to desktop networking.
           </p>
           <div className="hero-capabilities hero-enter">
             <span>
@@ -97,18 +92,11 @@ export default function Hero() {
             >
               <FiLinkedin aria-hidden="true" /> LinkedIn
             </a>
-            <span className="hero-note">Always learning by building.</span>
           </div>
         </div>
         <div
           className={`hero-art kinetic-art ${ready && graphicsAllowed ? "webgl-ready" : ""}`}
         >
-          <div className="scene-crosshair" aria-hidden="true">
-            <span>+</span>
-            <span>+</span>
-            <span>+</span>
-            <span>+</span>
-          </div>
           <div className="sculpture-fallback" aria-hidden="true">
             <div className="sculpture-sphere" />
             <div className="sculpture-band band-one" />
@@ -139,15 +127,9 @@ export default function Hero() {
               <i />
               <i />
             </span>
-            <span className="code-comment">// turn ideas into reality</span>
-            <code>
-              <b>const</b> developer = {"{"}
-              <br />
-              <span>name:</span> <em>'Aizaz Noor'</em>,<br />
-              <span>mindset:</span> <em>'keep building'</em>
-              <br />
-              {"}"};
-            </code>
+            <span className="code-comment">NovaWorks</span>
+            <strong>Meeting notes to assigned work.</strong>
+            <span className="project-stack-note">React / Express / PostgreSQL</span>
           </div>
           <div
             className="code-floating code-floating-bottom"
@@ -155,14 +137,9 @@ export default function Hero() {
           >
             <FiCode />
             <div>
-              <strong>Build. Test. Improve.</strong>
-              <span>One thoughtful iteration at a time.</span>
+              <strong>Tandem</strong>
+              <span>Desktop networking / Tauri + Python</span>
             </div>
-            <i className="status-dot" />
-          </div>
-          <div className="scene-caption">
-            <span>CREATIVE CODE / LIVE MOTION</span>
-            <span aria-hidden="true">01 — ∞</span>
           </div>
         </div>
       </div>

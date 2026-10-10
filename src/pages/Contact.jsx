@@ -64,37 +64,21 @@ export default function Contact() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">06 / Start a conversation</p>
-            <h2
-              className="heading-lg accent-underline"
-              style={{ marginBottom: "1.5rem" }}
-            >
+            <h2 className="heading-lg accent-underline">
               Let's build
               <br />
               <span className="g-text">something useful.</span>
             </h2>
           </div>
-          <p className="text-body" style={{ maxWidth: "320px" }}>
+          <p className="text-body contact-intro">
             Have a project in mind, an internship opportunity, or a technical
             challenge? I'd like to hear about it.
           </p>
         </div>
-
-        {/* 2-Panel Layout Unified Card */}
         <div className="contact-unified-card ios-surface">
-          {/* Left Panel: Info Cards */}
-          <div
-            style={{
-              flex: "1 1 300px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem",
-              justifyContent: "center",
-            }}
-          >
-            {/* Email Box */}
+          <div className="contact-details">
             <a
               href="mailto:aizaznoorkhuwaja@gmail.com"
-              style={{ textDecoration: "none" }}
             >
               <div className="contact-info-item">
                 <div className="contact-info-icon-wrapper">
@@ -113,17 +97,8 @@ export default function Contact() {
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span
-                    style={{
-                      fontSize: "0.8rem",
-                      color: "var(--text-2)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      fontWeight: 600,
-                      marginBottom: "2px",
-                    }}
-                  >
+                <div className="contact-info-copy">
+                  <span className="contact-info-label">
                     Email
                   </span>
                   <span className="text-link contact-info-text">
@@ -132,13 +107,10 @@ export default function Contact() {
                 </div>
               </div>
             </a>
-
-            {/* Location Box */}
             <a
               href="https://maps.google.com/?q=Lahore,Pakistan"
               target="_blank"
               rel="noreferrer"
-              style={{ textDecoration: "none" }}
             >
               <div className="contact-info-item">
                 <div className="contact-info-icon-wrapper">
@@ -157,30 +129,18 @@ export default function Contact() {
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span
-                    style={{
-                      fontSize: "0.8rem",
-                      color: "var(--text-2)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      fontWeight: 600,
-                      marginBottom: "2px",
-                    }}
-                  >
+                <div className="contact-info-copy">
+                  <span className="contact-info-label">
                     Location
                   </span>
                   <span className="contact-info-text">Lahore, Pakistan</span>
                 </div>
               </div>
             </a>
-
-            {/* LinkedIn Box */}
             <a
               href="https://linkedin.com/in/aizaz-noor"
               target="_blank"
               rel="noreferrer"
-              style={{ textDecoration: "none" }}
             >
               <div className="contact-info-item">
                 <div className="contact-info-icon-wrapper">
@@ -200,17 +160,8 @@ export default function Contact() {
                     <circle cx="4" cy="4" r="2"></circle>
                   </svg>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span
-                    style={{
-                      fontSize: "0.8rem",
-                      color: "var(--text-2)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      fontWeight: 600,
-                      marginBottom: "2px",
-                    }}
-                  >
+                <div className="contact-info-copy">
+                  <span className="contact-info-label">
                     LinkedIn
                   </span>
                   <span className="text-link contact-info-text">
@@ -220,19 +171,13 @@ export default function Contact() {
               </div>
             </a>
           </div>
-
-          {/* Right Panel: Contact form */}
-          <div style={{ flex: "1 1 400px" }}>
+          <div className="contact-form-panel">
             <form
               ref={formRef}
               action="https://api.web3forms.com/submit"
               method="POST"
               onSubmit={handleSubmit}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-              }}
+              className="contact-form"
             >
               <input type="hidden" name="access_key" value={ACCESS_KEY} />
               <input
@@ -242,8 +187,8 @@ export default function Contact() {
                 className="honeypot"
                 aria-hidden="true"
               />
-              <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-                <div style={{ flex: "1 1 150px" }}>
+              <div className="contact-fields-row">
+                <div className="contact-field">
                   <div
                     className={`floating-input-group ${errors.name ? "error" : ""}`}
                   >
@@ -268,7 +213,7 @@ export default function Contact() {
                   )}
                 </div>
 
-                <div style={{ flex: "1 1 150px" }}>
+                <div className="contact-field">
                   <div
                     className={`floating-input-group ${errors.email ? "error" : ""}`}
                   >
@@ -354,18 +299,7 @@ export default function Contact() {
               )}
 
               {submitError && (
-                <div
-                  role="alert"
-                  style={{
-                    padding: "0.75rem 1rem",
-                    borderRadius: "10px",
-                    background: "rgba(239, 68, 68, 0.1)",
-                    border: "1px solid rgba(239, 68, 68, 0.3)",
-                    color: "#f87171",
-                    fontSize: "0.85rem",
-                    textAlign: "center",
-                  }}
-                >
+                <div role="alert" className="contact-provider-error">
                   {submitError}
                 </div>
               )}
@@ -374,23 +308,12 @@ export default function Contact() {
                 type="submit"
                 disabled={isSubmitting}
                 className={`btn btn-submit-glass ${isSubmitting ? "sending" : ""} ${isSuccess ? "success" : ""}`}
-                style={{
-                  width: "100%",
-                  marginTop: "0.5rem",
-                  position: "relative",
-                }}
               >
                 {isSubmitting ? (
                   <>
                     <svg
                       className="spinner"
                       viewBox="0 0 50 50"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        marginRight: "8px",
-                        animation: "spin 1s linear infinite",
-                      }}
                       aria-hidden="true"
                     >
                       <circle

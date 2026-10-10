@@ -147,7 +147,13 @@ export default function Navbar() {
             aria-label="Aizaz Noor home"
             onClick={() => navigate("home")}
           >
-            <img src="/logo.png" width="140" height="25" alt="" />
+            <span className="brand-symbol" aria-hidden="true">
+              a<span>n</span>.
+            </span>
+            <span className="brand-caption">
+              Aizaz Noor
+              <small>Developer / Lahore</small>
+            </span>
           </a>
           <div className="ios-desktop-links" ref={desktop}>
             <span

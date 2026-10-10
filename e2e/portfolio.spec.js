@@ -8,8 +8,20 @@ for (const width of [320, 390, 768, 1440]) {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator(".ios-nav-brand .brand-symbol")).toHaveText("an.");
+    await expect(page.locator(".ios-nav-brand .brand-caption")).toContainText("Developer / Lahore");
+    await expect(page.locator("#home")).not.toContainText("Software engineering student & freelance developer");
+    const brand = await page.locator(".ios-nav-brand").boundingBox();
+    const actions = await page.locator(".ios-nav-actions").boundingBox();
+    expect(brand.x + brand.width).toBeLessThanOrEqual(actions.x);
     for (const section of await page.locator("main > section").all())
       await section.scrollIntoViewIfNeeded();
+    // Scroll each lazy image into view: tall sections can contain images below
+    // the viewport even after the section itself has been visited.
+    for (const image of await page.locator("img").all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
+    }
     await expect
       .poll(() =>
         page
@@ -316,4 +328,27 @@ test("expanded navigation and screenshot viewer remain accessible", async ({
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
   expect(dialogScan.violations).toEqual([]);
+});
+
+
+test("resuming motion does not replay a visible section entrance", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.addInitScript(() => {
+    const animate = Element.prototype.animate;
+    window.toolkitEntrances = 0;
+    Element.prototype.animate = function (...args) {
+      if (this.closest("#techstack")) window.toolkitEntrances++;
+      return animate.apply(this, args);
+    };
+  });
+  await page.goto("/");
+  await page.locator(".skill-group").first().scrollIntoViewIfNeeded();
+  await expect.poll(() => page.evaluate(() => window.toolkitEntrances)).toBeGreaterThan(0);
+  await page.waitForTimeout(900);
+  const count = await page.evaluate(() => window.toolkitEntrances);
+  await page.getByRole("button", { name: "Pause animations" }).click();
+  await page.getByRole("button", { name: "Resume animations" }).click();
+  await page.waitForTimeout(900);
+  expect(await page.evaluate(() => window.toolkitEntrances)).toBe(count);
+  await expect(page.locator(".skill-group").first()).toBeVisible();
 });

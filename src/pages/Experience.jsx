@@ -24,14 +24,13 @@ export default function Experience() {
         <div>
           <p className="eyebrow">02 / Experience & education</p>
           <h2>
-            Learning. Building.
+            Experience &amp;
             <br />
-            <em>Moving forward.</em>
+            <em>education.</em>
           </h2>
         </div>
         <p>
-          A foundation in software engineering.
-          <br />A practice of making it real.
+          Freelance development alongside my software engineering degree at COMSATS Lahore.
         </p>
       </div>
       <div className="experience-list">

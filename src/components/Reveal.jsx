@@ -7,15 +7,22 @@ export default function Reveal({
   style = {},
 }) {
   const ref = useRef(null);
+  const hasRevealed = useRef(false);
   const { enabled } = usePortfolioMotion();
   useEffect(() => {
     const element = ref.current;
-    if (!enabled || !element.animate || !("IntersectionObserver" in window))
+    if (
+      hasRevealed.current ||
+      !enabled ||
+      !element.animate ||
+      !("IntersectionObserver" in window)
+    )
       return;
     let animation;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
+        hasRevealed.current = true;
         animation = element.animate(
           [
             { opacity: 0, transform: "translateY(36px) scale(.97)" },

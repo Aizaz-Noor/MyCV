@@ -32,7 +32,7 @@ export default function MotionProvider({ children }) {
         );
     });
     shell.current
-      .querySelectorAll(".kinetic-art, .tech-ticker, .network-diagram")
+      .querySelectorAll(".kinetic-art, .tech-ticker")
       .forEach((element) => observer.observe(element));
     return () => {
       document.removeEventListener("visibilitychange", updateVisibility);

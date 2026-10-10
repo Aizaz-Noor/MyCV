@@ -6,9 +6,9 @@ export default function About() {
         <div>
           <p className="eyebrow">03 / The person behind the code</p>
           <h2>
-            Curiosity is
+            A little
             <br />
-            my <em>starting point.</em>
+            <em>about me.</em>
           </h2>
         </div>
       </div>
@@ -31,8 +31,7 @@ export default function About() {
             Software engineering student.
             <br />
             Freelance developer.
-            <br />
-            <span>Learning by making things.</span>
+
           </p>
           <p>
             I'm studying Software Engineering at COMSATS University Islamabad,

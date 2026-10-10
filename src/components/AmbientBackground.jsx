@@ -1,15 +1,6 @@
-import { useEffect, useRef } from "react";
 export default function AmbientBackground() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const update = () =>
-      ref.current?.classList.toggle("document-hidden", document.hidden);
-    document.addEventListener("visibilitychange", update);
-    update();
-    return () => document.removeEventListener("visibilitychange", update);
-  }, []);
   return (
-    <div className="ambient-scene" ref={ref} aria-hidden="true">
+    <div className="ambient-scene" aria-hidden="true">
       <div className="ambient-light ambient-light-one" />
       <div className="ambient-light ambient-light-two" />
       <div className="ambient-grid" />
