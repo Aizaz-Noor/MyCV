@@ -18,14 +18,14 @@ for (const width of [320, 390, 768, 1440]) {
       await section.scrollIntoViewIfNeeded();
     // Scroll each lazy image into view: tall sections can contain images below
     // the viewport even after the section itself has been visited.
-    for (const image of await page.locator("img").all()) {
+    for (const image of await page.locator('img:not([aria-hidden="true"])').all()) {
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate((img) => img.complete && img.naturalWidth > 0)).toBe(true);
     }
     await expect
       .poll(() =>
         page
-          .locator("img")
+          .locator('img:not([aria-hidden="true"])')
           .evaluateAll((images) =>
             images.every((image) => image.complete && image.naturalWidth > 0),
           ),

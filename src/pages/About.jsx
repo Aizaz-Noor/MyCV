@@ -1,3 +1,4 @@
+import PortraitReveal from "../components/PortraitReveal";
 import GitHubActivity from "../components/GitHubActivity";
 import Reveal from "../components/Reveal";
 export default function About() {
@@ -16,15 +17,7 @@ export default function About() {
       <div className="about-layout">
         <Reveal className="portrait-editorial">
           <figure className="portrait-figure">
-            <div className="portrait-photo">
-              <img
-                src="/about-photo-color-portrait.jpeg"
-                alt={"Portrait of Aizaz Noor"}
-                width="400"
-                height="500"
-                loading="lazy"
-              />
-            </div>
+            <PortraitReveal />
             <figcaption className="portrait-signature">
               <bdi dir="ltr" lang="en">
                 Aizaz Noor

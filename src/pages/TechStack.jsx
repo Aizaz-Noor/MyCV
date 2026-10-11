@@ -1,6 +1,5 @@
 import Reveal from "../components/Reveal";
 import TechIcon from "../components/TechIcon";
-import MotionSurface from "../components/MotionSurface";
 const GROUPS = [
   {
     name: "Interfaces",
@@ -42,7 +41,7 @@ export default function TechStack() {
       <div className="skill-groups">
         {GROUPS.map((group, index) => (
           <Reveal key={group.name} delay={index * 0.06}>
-            <MotionSurface className="skill-group ios-surface">
+            <article className="skill-group ios-surface">
               <div className="skill-group-top">
                 <span>{group.number}</span>
                 <span aria-hidden="true">&lt;/&gt;</span>
@@ -59,7 +58,7 @@ export default function TechStack() {
                   </li>
                 ))}
               </ul>
-            </MotionSurface>
+            </article>
           </Reveal>
         ))}
       </div>

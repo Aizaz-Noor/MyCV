@@ -1,4 +1,3 @@
-import MotionSurface from "../components/MotionSurface";
 import ProjectPreview from "../components/ProjectPreview";
 import Reveal from "../components/Reveal";
 import {
@@ -27,9 +26,9 @@ export default function Projects() {
             className={`featured-project project-${project.id}`}
             key={project.id}
           >
-            <MotionSurface className="project-visual ios-surface">
+            <Reveal className="project-visual ios-surface">
               <ProjectPreview project={project} />
-            </MotionSurface>
+            </Reveal>
             <Reveal className="project-story">
               <div className="project-meta">
                 <span>{project.number}</span>

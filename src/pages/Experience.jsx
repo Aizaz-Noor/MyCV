@@ -1,4 +1,4 @@
-import { FiBriefcase, FiBookOpen, FiArrowUpRight } from "react-icons/fi";
+import { FiBriefcase, FiBookOpen } from "react-icons/fi";
 import Reveal from "../components/Reveal";
 const EXPERIENCE = [
   {
@@ -53,7 +53,6 @@ export default function Experience() {
                       ? "Building in practice"
                       : "Learning the foundations"}
                   </span>
-                  <FiArrowUpRight aria-hidden="true" />
                 </div>
                 <div className="experience-period">{item.period}</div>
                 <div>

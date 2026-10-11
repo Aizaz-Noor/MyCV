@@ -536,3 +536,51 @@
     line-height: 1.25;
   }
 }
+
+/* A local color spotlight. Touch, paused motion and unsupported masks get a
+   normal color portrait; no content or controls depend on pointer movement. */
+.portrait-photo {
+  position: relative;
+  isolation: isolate;
+}
+.portrait-photo .portrait-color {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  user-select: none;
+}
+@supports (mask-image: radial-gradient(circle, black, transparent)) or
+  (-webkit-mask-image: radial-gradient(circle, black, transparent)) {
+  .portrait-photo[data-interactive="true"] .portrait-base {
+    filter: grayscale(1);
+  }
+  .portrait-photo[data-interactive="true"] .portrait-color {
+    mask-image: radial-gradient(
+      circle 110px at var(--reveal-x, 50%) var(--reveal-y, 50%),
+      black 0%,
+      black 45%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      circle 110px at var(--reveal-x, 50%) var(--reveal-y, 50%),
+      black 0%,
+      black 45%,
+      transparent 100%
+    );
+    transition: opacity 180ms var(--ease-out);
+  }
+  .portrait-photo[data-interactive="true"][data-revealing="true"]
+    .portrait-color {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .portrait-photo[data-interactive="true"] .portrait-base {
+    filter: none;
+  }
+  .portrait-photo .portrait-color {
+    display: none;
+    transition: none;
+  }
+}

@@ -2,7 +2,7 @@
 
 The source for [aizaznoorkhuwaja.vercel.app](https://aizaznoorkhuwaja.vercel.app/). This is a static React 19 and Vite portfolio for a software engineering student and freelance developer. It presents selected projects, experience, skills, credentials, and contact options.
 
-The hero automatically animates a 3D sculpture on eligible desktop devices after idle time. Mobile visitors get animated CSS graphics instead. Orbiting brand icons, floating code panels, a technology ribbon, scroll reveals, and pointer tilt provide ongoing motion. A persistent pause control and the operating system's reduced-motion preference stop animations. Graphics pause offscreen and in hidden tabs; content remains usable if WebGL fails. The HTML also contains a readable no-JavaScript fallback with project and contact links.
+The hero automatically animates a 3D sculpture on eligible desktop devices after idle time. Mobile visitors get animated CSS graphics instead. Orbiting brand icons, floating code panels, a technology ribbon, scroll reveals, and a pointer-driven portrait color reveal provide ongoing motion. A persistent pause control and the operating system's reduced-motion preference stop animations. Graphics pause offscreen and in hidden tabs; content remains usable if WebGL fails. The HTML also contains a readable no-JavaScript fallback with project and contact links.
 
 ## Run locally
 
@@ -59,6 +59,8 @@ See [`audit/motion-upgrade.md`](audit/motion-upgrade.md) for the current motion 
 ## Apple/iOS component integration
 
 The floating glass desktop navbar and mobile context menu recover the original design from `d67c57f`. Shared materials live in `src/ios-theme.css` and apply to project previews, experience, toolkit, credentials and contact. NovaWorks and Tandem use actual screenshots with accessible full-size previews. See [`audit/ios-integration.md`](audit/ios-integration.md) for the implementation plan, code examples, validation scope and further recommendations.
+
+See [`audit/portrait-reveal.md`](audit/portrait-reveal.md) for the portrait interaction and removal of unnecessary card tilt and obsolete styles.
 
 See [`audit/section-refinements.md`](audit/section-refinements.md) for the experience timeline, portrait, project-preview, and GitHub contribution updates.
 

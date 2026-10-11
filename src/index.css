@@ -585,34 +585,6 @@ h2 em {
   gap: 96px;
   align-items: start;
 }
-.portrait-frame {
-  position: relative;
-  padding-top: 20px;
-}
-.portrait-frame img {
-  width: 100%;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 5px;
-  filter: saturate(0.75);
-}
-.portrait-frame::before {
-  content: "+";
-  color: var(--accent);
-  position: absolute;
-  top: -12px;
-  left: -20px;
-  font: 28px monospace;
-}
-.portrait-caption {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding-top: 16px;
-  font: 10px/1.6 monospace;
-  color: var(--text-2);
-}
 .about-lead {
   font:
     400 clamp(26px, 3vw, 40px)/1.35 "Manrope",
@@ -972,12 +944,8 @@ h2 em {
   .text-button:hover {
     color: var(--accent);
   }
-  .project-browser {
-    transition: transform 500ms var(--ease-out);
-  }
-  .project-visual:hover .project-browser {
-    transform: translateY(-4px);
-  }
+
+
 }
 .studio-button:active,
 .btn-submit-glass:active {
@@ -1174,11 +1142,6 @@ h2 em {
     grid-template-columns: 1fr;
     gap: 36px;
   }
-  .portrait-frame {
-    max-width: 360px;
-    width: 90%;
-    margin-inline-start: 16px;
-  }
   .about-lead {
     font-size: 31px;
   }
@@ -1249,7 +1212,6 @@ h2 em {
     animation: none !important;
     transition-duration: 0ms !important;
   }
-  .project-visual:hover .project-browser,
   .credential-list a:hover .credential-arrow,
   .studio-button:active,
   .btn-submit-glass:active {
@@ -1796,12 +1758,6 @@ h2 em {
     opacity: 0;
   }
 }
-.motion-surface {
-  transition:
-    transform 250ms var(--ease-out),
-    border-color 200ms ease;
-  transform-style: preserve-3d;
-}
 .skill-group {
   border: 1px solid #818cf829;
   border-radius: 16px;
@@ -1845,30 +1801,10 @@ h2 em {
 .experience-row {
   position: relative;
 }
-.experience-period .status-dot {
-  animation: status-breathe 2.8s ease-in-out infinite alternate;
-}
-@keyframes status-breathe {
-  to {
-    opacity: 0.4;
-    transform: scale(0.8);
-  }
-}
-.portrait-frame img {
-  border: 1px solid #818cf833;
-  box-shadow:
-    20px 20px 0 -1px #818cf806,
-    20px 20px 0 0 #818cf826;
-  border-radius: 14px;
-  filter: saturate(0.9);
-}
 [data-motion="paused"] *,
 [data-motion="paused"] *::before,
 [data-motion="paused"] *::after {
   animation-play-state: paused !important;
-}
-[data-motion="paused"] .motion-surface {
-  transition: none;
 }
 @media (hover: hover) and (pointer: fine) {
   .skill-group:hover {

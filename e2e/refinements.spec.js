@@ -50,7 +50,7 @@ for (const width of [320, 1440])
       ),
     ).toBe(true);
     await expect(page.locator(".journey-card")).toHaveCount(2);
-    await expect(page.locator(".portrait-photo img")).toHaveJSProperty(
+    await expect(page.getByAltText("Portrait of Aizaz Noor", { exact: true })).toHaveJSProperty(
       "naturalWidth",
       800,
     );
