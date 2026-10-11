@@ -165,7 +165,6 @@
 }
 .ios-nav-actions a:active,
 .ios-menu-toggle:active,
-.ios-menu-resume:active,
 .studio-button:active,
 .text-button:active,
 .preview-switch button:active,
@@ -210,8 +209,7 @@
   background: #86c9ad;
 }
 .browser-bar small {
-  font:
-    11px/1.4 var(--font-body);
+  font: 11px/1.4 var(--font-body);
 }
 .project-browser figcaption {
   background: #151d2b;
@@ -419,9 +417,7 @@
   .ios-menu-toggle {
     display: grid;
   }
-  .ios-nav-resume {
-    display: none !important;
-  }
+
   .ios-mobile-menu {
     display: block;
     position: absolute;
@@ -470,18 +466,7 @@
     min-width: 160px;
     font-size: 14px;
   }
-  .ios-menu-resume {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 44px;
-    padding: 10px 16px;
-    border-radius: 14px;
-    margin-top: 14px;
-    background: #ffffff0d;
-    color: #e5e8f0;
-    font-size: 13px;
-  }
+
   .project-visual.ios-surface {
     position: relative;
     top: auto;
@@ -512,7 +497,6 @@
   .credential-list a {
     padding-inline: 16px;
   }
-
 }
 @media (prefers-reduced-transparency: reduce) {
   .ios-nav,
@@ -541,5 +525,53 @@
   .ios-nav,
   .ios-mobile-menu {
     background: #1b2230;
+  }
+}
+
+/* Shared menu and dialog layout retained from the English interface. */
+.ios-menu-socials {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+  padding-top: 8px;
+}
+.ios-menu-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 8px;
+  font-size: 13px;
+}
+.preview-dialog-header h4,
+.resume-modal-header h2 {
+  flex: 1;
+  min-width: 0;
+}
+bdi[lang="en"],
+[lang="en"] .brand-caption,
+h3 bdi[lang="en"],
+h4 bdi[lang="en"] {
+  font-family: var(--font-body);
+}
+.hero-name[lang="en"] {
+  font-family: var(--font-display);
+}
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .ios-desktop-links a {
+    padding-inline: 7px;
+  }
+}
+@media (max-width: 1023px) {
+  .ios-nav-actions .ios-social-link {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .preview-dialog-header,
+  .resume-modal-header {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }

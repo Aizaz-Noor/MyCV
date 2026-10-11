@@ -1,3 +1,5 @@
+> Historical record: the portfolio is now English-only. See [current implementation](english-only.md).
+
 # English–Urdu implementation
 
 ## Viewer experience

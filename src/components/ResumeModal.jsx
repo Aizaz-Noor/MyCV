@@ -1,9 +1,6 @@
-import LanguageToggle from "./LanguageToggle";
-import { useLocale } from "../hooks/useLocale";
 import { useEffect, useRef } from "react";
 
 export default function ResumeModal({ isOpen, onClose }) {
-  const { t } = useLocale();
   const dialogRef = useRef(null);
   const closeRef = useRef(null);
 
@@ -37,14 +34,13 @@ export default function ResumeModal({ isOpen, onClose }) {
     >
       <div className="resume-modal-card">
         <div className="resume-modal-header">
-          <LanguageToggle />
-          <h2 id="resume-dialog-title">{t("Resume")}</h2>
+          <h2 id="resume-dialog-title">{"Resume"}</h2>
           <button
             ref={closeRef}
             type="button"
             className="resume-modal-close"
             onClick={onClose}
-            aria-label={t("Close resume viewer")}
+            aria-label={"Close resume viewer"}
           >
             <svg
               width="20"
@@ -65,7 +61,7 @@ export default function ResumeModal({ isOpen, onClose }) {
         <div className="resume-modal-body">
           <iframe
             src="/resume.pdf"
-            title={t("Aizaz Noor resume PDF")}
+            title={"Aizaz Noor resume PDF"}
             width="100%"
             height="100%"
           />
@@ -76,7 +72,7 @@ export default function ResumeModal({ isOpen, onClose }) {
             download="Aizaz_Noor_Resume.pdf"
             className="btn btn-primary"
           >
-            {t("Download PDF")}
+            {"Download PDF"}
           </a>
         </div>
       </div>

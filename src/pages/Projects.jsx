@@ -1,24 +1,24 @@
-import { useLocale } from "../hooks/useLocale";
 import MotionSurface from "../components/MotionSurface";
 import ProjectPreview from "../components/ProjectPreview";
 import Reveal from "../components/Reveal";
-import { localizedProjects } from "../data/localizedProjects";
+import {
+  featuredProjects as featured,
+  moreProjects as more,
+} from "../data/projects";
 export default function Projects() {
-  const { t } = useLocale();
-  const { featured, more } = localizedProjects(t);
   return (
     <section id="work" className="section-container work-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">{t("01 / Selected work")}</p>
+          <p className="eyebrow">{"01 / Selected work"}</p>
           <h2>
-            {t("Selected")} <em>{t("projects.")}</em>
+            {"Selected"} <em>{"projects."}</em>
           </h2>
         </div>
         <p>
-          {t(
-            "Web applications, desktop software, and the engineering decisions behind them.",
-          )}
+          {
+            "Web applications, desktop software, and the engineering decisions behind them."
+          }
         </p>
       </div>
       <div className="featured-projects">
@@ -52,35 +52,35 @@ export default function Projects() {
               <dl className="case-notes">
                 {project.role && (
                   <div>
-                    <dt>{t("My role")}</dt>
+                    <dt>{"My role"}</dt>
                     <dd>{project.role}</dd>
                   </div>
                 )}
                 <div>
-                  <dt>{t("The problem")}</dt>
+                  <dt>{"The problem"}</dt>
                   <dd>{project.problem}</dd>
                 </div>
                 <div>
-                  <dt>{t("The approach")}</dt>
+                  <dt>{"The approach"}</dt>
                   <dd>{project.approach}</dd>
                 </div>
                 <div>
-                  <dt>{t("The result")}</dt>
+                  <dt>{"The result"}</dt>
                   <dd>{project.outcome}</dd>
                 </div>
               </dl>
               <div className="project-actions">
                 {project.demo && (
                   <a href={project.demo} target="_blank" rel="noreferrer">
-                    {t("Explore demo")} <span aria-hidden="true">↗</span>
+                    {"Explore demo"} <span aria-hidden="true">↗</span>
                   </a>
                 )}
                 <a href={project.repo} target="_blank" rel="noreferrer">
-                  {t("Source code")} <span aria-hidden="true">↗</span>
+                  {"Source code"} <span aria-hidden="true">↗</span>
                 </a>
                 {project.release && (
                   <a href={project.release} target="_blank" rel="noreferrer">
-                    {t("Releases")} <span aria-hidden="true">↗</span>
+                    {"Releases"} <span aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
@@ -89,8 +89,8 @@ export default function Projects() {
         ))}
       </div>
       <div className="more-work-heading">
-        <h3>{t("More explorations")}</h3>
-        <span>{t("Coursework, experiments, and utilities.")}</span>
+        <h3>{"More explorations"}</h3>
+        <span>{"Coursework, experiments, and utilities."}</span>
       </div>
       <div className="project-index">
         {more.map((project, index) => (
@@ -114,18 +114,18 @@ export default function Projects() {
                   href={project.repo}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={t("{name} source code", { name: project.name })}
+                  aria-label={`${project.name} source code`}
                 >
-                  {t("Code ↗")}
+                  {"Code ↗"}
                 </a>
                 {project.demo && (
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noreferrer"
-                    aria-label={t("{name} live demo", { name: project.name })}
+                    aria-label={`${project.name} live demo`}
                   >
-                    {t("Demo ↗")}
+                    {"Demo ↗"}
                   </a>
                 )}
               </div>
@@ -139,7 +139,7 @@ export default function Projects() {
         target="_blank"
         rel="noreferrer"
       >
-        {t("See all repositories on GitHub")} <span aria-hidden="true">↗</span>
+        {"See all repositories on GitHub"} <span aria-hidden="true">↗</span>
       </a>
     </section>
   );

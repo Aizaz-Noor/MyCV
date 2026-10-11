@@ -1,4 +1,3 @@
-import { useLocale } from "./hooks/useLocale";
 import AmbientBackground from "./components/AmbientBackground";
 import { useEffect } from "react";
 import Navbar from "./components/Navbar";
@@ -22,7 +21,6 @@ const SECTIONS = [
   { id: "contact", name: "Contact", Component: Contact },
 ];
 export default function App() {
-  const { t } = useLocale();
   useEffect(() => {
     const id = window.location.hash.slice(1);
     if (!SECTIONS.some((section) => section.id === id) && id !== "profiles")
@@ -35,7 +33,7 @@ export default function App() {
   return (
     <>
       <a href="#main-content" className="skip-link">
-        {t("Skip to content")}
+        {"Skip to content"}
       </a>
       <ScrollProgress />
       <Navbar />
@@ -46,14 +44,8 @@ export default function App() {
             key={section.id}
             fallback={
               <section id={section.id} className="section-container">
-                <p>
-                  {t("{name} is temporarily unavailable.", {
-                    name: t(section.name),
-                  })}
-                </p>
-                <a href="mailto:aizaznoorkhuwaja@gmail.com">
-                  {t("Email Aizaz")}
-                </a>
+                <p>{`${section.name} is temporarily unavailable.`}</p>
+                <a href="mailto:aizaznoorkhuwaja@gmail.com">{"Email Aizaz"}</a>
               </section>
             }
           >

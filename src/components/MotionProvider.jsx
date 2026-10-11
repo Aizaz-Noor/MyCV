@@ -1,10 +1,8 @@
-import { useLocale } from "../hooks/useLocale";
 import { useEffect, useRef, useState } from "react";
 import { FiPause, FiPlay } from "react-icons/fi";
 import { PortfolioMotionContext } from "../context/PortfolioMotionContext";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 export default function MotionProvider({ children }) {
-  const { t } = useLocale();
   const reducedMotion = useReducedMotion();
   const shell = useRef(null);
   const [hidden, setHidden] = useState(() => document.hidden);
@@ -61,7 +59,7 @@ export default function MotionProvider({ children }) {
             ) : (
               <FiPause aria-hidden="true" />
             )}
-            {t(paused ? "Resume animations" : "Pause animations")}
+            {paused ? "Resume animations" : "Pause animations"}
           </button>
         )}
       </div>

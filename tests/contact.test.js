@@ -10,7 +10,7 @@ function form(fields) {
 
 test('contact validation rejects whitespace and malformed email', () => {
   const { errors } = validateContact(form({ name: '  ', email: 'not-an-email', subject: '\n', message: ' ' }));
-  assert.deepEqual(Object.keys(errors), ['name', 'email', 'subject', 'message']);
+  assert.deepEqual(errors, { name: 'Enter your name.', email: 'Enter a valid email address.', subject: 'Enter a subject.', message: 'Enter a message.' });
 });
 
 test('contact validation trims a valid submission and carries the bot check', () => {

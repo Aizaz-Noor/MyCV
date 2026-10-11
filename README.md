@@ -60,12 +60,10 @@ See [`audit/motion-upgrade.md`](audit/motion-upgrade.md) for the current motion 
 
 The floating glass desktop navbar and mobile context menu recover the original design from `d67c57f`. Shared materials live in `src/ios-theme.css` and apply to project previews, experience, toolkit, credentials and contact. NovaWorks and Tandem use actual screenshots with accessible full-size previews. See [`audit/ios-integration.md`](audit/ios-integration.md) for the implementation plan, code examples, validation scope and further recommendations.
 
-## English and Urdu
+## English-only interface
 
-Use the navbar's **اردو / English** control to change language. English is the default; the site remembers an explicit choice. Share `https://aizaznoorkhuwaja.vercel.app/?lang=ur#work` to open Urdu directly at the projects section. The résumé PDF and project screenshots retain their original English contents.
-
-Translations live in `src/locales/en.js` and `src/locales/ur.js`. Update both when editing interface copy. Case studies use stable project IDs. Run `npm.cmd test` and `npm.cmd run test:browser` to check translation coverage, both reading directions, preferences, and state preservation. See [`audit/bilingual-experience.md`](audit/bilingual-experience.md) for implementation and verification details.
+The portfolio is English-only. Resume access is available in the hero, including its PDF viewer and download. Old language query parameters and saved preferences do not change the interface. See [`audit/english-only.md`](audit/english-only.md) for removal details and verification.
 
 ## Typography
 
-English display headings use **Instrument Serif**, paired with **Manrope** for body text and controls, following the public typography styles on princepal.in. Urdu uses **Noto Nastaliq Urdu** with adjusted line heights, form fields, and narrow-screen buttons. All faces are self-hosted with their SIL Open Font Licenses. See [`audit/typography-upgrade.md`](audit/typography-upgrade.md) for font analysis and verification, and [`public/fonts/README.md`](public/fonts/README.md) for sources and checksums.
+English display headings use **Instrument Serif**, paired with **Manrope** for body text and controls, following the public typography styles on princepal.in. All faces are self-hosted with their SIL Open Font Licenses. See [`audit/typography-upgrade.md`](audit/typography-upgrade.md) for font analysis and verification, and [`public/fonts/README.md`](public/fonts/README.md) for sources and checksums.

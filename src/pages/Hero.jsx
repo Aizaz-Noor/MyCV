@@ -1,4 +1,3 @@
-import { useLocale } from "../hooks/useLocale";
 import { lazy, Suspense, useState } from "react";
 import {
   FiArrowDownRight,
@@ -27,7 +26,6 @@ const TICKER = [
   "Git",
 ];
 export default function Hero() {
-  const { t, language } = useLocale();
   const [resumeOpen, setResumeOpen] = useState(false);
   const [ready, setReady] = useState(false);
   const graphicsAllowed = useOptionalGraphics();
@@ -35,14 +33,14 @@ export default function Hero() {
     <section id="home" className="studio-hero section-container kinetic-hero">
       <div className="hero-topline">
         <span>
-          {t("Lahore, Pakistan")} <FiArrowUpRight aria-hidden="true" />
+          {"Lahore, Pakistan"} <FiArrowUpRight aria-hidden="true" />
         </span>
       </div>
       <div className="hero-layout">
         <div className="hero-copy">
           <p className="eyebrow hero-enter">
             <span className="code-bracket">&lt;/&gt;</span>{" "}
-            {t("Web applications & developer tools")}
+            {"Web applications & developer tools"}
           </p>
           <h1 className="hero-name hero-enter" dir="ltr" lang="en">
             Aizaz
@@ -52,31 +50,31 @@ export default function Hero() {
             </span>
           </h1>
           <p className="hero-description hero-enter">
-            {t(
-              "I build web applications and developer tools, from AI-assisted workflows to desktop networking.",
-            )}
+            {
+              "I build web applications and developer tools, from AI-assisted workflows to desktop networking."
+            }
           </p>
           <div className="hero-capabilities hero-enter">
             <span>
-              <FiCode aria-hidden="true" /> {t("Web development")}
+              <FiCode aria-hidden="true" /> {"Web development"}
             </span>
             <span>
-              <FiCpu aria-hidden="true" /> {t("Developer tools")}
+              <FiCpu aria-hidden="true" /> {"Developer tools"}
             </span>
             <span>
-              <FiLayers aria-hidden="true" /> {t("Exploring AIOps")}
+              <FiLayers aria-hidden="true" /> {"Exploring AIOps"}
             </span>
           </div>
           <div className="hero-actions hero-enter">
             <a className="studio-button" href="#work">
-              {t("Explore my work")} <FiArrowDownRight aria-hidden="true" />
+              {"Explore my work"} <FiArrowDownRight aria-hidden="true" />
             </a>
             <button
               className="text-button"
               type="button"
               onClick={() => setResumeOpen(true)}
             >
-              <FiFileText aria-hidden="true" /> {t("View résumé")}{" "}
+              <FiFileText aria-hidden="true" /> {"View résumé"}{" "}
               <FiArrowUpRight aria-hidden="true" />
             </button>
           </div>
@@ -126,7 +124,7 @@ export default function Hero() {
             ))}
           </div>
           <div
-            dir={language === "ur" ? "rtl" : "ltr"}
+            dir="ltr"
             className="code-floating code-floating-top"
             aria-hidden="true"
           >
@@ -136,13 +134,13 @@ export default function Hero() {
               <i />
             </span>
             <span className="code-comment">NovaWorks</span>
-            <strong>{t("Meeting notes to assigned work.")}</strong>
+            <strong>{"Meeting notes to assigned work."}</strong>
             <span className="project-stack-note" dir="ltr" lang="en">
               React / Express / PostgreSQL
             </span>
           </div>
           <div
-            dir={language === "ur" ? "rtl" : "ltr"}
+            dir="ltr"
             className="code-floating code-floating-bottom"
             aria-hidden="true"
           >
@@ -151,7 +149,7 @@ export default function Hero() {
               <strong lang="en" dir="ltr">
                 Tandem
               </strong>
-              <span>{t("Desktop networking / Tauri + Python")}</span>
+              <span>{"Desktop networking / Tauri + Python"}</span>
             </div>
           </div>
         </div>
@@ -161,7 +159,7 @@ export default function Hero() {
         dir="ltr"
         role="region"
         tabIndex={0}
-        aria-label={t("Technologies I work with")}
+        aria-label={"Technologies I work with"}
       >
         <div className="ticker-track" lang="en">
           {[0, 1].map((copy) => (
@@ -185,7 +183,7 @@ export default function Hero() {
         <span className="scroll-mouse" aria-hidden="true">
           <i />
         </span>
-        {t("Scroll to explore")} <FiArrowDownRight aria-hidden="true" />
+        {"Scroll to explore"} <FiArrowDownRight aria-hidden="true" />
       </a>
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </section>

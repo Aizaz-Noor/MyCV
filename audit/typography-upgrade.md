@@ -1,3 +1,5 @@
+> Historical record: the portfolio is now English-only. See [current implementation](english-only.md).
+
 # English and Urdu typography upgrade
 
 ## Reference analysis and selection

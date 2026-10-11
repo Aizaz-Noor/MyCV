@@ -1,4 +1,3 @@
-import { useLocale } from "../hooks/useLocale";
 import Reveal from "../components/Reveal";
 const CERTS = [
   {
@@ -33,7 +32,6 @@ const CERTS = [
   },
 ];
 export default function Certifications() {
-  const { t } = useLocale();
   return (
     <section
       id="certifications"
@@ -41,12 +39,12 @@ export default function Certifications() {
     >
       <div className="section-heading">
         <div>
-          <p className="eyebrow">{t("05 / Credentials & community")}</p>
+          <p className="eyebrow">{"05 / Credentials & community"}</p>
           <h2>
-            {t("Credentials &")} <em>{t("community.")}</em>
+            {"Credentials &"} <em>{"community."}</em>
           </h2>
         </div>
-        <p>{t("Courses, workshops, and university activities.")}</p>
+        <p>{"Courses, workshops, and university activities."}</p>
       </div>
       <Reveal>
         <ul className="credential-list">
@@ -65,10 +63,7 @@ export default function Certifications() {
                 <span className="credential-arrow" aria-hidden="true">
                   ↗
                 </span>
-                <span className="sr-only">
-                  {" "}
-                  {t("(PDF opens in a new tab)")}
-                </span>
+                <span className="sr-only"> {"(PDF opens in a new tab)"}</span>
               </a>
             </li>
           ))}
