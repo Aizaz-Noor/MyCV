@@ -50,3 +50,6 @@ audit/redesign-*.webm
 
 audit/tandem-capture/
 audit/ios-*.png
+
+# Generated LinkedIn launch exports
+launch/exports/
