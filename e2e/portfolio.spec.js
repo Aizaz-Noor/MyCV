@@ -50,12 +50,12 @@ for (const width of [320, 390, 768, 1440]) {
         .click();
       await expect(menu).toHaveAttribute("aria-expanded", "false");
     }
-    await page.getByRole("button", { name: "View résumé" }).click();
+    await page.getByRole("button", { name: "Resume" }).click();
     await expect(page.getByRole("dialog")).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(page.getByRole("dialog")).toHaveCount(0);
     await expect(
-      page.getByRole("button", { name: "View résumé" }),
+      page.getByRole("button", { name: "Resume" }),
     ).toBeFocused();
     await page
       .getByRole("button", { name: "Project details", exact: true })
@@ -97,7 +97,7 @@ test("contact success and provider failure preserve the correct state", async ({
   await expect(page.locator("#message")).toHaveValue(values.message);
   succeed = true;
   await page.getByRole("button", { name: "Send Message", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText("Your message was sent");
+  await expect(page.locator("#contact").getByRole("status")).toContainText("Your message was sent");
   await expect(page.locator("#message")).toHaveValue("");
   await expect(
     page.getByRole("button", { name: "Send another message" }),

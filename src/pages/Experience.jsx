@@ -1,3 +1,4 @@
+import { FiBriefcase, FiBookOpen, FiArrowUpRight } from "react-icons/fi";
 import Reveal from "../components/Reveal";
 const EXPERIENCE = [
   {
@@ -35,30 +36,43 @@ export default function Experience() {
           }
         </p>
       </div>
-      <div className="experience-list">
-        {EXPERIENCE.map((item) => (
-          <Reveal key={item.title}>
-            <article className="experience-row ios-surface">
-              <div className="experience-period">
-                <i className="status-dot" />
-                {item.period}
-              </div>
-              <div>
-                <p className="eyebrow">{item.context}</p>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <div className="tag-list">
-                  {item.tags.map((tag) => (
-                    <span key={tag} dir="ltr" lang="en">
-                      {tag}
-                    </span>
-                  ))}
+      <ol className="experience-list journey-timeline">
+        {EXPERIENCE.map((item, index) => (
+          <li key={item.title}>
+            <Reveal delay={index * 0.07} className="journey-entry">
+              <span className="journey-marker" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <article className="experience-row journey-card">
+                <div className="journey-card-top">
+                  <span className="journey-icon" aria-hidden="true">
+                    {index === 0 ? <FiBriefcase /> : <FiBookOpen />}
+                  </span>
+                  <span className="journey-kind">
+                    {index === 0
+                      ? "Building in practice"
+                      : "Learning the foundations"}
+                  </span>
+                  <FiArrowUpRight aria-hidden="true" />
                 </div>
-              </div>
-            </article>
-          </Reveal>
+                <div className="experience-period">{item.period}</div>
+                <div>
+                  <p className="eyebrow">{item.context}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <div className="tag-list">
+                    {item.tags.map((tag) => (
+                      <span key={tag} dir="ltr" lang="en">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          </li>
         ))}
-      </div>
+      </ol>
     </section>
   );
 }

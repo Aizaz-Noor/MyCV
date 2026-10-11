@@ -1,3 +1,4 @@
+import GitHubActivity from "../components/GitHubActivity";
 import Reveal from "../components/Reveal";
 export default function About() {
   return (
@@ -13,20 +14,27 @@ export default function About() {
         </div>
       </div>
       <div className="about-layout">
-        <Reveal className="portrait-frame">
-          <img
-            src="/about-photo-color-portrait.jpeg"
-            alt={"Portrait of Aizaz Noor"}
-            width="400"
-            height="500"
-            loading="lazy"
-          />
-          <div className="portrait-caption">
-            <bdi dir="ltr" lang="en">
-              Aizaz Noor
-            </bdi>
-            <span>{"Lahore, Pakistan ↗"}</span>
-          </div>
+        <Reveal className="portrait-editorial">
+          <figure className="portrait-figure">
+            <div className="portrait-photo">
+              <img
+                src="/about-photo-color-portrait.jpeg"
+                alt={"Portrait of Aizaz Noor"}
+                width="400"
+                height="500"
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="portrait-signature">
+              <bdi dir="ltr" lang="en">
+                Aizaz Noor
+              </bdi>
+              <span>Student & freelance developer</span>
+            </figcaption>
+          </figure>
+          <p className="portrait-location">
+            <span aria-hidden="true">↗</span> Based in Lahore, Pakistan
+          </p>
         </Reveal>
         <Reveal className="about-story">
           <p className="about-lead">
@@ -74,6 +82,7 @@ export default function About() {
           </div>
         </Reveal>
       </div>
+      <GitHubActivity />
     </section>
   );
 }

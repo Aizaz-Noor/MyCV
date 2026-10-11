@@ -52,7 +52,7 @@ export default function ProjectPreview({ project }) {
             </bdi>{" "}
             / {preview.label}
           </small>
-          <FiMaximize2 />
+          <span className="preview-frame-label">Product preview</span>
         </div>
         <button
           className="preview-enlarge"
@@ -69,6 +69,7 @@ export default function ProjectPreview({ project }) {
             height={preview.height}
             loading="lazy"
           />
+          <span className="preview-zoom"><FiMaximize2 aria-hidden="true" /> View full size</span>
         </button>
         <figcaption>{project.caption}</figcaption>
       </figure>

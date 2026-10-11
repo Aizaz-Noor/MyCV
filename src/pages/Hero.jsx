@@ -74,7 +74,7 @@ export default function Hero() {
               type="button"
               onClick={() => setResumeOpen(true)}
             >
-              <FiFileText aria-hidden="true" /> {"View résumé"}{" "}
+              <FiFileText aria-hidden="true" /> {"Resume"}{" "}
               <FiArrowUpRight aria-hidden="true" />
             </button>
           </div>

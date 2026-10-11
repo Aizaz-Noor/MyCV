@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./fonts.css";
 import "./index.css";
 import "./ios-theme.css";
+import "./refinements.css";
 
 import App from "./App.jsx";
 import MotionProvider from "./components/MotionProvider.jsx";

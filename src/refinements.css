@@ -1,0 +1,538 @@
+/* Editorial project stages: screenshots are the centerpiece, not nested cards. */
+.featured-project {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 36px;
+}
+.project-visual.ios-surface {
+  position: relative;
+  top: auto;
+  padding: 24px 28px 16px;
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 50% 0, #818cf825, transparent 65%), #101320;
+  box-shadow: none;
+  overflow: hidden;
+}
+.project-visual.ios-surface::before {
+  display: none;
+}
+.project-browser {
+  border-radius: 12px;
+  border: 1px solid #ffffff24;
+  box-shadow: 0 20px 48px #0005;
+}
+.browser-bar {
+  background: #191d2b;
+  padding: 12px 16px;
+  min-height: 44px;
+}
+.browser-bar small {
+  font-size: 12px;
+}
+.preview-frame-label {
+  margin-inline-start: auto;
+  font-size: 10px;
+  color: var(--text-2);
+}
+.project-browser .preview-enlarge {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #090d16;
+}
+.project-browser .preview-enlarge img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.project-browser figcaption {
+  background: #121724;
+  padding: 12px 16px;
+  text-align: start;
+}
+.preview-zoom {
+  position: absolute;
+  bottom: 16px;
+  inset-inline-end: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #0a0d16ed;
+  color: #fff;
+  border: 1px solid #ffffff40;
+  font-size: 12px;
+  box-shadow: 0 4px 16px #0004;
+}
+.preview-switch {
+  margin-bottom: 16px;
+}
+.preview-hint {
+  margin-top: 14px;
+  font-size: 11px;
+}
+.project-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 72px;
+  align-items: start;
+}
+.project-story .project-meta {
+  grid-column: 1/-1;
+}
+.project-story h3,
+.project-story .project-subtitle,
+.project-story .project-description,
+.project-story .tag-list {
+  grid-column: 1;
+}
+.project-story .case-notes {
+  grid-column: 2;
+  grid-row: 2 / span 4;
+  margin-top: 0;
+}
+.project-story .project-actions {
+  grid-column: 1/-1;
+  margin-top: 24px;
+}
+/* A connected journey, with compact dates and visible reading order. */
+.journey-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 64px;
+  position: relative;
+  gap: 24px;
+}
+.journey-timeline::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+  background: linear-gradient(var(--accent), #818cf822);
+}
+.journey-entry {
+  position: relative;
+}
+.journey-marker {
+  position: absolute;
+  left: -64px;
+  top: 30px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #818cf860;
+  border-radius: 50%;
+  background: #111524;
+  color: #c2c6ff;
+  font: 12px var(--font-body);
+}
+.experience-row.journey-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px 36px;
+  border: 1px solid #ffffff20;
+  border-radius: 20px;
+  background: linear-gradient(115deg, #22283b8c, #101521d9);
+  box-shadow: inset 0 1px 0 #ffffff0a;
+}
+.journey-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-2);
+}
+.journey-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: #818cf815;
+  border: 1px solid #818cf82b;
+  border-radius: 13px;
+  color: #bbc0ff;
+  font-size: 21px;
+}
+.journey-kind {
+  font-size: 12px;
+  flex: 1;
+}
+.journey-card .experience-period {
+  font: 12px var(--font-body);
+  padding: 0;
+  color: #c6caff;
+}
+.journey-card h3 {
+  font-size: clamp(24px, 2.8vw, 34px);
+  margin-block: 12px;
+}
+.journey-card .eyebrow {
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+}
+.journey-card .tag-list {
+  margin-top: 20px;
+}
+/* Portrait as a personal editorial plate, with natural color and quiet framing. */
+.portrait-editorial {
+  width: 100%;
+  max-width: 410px;
+  position: relative;
+  padding: 8px;
+  margin-inline: auto;
+}
+.portrait-figure {
+  margin: 0;
+  border: 1px solid #ffffff26;
+  padding: 10px;
+  background: linear-gradient(145deg, #ffffff12, #ffffff03);
+  border-radius: 140px 140px 20px 20px;
+  box-shadow: 0 24px 56px #0003;
+}
+.portrait-photo {
+  overflow: hidden;
+  border-radius: 130px 130px 12px 12px;
+  background: #e5e5e5;
+  aspect-ratio: 4/5;
+}
+.portrait-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: none;
+  border: 0;
+  box-shadow: none;
+}
+.portrait-signature {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 14px 12px;
+  color: var(--text-1);
+}
+.portrait-signature bdi {
+  font: 400 34px/1.1 var(--font-display);
+}
+.portrait-signature span {
+  font-size: 11px;
+  color: var(--text-2);
+}
+.portrait-location {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 20px 0;
+  color: var(--text-2);
+  font-size: 12px;
+}
+.portrait-location span {
+  color: var(--accent);
+}
+/* Contribution data is optional; it never blocks the portfolio itself. */
+.github-activity {
+  margin-top: 80px;
+  min-width: 0;
+}
+.activity-panel {
+  padding: 32px;
+  border: 1px solid #ffffff20;
+  background: linear-gradient(120deg, #191e31aa, #0e121ed9);
+  border-radius: 22px;
+  min-width: 0;
+}
+.activity-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+.activity-heading .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 10px;
+}
+.activity-heading h3 {
+  font: 400 clamp(30px, 4vw, 44px)/1.2 var(--font-display);
+  letter-spacing: -0.025em;
+  margin-top: 12px;
+}
+.activity-heading h3 em {
+  color: #bbc0ff;
+}
+.activity-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-1);
+  font-size: 12px;
+  min-height: 44px;
+}
+.activity-body {
+  min-height: 170px;
+  min-width: 0;
+}
+.activity-stats {
+  display: flex;
+  gap: 24px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.activity-stats p {
+  font-size: 12px;
+  color: var(--text-2);
+}
+.activity-stats strong {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-inline-end: 6px;
+}
+.activity-stats > span {
+  margin-inline-start: auto;
+  color: var(--text-2);
+  font-size: 10px;
+}
+.calendar-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 8px;
+  scrollbar-color: #626992 #111522;
+}
+.contribution-calendar {
+  display: block;
+  min-width: 690px;
+  width: 100%;
+  max-height: 180px;
+}
+.contribution-calendar text {
+  fill: #b9c1d3;
+  font: 9px var(--font-body);
+}
+.activity-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--text-2);
+  font-size: 10px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.calendar-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.calendar-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid #ffffff20;
+}
+.activity-message {
+  padding: 28px 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.activity-message button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 1px solid #ffffff30;
+  border-radius: 10px;
+  background: #ffffff0a;
+  color: var(--text-1);
+}
+.activity-details {
+  color: var(--text-2);
+  font-size: 11px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.activity-details summary {
+  cursor: pointer;
+  min-height: 44px;
+  align-content: center;
+}
+.activity-table-wrap {
+  max-height: 260px;
+  overflow: auto;
+}
+.activity-details table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+  font-size: 12px;
+}
+.activity-details th,
+.activity-details td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.activity-details caption {
+  text-align: start;
+  padding-block: 8px;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-motion="running"] .journey-card {
+    transition: transform 250ms var(--ease-out);
+  }
+  [data-motion="running"] .journey-card:hover {
+    transform: translateY(-3px);
+  }
+  [data-motion="running"] .preview-zoom {
+    transition: transform 200ms var(--ease-out);
+  }
+  [data-motion="running"] .preview-enlarge:hover .preview-zoom {
+    transform: translateY(-3px);
+  }
+}
+@media (max-width: 767px) {
+  .project-visual.ios-surface {
+    padding: 14px 12px 12px;
+    border-radius: 20px;
+  }
+  .project-story {
+    display: block;
+  }
+  .project-story .case-notes {
+    margin-top: 28px;
+  }
+  .preview-zoom {
+    bottom: 8px;
+    inset-inline-end: 8px;
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .preview-frame-label {
+    display: none;
+  }
+  .browser-bar {
+    padding: 10px;
+    min-height: 38px;
+  }
+  .browser-bar small {
+    font-size: 10px;
+  }
+  .journey-timeline {
+    padding-left: 32px;
+    gap: 20px;
+  }
+  .journey-timeline::before {
+    left: 9px;
+  }
+  .journey-marker {
+    left: -32px;
+    width: 20px;
+    height: 20px;
+    font-size: 8px;
+    top: 30px;
+  }
+  .experience-row.journey-card {
+    padding: 22px 20px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+  .journey-card h3 {
+    font-size: 24px;
+  }
+  .journey-kind {
+    font-size: 11px;
+  }
+  .portrait-editorial {
+    max-width: 340px;
+    padding: 0;
+  }
+  .activity-panel {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+  .activity-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .activity-stats {
+    gap: 14px;
+  }
+  .activity-stats > span {
+    margin-inline-start: 0;
+    width: 100%;
+    line-height: 1.6;
+  }
+  .github-activity {
+    margin-top: 48px;
+  }
+}
+@media (forced-colors: active) {
+  .journey-card,
+  .activity-panel,
+  .portrait-figure,
+  .journey-marker {
+    border-color: CanvasText;
+  }
+  .contribution-calendar rect {
+    forced-color-adjust: none;
+    stroke: CanvasText;
+    stroke-width: 0.5px;
+  }
+}
+
+.browser-bar > .preview-frame-label {
+  width: auto;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 0;
+  background: transparent;
+}
+@media (min-width: 900px) {
+  .journey-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 56px 0 0;
+    gap: 28px;
+  }
+  .journey-timeline::before {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), #818cf840);
+  }
+  .journey-entry,
+  .experience-row.journey-card {
+    height: 100%;
+  }
+  .journey-marker {
+    top: -56px;
+    left: 0;
+  }
+  .experience-row.journey-card {
+    padding: 28px;
+    gap: 18px;
+  }
+  .journey-card h3 {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+}

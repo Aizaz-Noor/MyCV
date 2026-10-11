@@ -33,7 +33,7 @@ npm audit
 - `src/pages/` contains the portfolio sections. `src/components/` contains shared presentation and effects. `src/services/` holds contact delivery and validation. `src/data/projects.js` contains verified project content.
 - Navigation uses ordinary section links. The résumé viewer uses a native modal dialog; `/resume.pdf` remains downloadable directly.
 - The contact form submits through [Web3Forms](https://docs.web3forms.com/getting-started/api-reference). Its browser access key may be supplied with `VITE_WEB3FORMS_ACCESS_KEY`. The form also includes the current public fallback key. Browser keys are public; configure provider-side restrictions and abuse controls in the provider dashboard. Do not place server secrets in `VITE_` variables.
-- Project content is curated in `src/data/projects.js` from verified GitHub READMEs. No live GitHub or contribution-chart requests are required to render the page.
+- Project content is curated in `src/data/projects.js` from verified GitHub READMEs. The optional contribution calendar below About fetches public GitHub activity when nearby; project content and the rest of the page render independently.
 - `public/projects/` contains verified NovaWorks screenshots and a real Tandem dashboard capture. See `audit/project-image-provenance.json` and `audit/ios-integration.md` for sources and capture details.
 - The site is deployed as static files on Vercel. Vercel project settings and the contact recipient account are managed outside this repository.
 
@@ -59,6 +59,8 @@ See [`audit/motion-upgrade.md`](audit/motion-upgrade.md) for the current motion 
 ## Apple/iOS component integration
 
 The floating glass desktop navbar and mobile context menu recover the original design from `d67c57f`. Shared materials live in `src/ios-theme.css` and apply to project previews, experience, toolkit, credentials and contact. NovaWorks and Tandem use actual screenshots with accessible full-size previews. See [`audit/ios-integration.md`](audit/ios-integration.md) for the implementation plan, code examples, validation scope and further recommendations.
+
+See [`audit/section-refinements.md`](audit/section-refinements.md) for the experience timeline, portrait, project-preview, and GitHub contribution updates.
 
 ## English-only interface
 
