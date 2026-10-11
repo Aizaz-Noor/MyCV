@@ -1,5 +1,8 @@
 /* Portfolio studio: one palette, one type scale, native scrolling. */
 :root {
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-urdu: "Noto Nastaliq Urdu", "Manrope", Tahoma, serif;
   --bg: #0b0d12;
   --surface: #141923;
   --border: #2a3140;
@@ -14,7 +17,7 @@
   --accent-gradient-hover: linear-gradient(135deg, #ffffff 20%, var(--accent));
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-body);
   color: var(--text-1);
   background: var(--bg);
 }
@@ -75,7 +78,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Outfit", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-weight: 500;
   text-wrap: balance;
 }
@@ -133,7 +136,7 @@ main:focus {
 }
 .eyebrow {
   font:
-    500 12px/1.6 "Inter",
+    500 12px/1.6 "Manrope",
     sans-serif;
   letter-spacing: 0.09em;
   color: var(--text-2);
@@ -169,7 +172,7 @@ h2 em {
 }
 .brand-symbol {
   font:
-    600 38px/1 "Outfit",
+    600 38px/1 "Manrope",
     sans-serif;
   letter-spacing: -0.09em;
 }
@@ -613,7 +616,7 @@ h2 em {
 }
 .about-lead {
   font:
-    400 clamp(26px, 3vw, 40px)/1.35 "Outfit",
+    400 clamp(26px, 3vw, 40px)/1.35 "Manrope",
     sans-serif;
   letter-spacing: -0.035em;
   margin-bottom: 26px;
@@ -870,7 +873,7 @@ h2 em {
 }
 .footer-wordmark {
   font:
-    500 clamp(52px, 12vw, 160px)/1 "Outfit",
+    500 clamp(52px, 12vw, 160px)/1 "Manrope",
     sans-serif;
   letter-spacing: -0.055em;
   display: flex;
@@ -2255,3 +2258,14 @@ h2 em {
     -webkit-text-fill-color: CanvasText;
   }
 }
+
+/* Reference-inspired editorial typography, with UI kept in the readable sans. */
+.hero-name[lang="en"], .section-heading h2, .heading-lg, .footer-wordmark, .fatal-error h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+.hero-name[lang="en"] { line-height: 1.02; }
+.hero-name[lang="en"] > span, html[lang="en"] h2 em { font-style: italic; }
+.section-heading h2, .heading-lg { line-height: 1.12; }
+.footer-wordmark { line-height: 1.15; }

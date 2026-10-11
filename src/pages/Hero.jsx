@@ -148,7 +148,9 @@ export default function Hero() {
           >
             <FiCode />
             <div>
-              <strong>Tandem</strong>
+              <strong lang="en" dir="ltr">
+                Tandem
+              </strong>
               <span>{t("Desktop networking / Tauri + Python")}</span>
             </div>
           </div>

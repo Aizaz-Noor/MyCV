@@ -16,7 +16,7 @@ for (const width of [320, 390, 768, 1440]) {
     await page.evaluate(() => document.fonts.ready);
     expect(
       await page.evaluate(() =>
-        document.fonts.check('16px "Noto Naskh Arabic"', "اردو ک ی ڑ ں ے ٹ ڈ"),
+        document.fonts.check('16px "Noto Nastaliq Urdu"', "اردو ک ی ڑ ں ے ٹ ڈ"),
       ),
     ).toBe(true);
     await expect(page.locator("#work h2")).toContainText("منصوبے");
@@ -67,7 +67,8 @@ test("language links, persistence, history, and English-first default", async ({
   await page.emulateMedia({ reducedMotion: "reduce" });
   const fontRequests = [];
   page.on("request", (request) => {
-    if (request.url().includes("noto-naskh")) fontRequests.push(request.url());
+    if (request.url().includes("noto-nastaliq"))
+      fontRequests.push(request.url());
   });
   await page.goto("/?ref=portfolio#work");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
@@ -215,14 +216,17 @@ test("unavailable storage, failed Urdu font, and forced colors retain a usable p
       },
     }),
   );
-  await page.route("**/fonts/noto-naskh-arabic.woff2", (route) =>
-    route.abort(),
-  );
+  let fontBlocked = false;
+  await page.route("**/fonts/noto-nastaliq-urdu.woff2", (route) => {
+    fontBlocked = true;
+    return route.abort();
+  });
   await page.emulateMedia({ reducedMotion: "reduce", forcedColors: "active" });
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/?lang=ur");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect.poll(() => fontBlocked).toBe(true);
   await expect(page.locator("#work h2")).toBeVisible();
   expect(
     await page
@@ -301,4 +305,52 @@ test("section identities and navbar indicator survive locale and font changes", 
       })
       .toBeLessThan(2);
   }
+});
+
+test("self-hosted typography loads the chosen English and Urdu families", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const fonts = [];
+  page.on("request", (request) => {
+    if (request.url().endsWith(".woff2")) fonts.push(request.url());
+  });
+  await page.goto("/?lang=en");
+  const englishFaces = await page.evaluate(async () => {
+    const families = ["Manrope", "Instrument Serif"];
+    return Promise.all(
+      families.map(
+        async (family) =>
+          (await document.fonts.load(`400 24px "${family}"`, "Aizaz Noor"))
+            .length,
+      ),
+    );
+  });
+  expect(englishFaces.every((count) => count > 0)).toBe(true);
+  expect(
+    await page.locator("h1").evaluate((e) => getComputedStyle(e).fontFamily),
+  ).toContain("Instrument Serif");
+  await english(page).click();
+  const loaded = await page.evaluate(
+    async () =>
+      (
+        await document.fonts.load(
+          '400 18px "Noto Nastaliq Urdu"',
+          String.fromCodePoint(0x627, 0x631, 0x62f, 0x648),
+        )
+      ).length,
+  );
+  expect(loaded).toBeGreaterThan(0);
+  expect(
+    await page
+      .locator("#work h2")
+      .evaluate((e) => getComputedStyle(e).fontFamily),
+  ).toContain("Noto Nastaliq Urdu");
+  expect(fonts.length).toBeGreaterThanOrEqual(4);
+  expect(
+    fonts.every((url) => new URL(url).origin === new URL(page.url()).origin),
+  ).toBe(true);
+  await expect(page.locator('link[href*="fonts.googleapis.com"]')).toHaveCount(
+    0,
+  );
 });

@@ -20,11 +20,11 @@ The switch is also available inside résumé and project-image dialogs. On mobil
 
 Document language/direction are initialized before React mounts and updated on every language selection. Urdu uses `lang="ur" dir="rtl"`. Content spacing is logical where appropriate; the navbar selection indicator retains its physical left-based coordinate origin and is remeasured after language/font changes. The ticker, sculpture coordinates, screenshots, logos, and technical names retain their natural orientation. Names and contact addresses use bidi isolation; interpolated names are isolated in Urdu messages.
 
-Noto Naskh Arabic is self-hosted, licensed under the SIL Open Font License, uses `font-display: swap`, and includes Urdu glyphs. Urdu paragraphs use approximately 1.9 line height and normal tracking. English retains its existing fonts. The English page's Urdu switch label uses a system fallback, so the bundled Urdu font is not downloaded until Urdu content needs it. A font-loading failure leaves readable system fallback text. Existing gradient high-contrast fallbacks and reduced-motion behavior are preserved.
+Noto Nastaliq Urdu is self-hosted, licensed under the SIL Open Font License, uses `font-display: swap`, and includes Urdu glyphs. Urdu paragraphs use approximately 2.6 line height and normal tracking. English now uses Instrument Serif for display text and Manrope for interface/body text. See `audit/typography-upgrade.md` for the subsequent font upgrade. The English page's Urdu switch label uses a system fallback, so the bundled Urdu font is not downloaded until Urdu content needs it. A font-loading failure leaves readable system fallback text. Existing gradient high-contrast fallbacks and reduced-motion behavior are preserved.
 
 ## Verification
 
-Local release checks completed on 2026-10-11:
+Initial bilingual release checks completed on 2026-10-11 (before the subsequent typography upgrade documented in `audit/typography-upgrade.md`):
 
 - `npm.cmd run lint`: passed.
 - `npm.cmd test`: 9 passed (contact delivery/validation and locale/catalogue coverage).

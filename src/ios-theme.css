@@ -43,7 +43,7 @@
   backdrop-filter: var(--ios-glass-blur);
   -webkit-backdrop-filter: var(--ios-glass-blur);
   box-shadow: var(--ios-glass-shadow);
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  font-family: var(--font-body);
   transition: border-radius 350ms var(--ease-out);
 }
 .ios-nav::before,
@@ -211,10 +211,7 @@
 }
 .browser-bar small {
   font:
-    11px/1.4 -apple-system,
-    BlinkMacSystemFont,
-    "Inter",
-    sans-serif;
+    11px/1.4 var(--font-body);
 }
 .project-browser figcaption {
   background: #151d2b;

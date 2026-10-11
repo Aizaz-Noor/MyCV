@@ -65,3 +65,7 @@ The floating glass desktop navbar and mobile context menu recover the original d
 Use the navbar's **اردو / English** control to change language. English is the default; the site remembers an explicit choice. Share `https://aizaznoorkhuwaja.vercel.app/?lang=ur#work` to open Urdu directly at the projects section. The résumé PDF and project screenshots retain their original English contents.
 
 Translations live in `src/locales/en.js` and `src/locales/ur.js`. Update both when editing interface copy. Case studies use stable project IDs. Run `npm.cmd test` and `npm.cmd run test:browser` to check translation coverage, both reading directions, preferences, and state preservation. See [`audit/bilingual-experience.md`](audit/bilingual-experience.md) for implementation and verification details.
+
+## Typography
+
+English display headings use **Instrument Serif**, paired with **Manrope** for body text and controls, following the public typography styles on princepal.in. Urdu uses **Noto Nastaliq Urdu** with adjusted line heights, form fields, and narrow-screen buttons. All faces are self-hosted with their SIL Open Font Licenses. See [`audit/typography-upgrade.md`](audit/typography-upgrade.md) for font analysis and verification, and [`public/fonts/README.md`](public/fonts/README.md) for sources and checksums.
