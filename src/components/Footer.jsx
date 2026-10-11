@@ -3,7 +3,6 @@ export default function Footer() {
     <footer className="studio-footer">
       <div className="footer-wordmark">
         {"LET'S BUILD"}
-        <span>↗</span>
       </div>
       <div className="footer-bottom">
         <a
