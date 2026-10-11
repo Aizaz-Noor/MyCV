@@ -1,3 +1,4 @@
+import { useLocale } from "../hooks/useLocale";
 import Reveal from "../components/Reveal";
 const CERTS = [
   {
@@ -32,6 +33,7 @@ const CERTS = [
   },
 ];
 export default function Certifications() {
+  const { t } = useLocale();
   return (
     <section
       id="certifications"
@@ -39,14 +41,12 @@ export default function Certifications() {
     >
       <div className="section-heading">
         <div>
-          <p className="eyebrow">05 / Credentials & community</p>
+          <p className="eyebrow">{t("05 / Credentials & community")}</p>
           <h2>
-            Credentials &amp; <em>community.</em>
+            {t("Credentials &")} <em>{t("community.")}</em>
           </h2>
         </div>
-        <p>
-          Courses, workshops, and university activities.
-        </p>
+        <p>{t("Courses, workshops, and university activities.")}</p>
       </div>
       <Reveal>
         <ul className="credential-list">
@@ -55,13 +55,20 @@ export default function Certifications() {
               <a href={cert.link} target="_blank" rel="noreferrer">
                 <span className="credential-year">{cert.year}</span>
                 <span>
-                  <strong>{cert.title}</strong>
-                  <small>{cert.issuer}</small>
+                  <strong dir="ltr" lang="en">
+                    {cert.title}
+                  </strong>
+                  <small dir="ltr" lang="en">
+                    {cert.issuer}
+                  </small>
                 </span>
                 <span className="credential-arrow" aria-hidden="true">
                   ↗
                 </span>
-                <span className="sr-only"> (PDF opens in a new tab)</span>
+                <span className="sr-only">
+                  {" "}
+                  {t("(PDF opens in a new tab)")}
+                </span>
               </a>
             </li>
           ))}

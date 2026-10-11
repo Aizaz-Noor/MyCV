@@ -383,10 +383,10 @@ h2 em {
 }
 .browser-bar small {
   font-size: 9px;
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 .browser-bar b {
-  margin-left: auto;
+  margin-inline-start: auto;
   font-size: 12px;
 }
 .project-browser img {
@@ -1175,7 +1175,7 @@ h2 em {
   .portrait-frame {
     max-width: 360px;
     width: 90%;
-    margin-left: 16px;
+    margin-inline-start: 16px;
   }
   .about-lead {
     font-size: 31px;
@@ -1234,7 +1234,7 @@ h2 em {
     display: none;
   }
   .footer-bottom > a:last-child {
-    margin-left: auto;
+    margin-inline-start: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {

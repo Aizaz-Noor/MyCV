@@ -1,0 +1,291 @@
+/* Urdu is self-hosted and requested only when Arabic-script text uses this face. */
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/noto-naskh-arabic.woff2") format("woff2");
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF,
+    U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74,
+    U+FE76-FEFC;
+}
+.language-toggle,
+.ios-nav-actions .language-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: auto;
+  min-width: 68px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-1);
+  background: #ffffff0d;
+  font:
+    500 13px/1.4 "Inter",
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+}
+.language-toggle [lang="ur"] {
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 16px;
+}
+.language-toggle:hover {
+  background: #ffffff1a;
+}
+.ios-menu-socials {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+  padding-top: 8px;
+}
+.ios-menu-socials a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 8px;
+  font-size: 13px;
+}
+.preview-dialog-header .language-toggle,
+.resume-modal-header .language-toggle {
+  order: 1;
+}
+.preview-dialog-header > button:last-child,
+.resume-modal-header > button:last-child {
+  order: 2;
+}
+.preview-dialog-header h4,
+.resume-modal-header h2 {
+  flex: 1;
+  min-width: 0;
+}
+bdi[lang="en"],
+[lang="en"] .brand-caption {
+  font-family: "Inter", system-ui, sans-serif;
+}
+.hero-name[lang="en"],
+h3 bdi[lang="en"],
+h4 bdi[lang="en"] {
+  font-family: "Outfit", sans-serif;
+}
+html[lang="ur"] {
+  font-family: "Noto Naskh Arabic", Tahoma, Arial, sans-serif;
+}
+html[lang="ur"]
+  :is(
+    h2,
+    h3,
+    h4,
+    p,
+    dd,
+    dt,
+    small,
+    label,
+    input,
+    textarea,
+    button,
+    .eyebrow,
+    .ios-nav,
+    .portrait-caption,
+    .about-lead,
+    .footer-wordmark
+  ):not([lang="en"]):not(.language-toggle) {
+  font-family: "Noto Naskh Arabic", Tahoma, Arial, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+}
+html[lang="ur"]
+  :is(
+    p,
+    dd,
+    .project-description,
+    .project-subtitle,
+    .about-story > p:not(.about-lead)
+  ) {
+  font-size: 16px;
+  line-height: 1.9;
+}
+html[lang="ur"] :is(.section-heading h2, .heading-lg) {
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+html[lang="ur"] :is(.section-heading h2 em, .g-text) {
+  font-style: normal;
+}
+html[lang="ur"] .eyebrow {
+  font-size: 15px;
+  line-height: 1.8;
+}
+html[lang="ur"] .hero-copy .eyebrow {
+  font-size: 15px;
+}
+html[lang="ur"] .hero-name {
+  text-align: right;
+}
+html[lang="ur"] .hero-description {
+  font-size: 20px;
+  line-height: 1.9;
+}
+html[lang="ur"]
+  :is(
+    .hero-capabilities,
+    .hero-social,
+    .text-button,
+    .studio-button,
+    .project-actions,
+    .row-actions,
+    .profile-links,
+    .all-projects,
+    .preview-switch button,
+    .preview-hint,
+    .form-status,
+    .error-msg,
+    .contact-info-label
+  ) {
+  font-size: 16px;
+  line-height: 1.8;
+}
+html[lang="ur"] .ios-desktop-links a {
+  font-size: 15px;
+}
+html[lang="ur"] .ios-mobile-links a {
+  font-size: 18px;
+}
+html[lang="ur"] .ios-menu-caption {
+  font-size: 16px;
+}
+html[lang="ur"] .ios-nav-brand .brand-caption {
+  font-family: "Inter", system-ui, sans-serif;
+}
+html[lang="ur"] .ios-nav-brand .brand-caption small {
+  font-family: "Noto Naskh Arabic", Tahoma, sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
+html[lang="ur"] .skill-group li {
+  font-family: "Inter", system-ui, sans-serif;
+}
+html[lang="ur"] .about-lead {
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.7;
+}
+html[lang="ur"] .portrait-caption {
+  font-size: 13px;
+  line-height: 1.8;
+}
+html[lang="ur"] .floating-input-group label {
+  left: auto;
+  inset-inline-start: 16px;
+  top: 16px;
+  font-size: 16px;
+  transform-origin: right;
+}
+html[lang="ur"]
+  :is(.floating-input-group input, .floating-input-group textarea) {
+  font-size: 17px;
+  padding-top: 30px;
+}
+html[lang="ur"] .contact-info-text bdi {
+  font-size: 12px;
+}
+html[lang="ur"] .about-principles > div {
+  padding-inline-start: 32px;
+  padding-inline-end: 0;
+}
+html[lang="ur"] .about-principles span {
+  left: auto;
+  inset-inline-start: 0;
+}
+html[lang="ur"] .portrait-frame::before {
+  left: auto;
+  inset-inline-start: -20px;
+}
+html[lang="ur"] .status-dot {
+  margin-right: 0;
+  margin-inline-end: 10px;
+}
+html[lang="ur"] .code-bracket {
+  margin-right: 0;
+  margin-inline-end: 8px;
+}
+html[lang="ur"] .spinner {
+  margin-right: 0;
+  margin-inline-end: 8px;
+}
+html[lang="ur"] .hero-scroll-cue svg {
+  transform: scaleX(-1);
+}
+html[lang="ur"] .hero-actions .studio-button svg {
+  transform: scaleX(-1);
+}
+html[lang="ur"] .code-floating strong {
+  font-family: "Noto Naskh Arabic", Tahoma, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+}
+html[lang="ur"] .code-floating-bottom span {
+  font-family: "Noto Naskh Arabic", Tahoma, sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 28ch;
+}
+html[lang="ur"] .code-floating-top > strong {
+  margin-block: 6px;
+}
+html[lang="ur"] .footer-wordmark {
+  font-size: clamp(42px, 8vw, 110px);
+  line-height: 1.6;
+  letter-spacing: normal;
+}
+html[lang="ur"] .footer-bottom {
+  font-size: 14px;
+}
+html[lang="ur"] .footer-bottom p {
+  font-size: 14px;
+}
+html[lang="ur"] .motion-control {
+  right: auto;
+  inset-inline-end: 24px;
+  font-size: 15px;
+}
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .ios-desktop-links a {
+    padding-inline: 7px;
+  }
+}
+@media (max-width: 1023px) {
+  .ios-nav-actions .ios-social-link {
+    display: none;
+  }
+  html[lang="ur"] .ios-nav-brand .brand-caption small {
+    font-size: 11px;
+  }
+}
+@media (max-width: 767px) {
+  html[lang="ur"] .section-heading h2 {
+    font-size: clamp(36px, 8vw, 52px);
+  }
+  html[lang="ur"] .hero-description {
+    font-size: 18px;
+  }
+  html[lang="ur"] .hero-capabilities {
+    font-size: 14px;
+  }
+  html[lang="ur"] .code-floating strong {
+    font-size: 15px;
+  }
+  html[lang="ur"] .motion-control {
+    inset-inline-end: 14px;
+  }
+  .preview-dialog-header,
+  .resume-modal-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

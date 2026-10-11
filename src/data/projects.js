@@ -67,6 +67,7 @@ export const featuredProjects = [
 ];
 export const moreProjects = [
   {
+    id: "habit-tracker",
     name: "Weekly Habit Tracker",
     category: "Web / personal productivity",
     description:
@@ -76,6 +77,7 @@ export const moreProjects = [
     demo: "https://habit-tracker-beryl-chi.vercel.app",
   },
   {
+    id: "ank-cinema",
     name: "ANK-CINEMA",
     category: "CLI / developer tooling",
     description:
@@ -84,6 +86,7 @@ export const moreProjects = [
     repo: "https://github.com/Aizaz-Noor/ANK-CINEMA",
   },
   {
+    id: "newtons-glitch",
     name: "Newton's Glitch",
     category: "Game / simulation",
     description:
@@ -92,6 +95,7 @@ export const moreProjects = [
     repo: "https://github.com/Aizaz-Noor/Newtons-Glitch",
   },
   {
+    id: "hostel-kharcha",
     name: "Hostel Kharcha Manager",
     category: "CLI / shared expenses",
     description:

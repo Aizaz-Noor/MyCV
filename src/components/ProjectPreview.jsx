@@ -1,6 +1,9 @@
+import LanguageToggle from "./LanguageToggle";
+import { useLocale } from "../hooks/useLocale";
 import { useEffect, useId, useRef, useState } from "react";
 import { FiMaximize2, FiX } from "react-icons/fi";
 export default function ProjectPreview({ project }) {
+  const { t } = useLocale();
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const preview = project.previews[index];
@@ -27,7 +30,7 @@ export default function ProjectPreview({ project }) {
         <div
           className="preview-switch"
           role="group"
-          aria-label={`${project.name} interface preview`}
+          aria-label={t("{name} interface preview", { name: project.name })}
         >
           {project.previews.map((view, viewIndex) => (
             <button
@@ -47,14 +50,20 @@ export default function ProjectPreview({ project }) {
           <span />
           <span />
           <small>
-            {project.name} / {preview.label}
+            <bdi dir="ltr" lang="en">
+              {project.name}
+            </bdi>{" "}
+            / {preview.label}
           </small>
           <FiMaximize2 />
         </div>
         <button
           className="preview-enlarge"
           type="button"
-          aria-label={`Enlarge ${project.name} ${preview.label} screenshot`}
+          aria-label={t("Enlarge {name} {label} screenshot", {
+            name: project.name,
+            label: preview.label,
+          })}
           onClick={() => setExpanded(true)}
           style={{ "--preview-ratio": `${preview.width} / ${preview.height}` }}
         >
@@ -70,7 +79,7 @@ export default function ProjectPreview({ project }) {
         <figcaption>{project.caption}</figcaption>
       </figure>
       <p className="preview-hint">
-        <span>Select the image to explore the details.</span>
+        <span>{t("Select the image to explore the details.")}</span>
         <FiMaximize2 aria-hidden="true" />
       </p>
       {expanded && (
@@ -87,13 +96,17 @@ export default function ProjectPreview({ project }) {
           }}
         >
           <div className="preview-dialog-header">
+            <LanguageToggle />
             <h4 id={titleId}>
-              {project.name} / {preview.label}
+              <bdi dir="ltr" lang="en">
+                {project.name}
+              </bdi>{" "}
+              / {preview.label}
             </h4>
             <button
               ref={close}
               type="button"
-              aria-label="Close project screenshot"
+              aria-label={t("Close project screenshot")}
               onClick={() => setExpanded(false)}
             >
               <FiX aria-hidden="true" />

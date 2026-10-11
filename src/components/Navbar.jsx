@@ -1,3 +1,5 @@
+import LanguageToggle from "./LanguageToggle";
+import { useLocale } from "../hooks/useLocale";
 import { useEffect, useRef, useState } from "react";
 import {
   FiGithub,
@@ -21,6 +23,7 @@ const LINKS = [
 ];
 const IDS = LINKS.map((link) => link.id);
 export default function Navbar() {
+  const { t, language } = useLocale();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(() => window.scrollY > 20);
   const [hovered, setHovered] = useState(null);
@@ -92,7 +95,7 @@ export default function Navbar() {
       disposed = true;
       observer.disconnect();
     };
-  }, [active, hovered, open]);
+  }, [active, hovered, open, language]);
 
   const navigate = (id) => {
     setOpen(false);
@@ -114,7 +117,7 @@ export default function Navbar() {
         onFocus={() => setHovered(link.id)}
         onBlur={() => setHovered(null)}
       >
-        {link.label}
+        {t(link.label)}
       </a>
     ));
   return (
@@ -131,7 +134,7 @@ export default function Navbar() {
         <nav
           ref={nav}
           className="ios-nav"
-          aria-label="Main navigation"
+          aria-label={t("Main navigation")}
           data-ui-motion={enabled ? "running" : "paused"}
           onBlur={(event) => {
             if (
@@ -143,8 +146,9 @@ export default function Navbar() {
         >
           <a
             className="ios-nav-brand"
+            dir="ltr"
             href="#home"
-            aria-label="Aizaz Noor home"
+            aria-label={t("Aizaz Noor home")}
             onClick={() => navigate("home")}
           >
             <span className="brand-symbol" aria-hidden="true">
@@ -152,7 +156,9 @@ export default function Navbar() {
             </span>
             <span className="brand-caption">
               Aizaz Noor
-              <small>Developer / Lahore</small>
+              <small lang={language} dir="auto">
+                {t("Developer / Lahore")}
+              </small>
             </span>
           </a>
           <div className="ios-desktop-links" ref={desktop}>
@@ -164,19 +170,22 @@ export default function Navbar() {
             {links()}
           </div>
           <div className="ios-nav-actions">
+            <LanguageToggle />
             <a
+              className="ios-social-link"
               href="https://github.com/Aizaz-Noor"
               target="_blank"
               rel="noreferrer"
-              aria-label="GitHub profile"
+              aria-label={t("GitHub profile")}
             >
               <FiGithub aria-hidden="true" />
             </a>
             <a
+              className="ios-social-link"
               href="https://linkedin.com/in/aizaz-noor"
               target="_blank"
               rel="noreferrer"
-              aria-label="LinkedIn profile"
+              aria-label={t("LinkedIn profile")}
             >
               <FiLinkedin aria-hidden="true" />
             </a>
@@ -185,7 +194,7 @@ export default function Navbar() {
               href="/resume.pdf"
               target="_blank"
               rel="noreferrer"
-              aria-label="Open résumé PDF"
+              aria-label={t("Open résumé PDF")}
             >
               <FiFileText aria-hidden="true" />
             </a>
@@ -193,7 +202,7 @@ export default function Navbar() {
               ref={trigger}
               className="ios-menu-toggle"
               type="button"
-              aria-label="Menu"
+              aria-label={t("Menu")}
               aria-expanded={open}
               aria-controls="navigation-links"
               onClick={() => setOpen((value) => !value)}
@@ -210,7 +219,7 @@ export default function Navbar() {
             id="navigation-links"
             inert={!open}
           >
-            <p className="ios-menu-caption">Explore my portfolio</p>
+            <p className="ios-menu-caption">{t("Explore my portfolio")}</p>
             <div className="ios-mobile-links" ref={mobile}>
               <span
                 className="ios-selection-pill"
@@ -226,8 +235,32 @@ export default function Navbar() {
               rel="noreferrer"
               onClick={() => setOpen(false)}
             >
-              View résumé <FiArrowUpRight aria-hidden="true" />
+              {t("View résumé")} <FiArrowUpRight aria-hidden="true" />
             </a>
+            <div className="ios-menu-socials">
+              <a
+                href="https://github.com/Aizaz-Noor"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t("GitHub profile")}
+              >
+                <FiGithub aria-hidden="true" />{" "}
+                <bdi dir="ltr" lang="en">
+                  GitHub
+                </bdi>
+              </a>
+              <a
+                href="https://linkedin.com/in/aizaz-noor"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t("LinkedIn profile")}
+              >
+                <FiLinkedin aria-hidden="true" />{" "}
+                <bdi dir="ltr" lang="en">
+                  LinkedIn
+                </bdi>
+              </a>
+            </div>
           </div>
         </nav>
       </header>

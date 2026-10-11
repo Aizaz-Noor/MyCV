@@ -9,11 +9,11 @@ export function validateContact(formData) {
     botcheck: Boolean(formData.get('botcheck')),
   };
   const errors = {};
-  if (!values.name) errors.name = 'Enter your name.';
-  if (!values.email) errors.email = 'Enter your email.';
-  else if (!EMAIL_PATTERN.test(values.email)) errors.email = 'Enter a valid email address.';
-  if (!values.subject) errors.subject = 'Enter a subject.';
-  if (!values.message) errors.message = 'Enter a message.';
+  if (!values.name) errors.name = 'contact.errors.nameRequired';
+  if (!values.email) errors.email = 'contact.errors.emailRequired';
+  else if (!EMAIL_PATTERN.test(values.email)) errors.email = 'contact.errors.emailInvalid';
+  if (!values.subject) errors.subject = 'contact.errors.subjectRequired';
+  if (!values.message) errors.message = 'contact.errors.messageRequired';
   return { values, errors };
 }
 

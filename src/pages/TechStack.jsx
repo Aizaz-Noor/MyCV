@@ -1,3 +1,4 @@
+import { useLocale } from "../hooks/useLocale";
 import Reveal from "../components/Reveal";
 import TechIcon from "../components/TechIcon";
 import MotionSurface from "../components/MotionSurface";
@@ -22,19 +23,22 @@ const GROUPS = [
   },
 ];
 export default function TechStack() {
+  const { t } = useLocale();
   return (
     <section id="techstack" className="section-container skills-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">04 / My development toolkit</p>
+          <p className="eyebrow">{t("04 / My development toolkit")}</p>
           <h2>
-            My development
+            {t("My development")}
             <br />
-            <em>toolkit.</em>
+            <em>{t("toolkit.")}</em>
           </h2>
         </div>
         <p>
-          Languages, frameworks, and tools I use across coursework, freelance work, and personal projects.
+          {t(
+            "Languages, frameworks, and tools I use across coursework, freelance work, and personal projects.",
+          )}
         </p>
       </div>
       <div className="skill-groups">
@@ -45,13 +49,15 @@ export default function TechStack() {
                 <span>{group.number}</span>
                 <span aria-hidden="true">&lt;/&gt;</span>
               </div>
-              <h3>{group.name}</h3>
-              <p>{group.description}</p>
+              <h3>{t(group.name)}</h3>
+              <p>{t(group.description)}</p>
               <ul>
                 {group.tools.map((tool) => (
                   <li key={tool}>
                     <TechIcon name={tool} size={26} />
-                    <span>{tool}</span>
+                    <bdi dir="ltr" lang="en">
+                      {tool}
+                    </bdi>
                   </li>
                 ))}
               </ul>

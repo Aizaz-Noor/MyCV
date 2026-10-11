@@ -1,3 +1,4 @@
+import { useLocale } from "../hooks/useLocale";
 import React, { useEffect, useRef, useState } from "react";
 import { sendContact, validateContact } from "../services/contact";
 
@@ -6,6 +7,7 @@ const ACCESS_KEY =
   "e7f3a8dd-fb55-4527-9641-6b23afd91138";
 
 export default function Contact() {
+  const { t } = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -51,8 +53,8 @@ export default function Contact() {
     } catch (error) {
       setSubmitError(
         error.name === "AbortError"
-          ? "The request timed out. Please try again or email me directly."
-          : "The message could not be delivered. Please try again or email me directly.",
+          ? "contact.errors.timeout"
+          : "contact.errors.delivery",
       );
     } finally {
       setIsSubmitting(false);
@@ -63,23 +65,22 @@ export default function Contact() {
       <div className="section-content">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">06 / Start a conversation</p>
+            <p className="eyebrow">{t("06 / Start a conversation")}</p>
             <h2 className="heading-lg accent-underline">
-              Let's build
+              {t("Let's build")}
               <br />
-              <span className="g-text">something useful.</span>
+              <span className="g-text">{t("something useful.")}</span>
             </h2>
           </div>
           <p className="text-body contact-intro">
-            Have a project in mind, an internship opportunity, or a technical
-            challenge? I'd like to hear about it.
+            {t(
+              "Have a project in mind, an internship opportunity, or a technical challenge? I'd like to hear about it.",
+            )}
           </p>
         </div>
         <div className="contact-unified-card ios-surface">
           <div className="contact-details">
-            <a
-              href="mailto:aizaznoorkhuwaja@gmail.com"
-            >
+            <a href="mailto:aizaznoorkhuwaja@gmail.com">
               <div className="contact-info-item">
                 <div className="contact-info-icon-wrapper">
                   <svg
@@ -98,11 +99,11 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-info-copy">
-                  <span className="contact-info-label">
-                    Email
-                  </span>
+                  <span className="contact-info-label">{t("Email")}</span>
                   <span className="text-link contact-info-text">
-                    aizaznoorkhuwaja@gmail.com
+                    <bdi dir="ltr" lang="en">
+                      aizaznoorkhuwaja@gmail.com
+                    </bdi>
                   </span>
                 </div>
               </div>
@@ -130,10 +131,10 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-info-copy">
-                  <span className="contact-info-label">
-                    Location
+                  <span className="contact-info-label">{t("Location")}</span>
+                  <span className="contact-info-text">
+                    {t("Lahore, Pakistan")}
                   </span>
-                  <span className="contact-info-text">Lahore, Pakistan</span>
                 </div>
               </div>
             </a>
@@ -161,11 +162,11 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-info-copy">
-                  <span className="contact-info-label">
-                    LinkedIn
-                  </span>
+                  <span className="contact-info-label">LinkedIn</span>
                   <span className="text-link contact-info-text">
-                    linkedin.com/in/aizaz-noor
+                    <bdi dir="ltr" lang="en">
+                      linkedin.com/in/aizaz-noor
+                    </bdi>
                   </span>
                 </div>
               </div>
@@ -194,6 +195,7 @@ export default function Contact() {
                   >
                     <input
                       type="text"
+                      dir="auto"
                       id="name"
                       name="name"
                       autoComplete="name"
@@ -204,11 +206,11 @@ export default function Contact() {
                       aria-invalid={Boolean(errors.name)}
                       aria-describedby={errors.name ? "name-error" : undefined}
                     />
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">{t("Name")}</label>
                   </div>
                   {errors.name && (
                     <span id="name-error" className="error-msg">
-                      {errors.name}
+                      {t(errors.name)}
                     </span>
                   )}
                 </div>
@@ -219,6 +221,7 @@ export default function Contact() {
                   >
                     <input
                       type="email"
+                      dir="ltr"
                       id="email"
                       name="email"
                       autoComplete="email"
@@ -231,11 +234,11 @@ export default function Contact() {
                         errors.email ? "email-error" : undefined
                       }
                     />
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">{t("Email")}</label>
                   </div>
                   {errors.email && (
                     <span id="email-error" className="error-msg">
-                      {errors.email}
+                      {t(errors.email)}
                     </span>
                   )}
                 </div>
@@ -247,6 +250,7 @@ export default function Contact() {
                 >
                   <input
                     type="text"
+                    dir="auto"
                     id="subject"
                     name="subject"
                     placeholder=" "
@@ -258,11 +262,11 @@ export default function Contact() {
                       errors.subject ? "subject-error" : undefined
                     }
                   />
-                  <label htmlFor="subject">Subject</label>
+                  <label htmlFor="subject">{t("Subject")}</label>
                 </div>
                 {errors.subject && (
                   <span id="subject-error" className="error-msg">
-                    {errors.subject}
+                    {t(errors.subject)}
                   </span>
                 )}
               </div>
@@ -272,6 +276,7 @@ export default function Contact() {
                   className={`floating-input-group ${errors.message ? "error" : ""}`}
                 >
                   <textarea
+                    dir="auto"
                     id="message"
                     name="message"
                     placeholder=" "
@@ -283,24 +288,24 @@ export default function Contact() {
                       errors.message ? "message-error" : undefined
                     }
                   ></textarea>
-                  <label htmlFor="message">Message</label>
+                  <label htmlFor="message">{t("Message")}</label>
                 </div>
                 {errors.message && (
                   <span id="message-error" className="error-msg">
-                    {errors.message}
+                    {t(errors.message)}
                   </span>
                 )}
               </div>
 
               {Object.keys(errors).length > 0 && (
                 <p role="alert" className="form-status">
-                  Please correct the highlighted fields.
+                  {t("Please correct the highlighted fields.")}
                 </p>
               )}
 
               {submitError && (
                 <div role="alert" className="contact-provider-error">
-                  {submitError}
+                  {t(submitError)}
                 </div>
               )}
 
@@ -327,17 +332,17 @@ export default function Contact() {
                         strokeLinecap="round"
                       />
                     </svg>
-                    Sending...
+                    {t("Sending...")}
                   </>
                 ) : isSuccess ? (
-                  "Send another message"
+                  t("Send another message")
                 ) : (
-                  "Send Message"
+                  t("Send Message")
                 )}
               </button>
               {isSuccess && (
                 <p role="status" className="form-status">
-                  Your message was sent. Thank you.
+                  {t("Your message was sent. Thank you.")}
                 </p>
               )}
             </form>

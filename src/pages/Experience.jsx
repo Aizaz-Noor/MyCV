@@ -1,3 +1,4 @@
+import { useLocale } from "../hooks/useLocale";
 import Reveal from "../components/Reveal";
 const EXPERIENCE = [
   {
@@ -18,19 +19,22 @@ const EXPERIENCE = [
   },
 ];
 export default function Experience() {
+  const { t } = useLocale();
   return (
     <section id="experience" className="section-container experience-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">02 / Experience & education</p>
+          <p className="eyebrow">{t("02 / Experience & education")}</p>
           <h2>
-            Experience &amp;
+            {t("Experience &")}
             <br />
-            <em>education.</em>
+            <em>{t("education.")}</em>
           </h2>
         </div>
         <p>
-          Freelance development alongside my software engineering degree at COMSATS Lahore.
+          {t(
+            "Freelance development alongside my software engineering degree at COMSATS Lahore.",
+          )}
         </p>
       </div>
       <div className="experience-list">
@@ -39,15 +43,17 @@ export default function Experience() {
             <article className="experience-row ios-surface">
               <div className="experience-period">
                 <i className="status-dot" />
-                {item.period}
+                {t(item.period)}
               </div>
               <div>
-                <p className="eyebrow">{item.context}</p>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <p className="eyebrow">{t(item.context)}</p>
+                <h3>{t(item.title)}</h3>
+                <p>{t(item.description)}</p>
                 <div className="tag-list">
                   {item.tags.map((tag) => (
-                    <span key={tag}>{tag}</span>
+                    <span key={tag} dir="ltr" lang="en">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
