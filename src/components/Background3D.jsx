@@ -37,7 +37,7 @@ function Sculpture({ lowPower }) {
     <>
       <group ref={sculpture} rotation={[0.4, 0.2, 0.3]}>
         <mesh>
-          <torusKnotGeometry args={[1.28, 0.36, lowPower ? 96 : 128, lowPower ? 16 : 20, 2, 3]} />
+          <torusKnotGeometry args={[1.28, 0.36, lowPower ? 96 : 180, lowPower ? 16 : 28, 2, 3]} />
           <meshStandardMaterial
             color="#818cf8"
             metalness={0.75}
@@ -47,7 +47,7 @@ function Sculpture({ lowPower }) {
           />
         </mesh>
         <mesh scale={1.015}>
-          <torusKnotGeometry args={[1.28, 0.36, 80, 8, 2, 3]} />
+          <torusKnotGeometry args={[1.28, 0.36, lowPower ? 80 : 100, lowPower ? 8 : 12, 2, 3]} />
           <meshBasicMaterial
             color="#f1f5f9"
             wireframe
@@ -101,7 +101,7 @@ export default function Background3D({ onReady }) {
   return (
     <div ref={ref} className="sculpture-canvas">
       <Canvas
-        dpr={lowPower ? 1 : [1, 1.25]}
+        dpr={lowPower ? 1 : [1, 1.5]}
         camera={{ position: [0, 0, 6.7], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: "default" }}
         frameloop={visible && enabled ? "always" : "demand"}

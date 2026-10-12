@@ -10,9 +10,9 @@ The résumé is `public/resume.pdf`; contact configuration is described in the r
 
 ## Motion and performance
 
-The shared motion context manages the persistent pause preference. Reduced motion, touch input, and unsupported masking receive appropriate portrait fallbacks. Pointer animation avoids React state updates on every move.
+The shared motion context manages the persistent pause preference. Its control is portalled to the document body to avoid ancestor clipping on long Safari pages, stays above safe-area insets, and remains visible as an explanatory reduced-motion indicator when device settings disable animation. Reduced motion, touch input, and unsupported masking receive appropriate portrait fallbacks. Pointer animation avoids React state updates on every move.
 
-Desktop WebGL is dynamically imported after startup when the artwork is visible and the browser is idle. Mobile, reduced-motion, Save-Data, and constrained connections skip it. Graphics suspend offscreen and in hidden tabs. Mobile uses lighter CSS artwork and reduced glass blur. GitHub's detailed calendar rows mount only when expanded.
+Desktop WebGL is dynamically imported after startup when the artwork is visible and the browser is idle. Mobile, reduced-motion, Save-Data, and constrained connections skip it. Graphics suspend offscreen and in hidden tabs. Mobile retains the original glass depth, animated ambient lights, all 16 particles, and CSS sculpture. Standard desktops use the original 180×28 sculpture surface and 1.5 maximum pixel density; constrained desktops retain a lighter tier. GitHub's detailed calendar rows mount only when expanded.
 
 The HTML startup mark has a three-second fail-safe that reveals readable fallback content if application startup fails. Deep links skip the deliberate introduction delay.
 
@@ -27,6 +27,15 @@ $env:PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH = 'C:/Program Files/Google/Chrome/Appli
 npm.cmd run test:browser
 ```
 
-Automated accessibility checks and Chromium emulation supplement manual testing. Check keyboard navigation, focus restoration, 200% text zoom, high contrast, reduced motion, and a physical phone before significant visual releases. Mocked contact tests do not prove external message delivery.
+For the focused touch-enabled WebKit checks (Safari engine):
+
+```powershell
+npx.cmd playwright install webkit
+$env:PLAYWRIGHT_BROWSER = 'webkit'
+npx.cmd playwright test e2e/mobile-motion.spec.js --reporter=list --output=test-results/webkit
+Remove-Item Env:PLAYWRIGHT_BROWSER
+```
+
+CI runs both the complete Chromium suite and focused mobile WebKit checks. Automated accessibility checks and browser emulation supplement manual testing. Check keyboard navigation, focus restoration, 200% text zoom, high contrast, reduced motion, and a physical phone before significant visual releases. Mocked contact tests do not prove external message delivery.
 
 Generated reports, local research, and social publishing materials are intentionally excluded from Git. Current screenshot attribution remains in `docs/project-image-provenance.json`.

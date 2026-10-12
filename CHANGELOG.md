@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Restore mobile ambient movement, full glass depth, and standard desktop sculpture detail while retaining deferred loading and the constrained-device graphics tier.
+- Keep the motion control outside the page clipping container, respect phone safe areas, and show an explanation when device reduced-motion settings are active.
+- Add touch-enabled mobile regressions in Chromium and WebKit, including saved pause state and footer reachability.
+
 ## 1.0.0 — First public release · 2026-10-12
 
 - Introduces Aizaz Noor's background, selected projects, experience, toolkit, and credentials.

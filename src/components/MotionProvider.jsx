@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { FiPause, FiPlay } from "react-icons/fi";
 import { PortfolioMotionContext } from "../context/PortfolioMotionContext";
 import { useReducedMotion } from "../hooks/useReducedMotion";
@@ -47,22 +48,22 @@ export default function MotionProvider({ children }) {
         data-motion={enabled ? "running" : "paused"}
       >
         {children}
-        {!reducedMotion && (
-          <button
-            type="button"
-            className="motion-control"
-            aria-pressed={paused}
-            onClick={() => setPaused((value) => !value)}
-          >
-            {paused ? (
-              <FiPlay aria-hidden="true" />
-            ) : (
-              <FiPause aria-hidden="true" />
-            )}
-            {paused ? "Resume animations" : "Pause animations"}
-          </button>
-        )}
       </div>
+      {createPortal(
+        <button
+          type="button"
+          className="motion-control"
+          aria-pressed={paused || reducedMotion}
+          aria-label={reducedMotion ? "Animations off: device reduced-motion setting" : undefined}
+          title={reducedMotion ? "Your device requests reduced motion. Change this in your device accessibility settings." : undefined}
+          disabled={reducedMotion}
+          onClick={() => setPaused((value) => !value)}
+        >
+          {paused && !reducedMotion ? <FiPlay aria-hidden="true" /> : <FiPause aria-hidden="true" />}
+          {reducedMotion ? "Reduced motion" : paused ? "Resume animations" : "Pause animations"}
+        </button>,
+        document.body,
+      )}
     </PortfolioMotionContext.Provider>
   );
 }
