@@ -1,4 +1,4 @@
-# Aizaz Noor — Portfolio
+# Aizaz Noor Portfolio
 
 **First public release · 1.0.0**
 
