@@ -6,7 +6,7 @@ export default function About() {
     <section id="about" className="section-container about-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">{"03 / The person behind the code"}</p>
+          <p className="eyebrow">{"01 / The person behind the code"}</p>
           <h2>
             {"A little"}
             <br />
@@ -76,6 +76,10 @@ export default function About() {
         </Reveal>
       </div>
       <GitHubActivity />
+      <a className="story-next" href="#work">
+        <span>Next / Selected projects</span>
+        See how I put that into practice.
+      </a>
     </section>
   );
 }

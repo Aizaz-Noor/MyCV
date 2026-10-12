@@ -3,7 +3,7 @@
 - **Instrument Serif** regular and italic, Latin subsets, Google Fonts v5. License: `OFL-instrumentserif.txt`. Official source: https://github.com/google/fonts/tree/main/ofl/instrumentserif
 - **Manrope** variable 400-800, Latin subset, Google Fonts v20. License: `OFL-manrope.txt`. Official source: https://github.com/google/fonts/tree/main/ofl/manrope
 
-Both families use SIL Open Font License 1.1. Faces use `font-display: swap` and Unicode ranges in `src/fonts.css`. Files are served locally; no Google Fonts stylesheet or font service is called at runtime.
+Both families use SIL Open Font License 1.1. Faces use `font-display: swap` and Unicode ranges in `src/fonts.css` (Instrument Serif) and critical `index.html` styles (Manrope for the startup logo). Files are served locally; no Google Fonts stylesheet or font service is called at runtime.
 
 ### instrument-serif-italic.woff2
 

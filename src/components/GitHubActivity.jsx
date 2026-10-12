@@ -6,19 +6,20 @@ import {
   parseContributions,
 } from "../services/contributions";
 const COLORS = ["#242b40", "#454b79", "#646ac0", "#8b91ef", "#bcc0ff"];
-const dateLabel = (date) =>
-  new Date(`${date}T00:00:00Z`).toLocaleDateString("en", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+const dateLabel = (date) => dateFormatter.format(new Date(`${date}T00:00:00Z`));
 export default function GitHubActivity() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(
     () => !("IntersectionObserver" in window),
   );
   const [attempt, setAttempt] = useState(0);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [state, setState] = useState({ status: "loading", days: [] });
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
@@ -207,9 +208,9 @@ export default function GitHubActivity() {
                     More
                   </span>
                 </div>
-                <details className="activity-details">
+                <details className="activity-details" onToggle={(event) => setDetailsOpen(event.currentTarget.open)}>
                   <summary>View daily contribution details</summary>
-                  <div
+                  {detailsOpen && <div
                     className="activity-table-wrap"
                     tabIndex={0}
                     role="region"
@@ -234,7 +235,7 @@ export default function GitHubActivity() {
                         ))}
                       </tbody>
                     </table>
-                  </div>
+                  </div>}
                 </details>
               </>
             )}

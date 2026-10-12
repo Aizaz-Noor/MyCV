@@ -9,14 +9,14 @@ export default function Projects() {
     <section id="work" className="section-container work-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">{"01 / Selected work"}</p>
+          <p className="eyebrow">{"02 / Ideas turned into software"}</p>
           <h2>
             {"Selected"} <em>{"projects."}</em>
           </h2>
         </div>
         <p>
           {
-            "Web applications, desktop software, and the engineering decisions behind them."
+            "A few projects that show how I turn an idea into working software."
           }
         </p>
       </div>

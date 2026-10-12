@@ -1,5 +1,6 @@
 """Compose the captured scenes into a silent LinkedIn MP4. Requires ffmpeg/ffprobe."""
 import json
+import re
 from pathlib import Path
 import subprocess
 
@@ -17,6 +18,15 @@ for scene in manifest['scenes']:
     raw = out / scene['file']
     length = min(scene['duration'], duration(raw))
     start = max(0, duration(raw) - length - .12)
+    if scene['id'] == 'startup':
+        # Recorder setup can precede navigation; locate the actual dark logo
+        # screen rather than trimming from the tail and accidentally losing it.
+        result = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(raw), '-vf', 'blackdetect=d=0.05:pix_th=0.1:pic_th=0.95', '-an', '-f', 'null', '-'], capture_output=True, text=True, check=True)
+        match = re.search(r'black_start:([0-9.]+)', result.stderr)
+        if not match:
+            raise RuntimeError('Could not locate the startup logo screen')
+        start = float(match.group(1))
+        length = min(length, duration(raw) - start)
     dest = out / f"part-{scene['id']}.mp4"
     mobile = scene['id'] == 'mobile'
     size = '342:740' if mobile else '1008:700'

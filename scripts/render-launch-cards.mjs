@@ -15,6 +15,7 @@ await render('03-portrait',`<h1>A little motion.<br><em>A personal detail.</em><
 const mobileHero=await image('mobile-hero'),mobileWork=await image('mobile-work');
 await render('04-mobile',`<h1>Made for<br><em>smaller screens.</em></h1><p class="sub">Compact navigation. Lighter CSS graphics. Real project previews.</p><img class="mobile" style="left:160px" src="${mobileHero}"><img class="mobile" style="right:160px" src="${mobileWork}">`);
 for(const [id,title,sub,note] of [
+['startup','A considered<br><em>first impression.</em>','The an. introduction, then straight into the story.','Hero / About / Work / Experience / Toolkit / Credentials / Contact'],
 ['hero','Meet my<br><em>portfolio.</em>','Web applications & developer tools.','Desktop motion / 3D sculpture and orbiting technology icons.'],
 ['projects','Explore the<br><em>actual work.</em>','Project context, source links, and interface previews.','NovaWorks / Code Nomads team project. Fictional demo data.'],
 ['portrait','Color follows<br><em>your cursor.</em>','A personal detail in the About section.','Pointer-driven reveal / Static color fallback on touch.'],

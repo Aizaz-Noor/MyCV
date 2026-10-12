@@ -13,22 +13,28 @@ import Certifications from "./pages/Certifications";
 import Contact from "./pages/Contact";
 const SECTIONS = [
   { id: "home", name: "Home", Component: Hero },
+  { id: "about", name: "About", Component: About },
   { id: "work", name: "Work", Component: Projects },
   { id: "experience", name: "Experience", Component: Experience },
-  { id: "about", name: "About", Component: About },
   { id: "techstack", name: "Skills", Component: TechStack },
   { id: "certifications", name: "Credentials", Component: Certifications },
   { id: "contact", name: "Contact", Component: Contact },
 ];
 export default function App() {
   useEffect(() => {
+    window.portfolioStartup?.ready();
     const id = window.location.hash.slice(1);
     if (!SECTIONS.some((section) => section.id === id) && id !== "profiles")
       return;
-    const frame = requestAnimationFrame(() =>
-      document.getElementById(id)?.scrollIntoView(),
-    );
-    return () => cancelAnimationFrame(frame);
+    const scrollToSection = () => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "instant" });
+    };
+    if (document.documentElement.classList.contains("is-booting") || document.documentElement.classList.contains("is-boot-leaving")) {
+      window.addEventListener("portfolio:ready", scrollToSection, { once: true });
+    } else scrollToSection();
+    return () => {
+      window.removeEventListener("portfolio:ready", scrollToSection);
+    };
   }, []);
   return (
     <>

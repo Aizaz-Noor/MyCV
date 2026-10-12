@@ -41,6 +41,20 @@ try {
   await page.screenshot({ path: path.join(out, 'portrait-desktop.png') });
   await context.close();
 
+  // Capture the real startup handoff without slowing the application request.
+  const introContext = await browser.newContext({ viewport: { width: 1440, height: 1000 }, recordVideo: { dir: path.join(out, 'raw'), size: { width: 1440, height: 1000 } } });
+  const introPage = await introContext.newPage();
+  await introPage.route('**/Background3D-*.js', route => route.abort());
+  const introStart = Date.now();
+  await introPage.goto(base, { waitUntil: 'commit' });
+  await expect(introPage.locator('#startup-screen')).toBeVisible();
+  await expect(introPage.locator('#startup-screen')).toHaveCount(0);
+  await wait(introPage, 800);
+  const introDuration = (Date.now() - introStart) / 1000;
+  const introVideo = introPage.video();
+  await introContext.close();
+  scenes.push({ id: 'startup', file: path.relative(out, await introVideo.path()).replaceAll('\\', '/'), duration: introDuration });
+
   // Separate contexts keep load/setup frames out of the final demo.
   for (const scene of [
     { id: 'hero', selector: '#home', duration: 4500 },

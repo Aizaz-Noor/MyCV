@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
+// Static points replace a general-purpose starfield dependency.
+const starPositions = new Float32Array(Array.from({ length: 180 }, (_, i) => {
+  const angle = i * 2.3999632297;
+  const radius = 10 + (i % 13);
+  return [Math.cos(angle) * radius, Math.sin(angle) * radius, -12 - (i % 17)];
+}).flat());
 import { usePortfolioMotion } from "../hooks/usePortfolioMotion";
-function Sculpture() {
+function Sculpture({ lowPower }) {
   const sculpture = useRef(null);
   const orbit = useRef(null);
   const pointer = useRef({ x: 0, y: 0 });
@@ -32,7 +37,7 @@ function Sculpture() {
     <>
       <group ref={sculpture} rotation={[0.4, 0.2, 0.3]}>
         <mesh>
-          <torusKnotGeometry args={[1.28, 0.36, 180, 28, 2, 3]} />
+          <torusKnotGeometry args={[1.28, 0.36, lowPower ? 96 : 128, lowPower ? 16 : 20, 2, 3]} />
           <meshStandardMaterial
             color="#818cf8"
             metalness={0.75}
@@ -42,7 +47,7 @@ function Sculpture() {
           />
         </mesh>
         <mesh scale={1.015}>
-          <torusKnotGeometry args={[1.28, 0.36, 100, 12, 2, 3]} />
+          <torusKnotGeometry args={[1.28, 0.36, 80, 8, 2, 3]} />
           <meshBasicMaterial
             color="#f1f5f9"
             wireframe
@@ -65,20 +70,18 @@ function Sculpture() {
           <meshBasicMaterial color="#818cf8" />
         </mesh>
       </group>
-      <Stars
-        radius={35}
-        depth={20}
-        count={180}
-        factor={1.3}
-        saturation={0}
-        fade
-        speed={0.25}
-      />
+      <points>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[starPositions, 3]} />
+        </bufferGeometry>
+        <pointsMaterial color="#cbd5e1" size={0.055} transparent opacity={0.4} depthWrite={false} />
+      </points>
     </>
   );
 }
 export default function Background3D({ onReady }) {
   const ref = useRef(null);
+  const lowPower = (navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) || (navigator.deviceMemory > 0 && navigator.deviceMemory <= 4);
   const [visible, setVisible] = useState(false);
   const { enabled } = usePortfolioMotion();
   useEffect(() => {
@@ -98,7 +101,7 @@ export default function Background3D({ onReady }) {
   return (
     <div ref={ref} className="sculpture-canvas">
       <Canvas
-        dpr={[1, 1.5]}
+        dpr={lowPower ? 1 : [1, 1.25]}
         camera={{ position: [0, 0, 6.7], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: "default" }}
         frameloop={visible && enabled ? "always" : "demand"}
@@ -108,7 +111,7 @@ export default function Background3D({ onReady }) {
         <directionalLight position={[3, 4, 5]} intensity={4} color="#f1f5f9" />
         <pointLight position={[-3, 1, 2]} intensity={35} color="#cbd5e1" />
         <pointLight position={[1, -3, 1]} intensity={20} color="#818cf8" />
-        <Sculpture />
+        <Sculpture lowPower={lowPower} />
       </Canvas>
     </div>
   );

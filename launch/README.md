@@ -20,7 +20,7 @@ Generated locally in `launch/exports/`:
 
 The four PNGs are 1080×1350. Use the video for the launch post; keep the image set for a later implementation breakdown. See [captions and alt text](linkedin-captions.md). Review personal wording before publication. Engagement is not guaranteed.
 
-The recording shows the actual production build, including desktop motion, project preview switching and enlargement, portrait pointer interaction, and mobile menu navigation. Branded labels are added around the screen recording. Non-hero desktop captures skip the offscreen 3D download to reduce capture overhead; their visible interfaces are unchanged. The mobile footage is Chromium emulation, not an iPhone screen recording. No real contact messages were sent. There is no music or voiceover; on-screen text makes the demo understandable without audio.
+The recording shows the actual production build, including the logo introduction, desktop motion, project preview switching and enlargement, portrait pointer interaction, and mobile menu navigation. Branded labels are added around the screen recording. Non-hero desktop captures skip the offscreen 3D download to reduce capture overhead; their visible interfaces are unchanged. The mobile footage is Chromium emulation, not an iPhone screen recording. No real contact messages were sent. There is no music or voiceover; on-screen text makes the demo understandable without audio.
 
 ## Before publishing
 
@@ -55,3 +55,4 @@ Set `PORTFOLIO_CAPTURE_URL` to capture another deployment. Generated recordings,
 ## Validation scope
 
 Capture assertions verify the hero, screenshot dialog, pointer reveal, mobile footer, and mobile overflow. The initial desktop capture reported no uncaught page errors. Visual inspection covers the image set and sampled video frames; ffprobe verifies codec, dimensions, duration, and frame rate. This does not measure real-user Core Web Vitals or native Safari rendering. The video uses the website's existing animations without artificially accelerating them.
+

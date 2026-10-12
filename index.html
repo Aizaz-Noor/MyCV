@@ -4,6 +4,92 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Critical startup styles must precede the readable HTML fallback. -->
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: url("/fonts/manrope-latin.woff2") format("woff2");
+        unicode-range:
+          U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+          U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+          U+2215, U+FEFF, U+FFFD;
+      }
+      #startup-screen { display: none; }
+      html.is-booting #root { visibility: hidden; }
+      html.is-booting body { overflow: hidden; }
+      html.is-booting .hero-enter { animation-play-state: paused; }
+      html.is-booting #startup-screen, html.is-boot-leaving #startup-screen {
+        display: grid; position: fixed; inset: 0; z-index: 1000;
+        place-items: center; background: #080b14; color: #eef1fb;
+        font-family: "Manrope", sans-serif;
+      }
+      .startup-lockup { text-align: center; }
+      .startup-monogram { display: flex; justify-content: center; align-items: baseline; font-size: clamp(96px, 18vw, 144px); font-weight: 700; line-height: 1.2; letter-spacing: -.09em; padding-inline-end: .09em; }
+      .startup-monogram span { display: inline-block; animation: startup-letter 500ms cubic-bezier(.23,1,.32,1) both; }
+      .startup-monogram span:nth-child(2) { animation-delay: 60ms; }
+      .startup-monogram span:last-child { color: #aaa7ff; animation-delay: 120ms; }
+      .startup-caption { margin: 18px 0 24px; color: #b7bed2; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+      .startup-track { margin-inline: auto; width: 104px; height: 2px; overflow: hidden; background: #282e42; border-radius: 2px; }
+      .startup-track::after { content: ""; display: block; height: 100%; width: 65%; background: #aaa7ff; animation: startup-sweep 1000ms linear infinite; }
+      html.is-boot-leaving #startup-screen { opacity: 0; pointer-events: none; transition: opacity 220ms cubic-bezier(.23,1,.32,1); }
+      @keyframes startup-letter { from { opacity: 0; transform: translateY(12%) scale(.97); } to { opacity: 1; transform: none; } }
+      @keyframes startup-sweep { from { transform: translateX(-110%); } to { transform: translateX(170%); } }
+      html.startup-static .startup-monogram span, html.startup-static .startup-track::after { animation: none; }
+      html.startup-static.is-boot-leaving #startup-screen { transition: none; }
+      @media (prefers-reduced-motion: reduce) {
+        .startup-monogram span, .startup-track::after { animation: none; }
+        html.is-boot-leaving #startup-screen { transition: none; }
+      }
+      @media (forced-colors: active) { html.is-booting #startup-screen { background: Canvas; color: CanvasText; } .startup-monogram span:last-child { color: CanvasText; } .startup-track { background: CanvasText; } }
+    </style>
+    <script>
+      (() => {
+        const html = document.documentElement;
+        html.classList.add("is-booting");
+        let paused = false;
+        try { paused = localStorage.getItem("portfolio-motion-paused") === "true"; } catch { /* Storage is optional. */ }
+        if (paused) html.classList.add("startup-static");
+        const started = performance.now();
+        let finishing = false;
+        let released = false;
+        const release = () => {
+          if (released) return;
+          released = true;
+          clearTimeout(failsafe);
+          html.classList.remove("is-booting", "is-boot-leaving", "startup-static");
+          document.getElementById("startup-screen")?.remove();
+          window.dispatchEvent(new Event("portfolio:ready"));
+        };
+        const failsafe = setTimeout(release, 3000);
+        window.portfolioStartup = {
+          ready() {
+            if (finishing || released) return;
+            finishing = true;
+            const reduced = paused || matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const minimum = reduced || location.hash ? 0 : Math.max(0, 500 - (performance.now() - started));
+            const fonts = document.fonts ? Promise.all([
+              document.fonts.load('700 120px "Manrope"', 'an.'),
+              document.fonts.load('400 96px "Instrument Serif"', 'Aizaz Noor.')
+            ]).catch(() => {}) : Promise.resolve();
+            Promise.all([Promise.race([fonts, new Promise(resolve => setTimeout(resolve, 800))]), new Promise(resolve => setTimeout(resolve, minimum))]).then(() => {
+              if (released) return;
+              requestAnimationFrame(() => requestAnimationFrame(() => {
+                if (released) return;
+                if (reduced) { release(); return; }
+                html.classList.add("is-boot-leaving");
+                html.classList.remove("is-booting");
+                setTimeout(release, 220);
+              }));
+            });
+          }
+        };
+      })();
+    </script>
+
     <!-- Primary Meta Tags -->
     <title>Aizaz Noor | Software Engineering Student &amp; Freelance Developer</title>
     <meta name="title" content="Aizaz Noor | Software Engineering Student &amp; Freelance Developer" />
@@ -101,6 +187,13 @@
 
   </head>
   <body>
+    <div id="startup-screen" role="status" aria-label="Loading Aizaz Noor portfolio">
+      <div class="startup-lockup">
+        <div class="startup-monogram" aria-hidden="true"><span>a</span><span>n</span><span>.</span></div>
+        <p class="startup-caption">Aizaz Noor / Portfolio</p>
+        <div class="startup-track" aria-hidden="true"></div>
+      </div>
+    </div>
     <div id="root">
       <!-- Semantic HTML Fallback for AI Crawlers, Search Engines & No-JS Readers -->
       <header id="home">
@@ -112,14 +205,6 @@
         <section id="about">
           <h2>About Me</h2>
           <p>BSE student at COMSATS University Islamabad (Lahore Campus). Passionate about distributed systems, DevOps, cloud infrastructure, local LLM orchestration, and building resilient software that solves real-world problems.</p>
-        </section>
-
-        <section id="experience">
-          <h2>Work Experience</h2>
-          <article>
-            <h3>Freelance Software Engineer</h3>
-            <p>Building web applications with React, Node.js, Express, and MongoDB.</p>
-          </article>
         </section>
 
         <section id="work">
@@ -149,6 +234,14 @@
             <p>Terminal-based collaborative expense tracker built in C++ with custom hash map data structures and a full TUI.</p>
             <p><strong>Technologies:</strong> C++, Terminal UI, Data Structures</p>
             <p><a href="https://github.com/Aizaz-Noor/Hostel-Kharcha-Manager">View on GitHub</a></p>
+          </article>
+        </section>
+
+        <section id="experience">
+          <h2>Work Experience</h2>
+          <article>
+            <h3>Freelance Software Engineer</h3>
+            <p>Building web applications with React, Node.js, Express, and MongoDB.</p>
           </article>
         </section>
 

@@ -23,7 +23,7 @@ export default function Experience() {
     <section id="experience" className="section-container experience-section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">{"02 / Experience & education"}</p>
+          <p className="eyebrow">{"03 / The journey so far"}</p>
           <h2>
             {"Experience &"}
             <br />

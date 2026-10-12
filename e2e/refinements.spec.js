@@ -26,6 +26,7 @@ for (const width of [320, 1440])
     await page.locator(".github-activity").scrollIntoViewIfNeeded();
     await expect(page.locator(".contribution-calendar rect")).toHaveCount(365);
     await expect(page.locator(".activity-stats")).toContainText("730");
+    await expect(page.locator(".activity-details tbody tr")).toHaveCount(0);
     await page
       .getByText("View daily contribution details", { exact: true })
       .click();

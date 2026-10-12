@@ -127,20 +127,18 @@ test("restored glass navigation supports selection, dismissal and resizing", asy
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Main navigation" });
-  await expect(nav.locator(".ios-desktop-links a")).toHaveCount(8);
+  await expect(nav.locator(".ios-desktop-links a")).toHaveCount(7);
   await expect(page.locator(".ios-desktop-links a[aria-current]")).toHaveText(
     "Home",
   );
   const work = nav.locator('.ios-desktop-links a[href="#work"]');
   await work.hover();
-  expect(
-    await nav
-      .locator(".ios-selection-pill")
-      .first()
-      .evaluate((el) => Math.round(el.getBoundingClientRect().left)),
-  ).toBe(
-    await work.evaluate((el) => Math.round(el.getBoundingClientRect().left)),
-  );
+  // offsetLeft is an integer; flex positions can be fractional CSS pixels.
+  await expect.poll(async () => {
+    const pillLeft = await nav.locator(".ios-selection-pill").first().evaluate(el => el.getBoundingClientRect().left);
+    const linkLeft = await work.evaluate(el => el.getBoundingClientRect().left);
+    return Math.abs(pillLeft - linkLeft);
+  }).toBeLessThanOrEqual(1);
   await work.click();
   await expect(page.locator("#work")).toBeFocused();
   await expect(page.locator(".ios-header")).toHaveClass(/is-scrolled/);

@@ -179,7 +179,7 @@ export default function Hero() {
           ))}
         </div>
       </div>
-      <a href="#work" className="hero-scroll-cue">
+      <a href="#about" className="hero-scroll-cue">
         <span className="scroll-mouse" aria-hidden="true">
           <i />
         </span>

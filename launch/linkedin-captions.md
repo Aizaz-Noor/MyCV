@@ -7,6 +7,7 @@ I wanted my portfolio to show how I think, not just list the tools I use.
 So I rebuilt it around real projects, the decisions behind them, and a few interactions worth exploring.
 
 The new version includes:
+• A brief animated an. logo introduction, followed by a story from About to selected work.
 • An animated 3D hero on desktop, with lighter CSS graphics on mobile.
 • Project breakdowns covering the problem, approach, and outcome.
 • Actual interface previews you can open and inspect.

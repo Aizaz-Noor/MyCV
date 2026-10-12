@@ -4,12 +4,11 @@ import { useScrollSpy } from "../hooks/useScrollSpy";
 import { usePortfolioMotion } from "../hooks/usePortfolioMotion";
 const LINKS = [
   { id: "home", label: "Home" },
+  { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
-  { id: "about", label: "About" },
   { id: "techstack", label: "Toolkit" },
   { id: "certifications", label: "Credentials" },
-  { id: "profiles", label: "Profiles" },
   { id: "contact", label: "Contact" },
 ];
 const IDS = LINKS.map((link) => link.id);

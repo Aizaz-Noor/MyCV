@@ -6,6 +6,12 @@ A portfolio for a software engineering student and freelance developer based in 
 
 ![Desktop portfolio with glass navigation, editorial typography, and an animated 3D hero](docs/images/portfolio-desktop.png)
 
+## The story
+
+Hero → About → Selected projects → Experience → Toolkit → Credentials → Contact.
+
+The opening introduces the `an.` monogram, then reveals the hero after the interface and critical fonts are ready. It has a short fade, honors reduced motion and saved animation pause, and releases the readable fallback after three seconds if the app cannot start. It never waits for GitHub data, project images, or desktop WebGL. Deep links skip the deliberate introductory pause.
+
 ## Explore
 
 - **Project stories:** the problem, approach, outcome, and relevant source/demo links. NovaWorks credits Code Nomads and describes Aizaz's role. Tandem's multi-adapter speed gains remain unverified.
@@ -28,7 +34,7 @@ A portfolio for a software engineering student and freelance developer based in 
 | --- | --- |
 | Application | React 19, JavaScript, Vite 8 |
 | Styling and motion | CSS, Web Animations API, requestAnimationFrame |
-| Desktop graphics | Three.js, React Three Fiber, Drei; dynamically imported |
+| Desktop graphics | Three.js, React Three Fiber; dynamically imported |
 | Icons and fonts | React Icons; self-hosted Manrope and Instrument Serif |
 | Integrations | Web3Forms; public GitHub activity service |
 | Verification | Node test runner, Playwright, axe-core, ESLint |
@@ -91,7 +97,7 @@ Keep screenshots, links, claims, and contributor attribution in sync when editin
 
 Content works independently of optional graphics. Mobile and reduced-motion visitors skip desktop WebGL. Graphics pause offscreen and in hidden tabs. The HTML contains an English no-JavaScript fallback; preview images are lazy-loaded; fonts use `font-display: swap`. The portrait avoids React updates on every pointer move.
 
-The desktop 3D chunk still produces Vite's size warning. Follow-up work includes physical-device scroll profiling, mobile blur tuning, adaptive desktop graphics quality, deferred contribution-table rows, and benchmarking responsive image formats. No Lighthouse score or real-user Core Web Vitals result is claimed. See the [performance follow-up](audit/mobile-footer-performance.md).
+The desktop 3D chunk still produces Vite's size warning. Mobile glass blur is reduced; large mobile ambient gradients stay still; only eight mobile background particles remain visible. Desktop geometry and maximum pixel density are lower, weaker devices use a lighter tier, and Save-Data/2G visitors skip WebGL. The closed contribution details table does not mount its 365 rows. Follow-up work includes physical-device profiling and benchmarking responsive image formats. No Lighthouse score or real-user Core Web Vitals result is claimed. See the [performance follow-up](audit/mobile-footer-performance.md).
 
 The interface is English-only. Old language preferences do not change it. Résumé access stays in the hero rather than the navbar/menu.
 
@@ -103,6 +109,7 @@ Pushing `main` runs [GitHub Actions checks](.github/workflows/checks.yml) and tr
 
 - [LinkedIn launch package](launch/README.md) and [caption options](launch/linkedin-captions.md)
 - [Original audit](audit/portfolio-audit.md) and [remediation](audit/remediation.md)
+- [Story, logo startup, and performance release](audit/story-startup-performance.md)
 - [Motion implementation](audit/motion-upgrade.md) and [portrait reveal](audit/portrait-reveal.md)
 - [Screenshot provenance](audit/project-image-provenance.json)
 - [Section refinements](audit/section-refinements.md) and [glass components](audit/ios-integration.md)
