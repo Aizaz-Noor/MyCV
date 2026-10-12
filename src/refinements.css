@@ -635,3 +635,45 @@
 @media (prefers-reduced-transparency: reduce) {
   .ios-mobile-menu { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
+
+/* Distinct artwork paths: a matching desktop preview never shows mobile rings. */
+.desktop-artwork, .desktop-sculpture-poster {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.desktop-artwork { z-index: 1; }
+.desktop-sculpture-poster img { width: 100%; height: 100%; object-fit: contain; }
+.desktop-sculpture-poster, .desktop-artwork .hero-webgl {
+  transition: opacity 220ms var(--ease-out);
+}
+.desktop-artwork[data-ready="false"] .hero-webgl { opacity: 0; }
+.desktop-artwork[data-ready="true"] .desktop-sculpture-poster { opacity: 0; }
+.kinetic-art .sculpture-fallback {
+  display: none;
+  inset: 16%;
+  animation: none;
+  transform: none;
+  transition: none;
+}
+.mobile-sculpture { width: 100%; height: 100%; overflow: visible; }
+.mobile-sculpture .sculpture-band {
+  fill: none;
+  stroke: url(#mobile-ring);
+  stroke-width: 7;
+  transform: none;
+}
+.sculpture-rings {
+  transform-origin: 160px 160px;
+  animation: mobile-sculpture-turn 18s linear infinite;
+}
+@keyframes mobile-sculpture-turn { to { transform: rotate(360deg); } }
+@media (max-width: 1023px) {
+  .desktop-artwork { display: none; }
+  .kinetic-art .sculpture-fallback { display: block; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desktop-sculpture-poster, .desktop-artwork .hero-webgl { transition: none; }
+}
+
+/* Applied only during page restoration, before paint; phases are preserved. */

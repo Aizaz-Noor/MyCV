@@ -12,7 +12,7 @@ A personal portfolio by a software engineering student and freelance developer b
 
 - **Work with context:** project stories explain the problem, approach, outcome, and individual contributions, with source and demo links.
 - **Interactive previews:** inspect real application screenshots in keyboard-accessible dialogs.
-- **Considered motion:** a monogram introduction, desktop 3D artwork, scroll reveals, orbiting technology icons, and a persistent animation pause control.
+- **Considered motion:** a monogram introduction, desktop 3D artwork, mobile SVG orbital motion, scroll reveals, orbiting technology icons, and a persistent animation pause control.
 - **Portrait interaction:** a grayscale photograph reveals color beneath the pointer, with a static color fallback on touch devices.
 - **Responsive experience:** layouts for mobile and desktop, reduced-motion support, and readable content when JavaScript is unavailable.
 - **Get in touch:** validated contact form, public GitHub activity, credentials, and a résumé available from the hero.

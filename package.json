@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "test": "node --test",
     "preview": "vite preview",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "artwork:poster": "node scripts/render-sculpture-poster.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

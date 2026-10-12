@@ -21,6 +21,6 @@ jobs:
       - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:browser
       - name: Mobile WebKit regression checks
-        run: npx playwright test e2e/mobile-motion.spec.js --reporter=list --output=test-results/webkit
+        run: npx playwright test e2e/mobile-motion.spec.js e2e/artwork-mobile.spec.js --reporter=list --output=test-results/webkit
         env:
           PLAYWRIGHT_BROWSER: webkit

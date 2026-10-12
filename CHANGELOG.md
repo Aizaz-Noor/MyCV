@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Separate desktop and mobile artwork: desktop starts with a matching sculpture preview and fades to WebGL only after the first rendered frame.
+- Start eligible desktop home artwork during the logo introduction; retain deferred loading for deep links and constrained connections.
+- Replace mobile perspective layers with SVG orbital motion, unify icon orbit transforms, and synchronize pause/offscreen state on page restoration.
+- Add delayed-load, responsive handoff, sculpture motion, upright-icon, and back-navigation regressions.
+
 - Restore mobile ambient movement, full glass depth, and standard desktop sculpture detail while retaining deferred loading and the constrained-device graphics tier.
 - Keep the motion control outside the page clipping container, respect phone safe areas, and show an explanation when device reduced-motion settings are active.
 - Add touch-enabled mobile regressions in Chromium and WebKit, including saved pause state and footer reachability.

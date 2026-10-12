@@ -215,7 +215,8 @@ test("automatic desktop graphics fail gracefully", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "Explore my work" }),
   ).toBeVisible();
-  await expect(page.locator(".sculpture-fallback")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".desktop-sculpture-poster img")).toBeVisible();
+  await expect(page.locator(".sculpture-fallback")).not.toBeVisible();
   await page.getByRole("button", { name: "Pause animations" }).click();
   await expect(page.locator(".portfolio-shell")).toHaveAttribute(
     "data-motion",

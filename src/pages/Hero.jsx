@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { useState } from "react";
 import {
   FiArrowDownRight,
   FiArrowUpRight,
@@ -10,10 +10,10 @@ import {
   FiLayers,
 } from "react-icons/fi";
 import ResumeModal from "../components/ResumeModal";
-import ErrorBoundary from "../components/ErrorBoundary";
+import DesktopArtwork from "../components/DesktopArtwork";
+import MobileSculpture from "../components/MobileSculpture";
 import TechIcon from "../components/TechIcon";
 import { useOptionalGraphics } from "../hooks/useOptionalGraphics";
-const Background3D = lazy(() => import("../components/Background3D"));
 const ORBIT_TOOLS = ["React", "Python", "Node.js", "TypeScript"];
 const TICKER = [
   "React",
@@ -27,7 +27,6 @@ const TICKER = [
 ];
 export default function Hero() {
   const [resumeOpen, setResumeOpen] = useState(false);
-  const [ready, setReady] = useState(false);
   const graphicsAllowed = useOptionalGraphics();
   return (
     <section id="home" className="studio-hero section-container kinetic-hero">
@@ -97,23 +96,10 @@ export default function Hero() {
         </div>
         <div
           dir="ltr"
-          className={`hero-art kinetic-art ${ready && graphicsAllowed ? "webgl-ready" : ""}`}
+          className="hero-art kinetic-art"
         >
-          <div className="sculpture-fallback" aria-hidden="true">
-            <div className="sculpture-sphere" />
-            <div className="sculpture-band band-one" />
-            <div className="sculpture-band band-two" />
-            <div className="sculpture-band band-three" />
-          </div>
-          {graphicsAllowed && (
-            <div className="hero-webgl" aria-hidden="true">
-              <ErrorBoundary fallback={null}>
-                <Suspense fallback={null}>
-                  <Background3D onReady={() => setReady(true)} />
-                </Suspense>
-              </ErrorBoundary>
-            </div>
-          )}
+          <MobileSculpture />
+          <DesktopArtwork enabled={graphicsAllowed} />
           <div className="tech-orbit" aria-hidden="true">
             {ORBIT_TOOLS.map((name, index) => (
               <div key={name} className={`tech-satellite satellite-${index}`}>

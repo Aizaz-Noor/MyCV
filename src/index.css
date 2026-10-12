@@ -1477,51 +1477,8 @@ h2 em {
 }
 .sculpture-fallback {
   position: absolute;
-  inset: 25%;
-  transform-style: preserve-3d;
-  animation: sculpture-turn 18s linear infinite;
-  transition: opacity 600ms ease;
-}
-.webgl-ready .sculpture-fallback {
-  opacity: 0;
-}
-.sculpture-sphere {
-  position: absolute;
-  inset: 14%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 20%,
-    #f1f5f9,
-    #818cf8 35%,
-    #232a3e 75%
-  );
-  box-shadow:
-    inset -16px -24px 35px #090c26,
-    0 0 60px #818cf830;
-}
-.sculpture-band {
-  position: absolute;
-  inset: 0;
-  border: 8px solid #818cf8;
-  border-radius: 50%;
-  box-shadow:
-    0 0 14px #818cf822,
-    inset 0 0 10px #818cf822;
-}
-.band-one {
-  transform: rotateX(65deg);
-}
-.band-two {
-  transform: rotateY(65deg) rotateZ(35deg);
-  border-color: #cbd5e1;
-}
-.band-three {
-  transform: rotateY(-65deg) rotateZ(-35deg);
-}
-@keyframes sculpture-turn {
-  to {
-    transform: rotateY(360deg) rotateZ(360deg);
-  }
+  inset: 16%;
+  display: none;
 }
 @keyframes halo-rotate {
   to {
@@ -1551,7 +1508,7 @@ h2 em {
   border-radius: 16px;
   background: #151b2bed;
   box-shadow: 0 10px 30px #03061670;
-  animation: satellite-upright 36s linear infinite;
+  animation: none;
 }
 .satellite-1,
 .satellite-1 > div {
@@ -1565,22 +1522,8 @@ h2 em {
 .satellite-3 > div {
   animation-delay: -27s;
 }
-@keyframes satellite-orbit {
-  from {
-    transform: rotate(0deg) translateX(210px) rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg) translateX(210px) rotate(0deg);
-  }
-}
-@keyframes satellite-upright {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
+
+
 .code-floating {
   position: absolute;
   z-index: 3;
@@ -1859,14 +1802,7 @@ h2 em {
   }
 }
 @media (min-width: 768px) and (max-width: 1100px) {
-  @keyframes satellite-orbit {
-    from {
-      transform: rotate(0deg) translateX(145px);
-    }
-    to {
-      transform: rotate(360deg) translateX(145px);
-    }
-  }
+
   .tech-satellite {
     width: 46px;
     height: 46px;
@@ -1987,24 +1923,10 @@ h2 em {
   .studio-footer {
     padding-bottom: 56px;
   }
-  @keyframes satellite-orbit {
-    from {
-      transform: rotate(0deg) translateX(130px);
-    }
-    to {
-      transform: rotate(360deg) translateX(130px);
-    }
-  }
+
 }
 @media (max-width: 359px) {
-  @keyframes satellite-orbit {
-    from {
-      transform: rotate(0deg) translateX(110px);
-    }
-    to {
-      transform: rotate(360deg) translateX(110px);
-    }
-  }
+
   .kinetic-hero .hero-actions {
     gap: 14px;
   }
@@ -2028,9 +1950,6 @@ h2 em {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sculpture-fallback {
-    transform: rotateY(20deg) rotateZ(-12deg);
-  }
   .satellite-0 {
     transform: translateX(130px);
   }
@@ -2200,3 +2119,19 @@ h2 em {
 .hero-name[lang="en"] > span, html[lang="en"] h2 em { font-style: italic; }
 .section-heading h2, .heading-lg { line-height: 1.12; }
 .footer-wordmark { line-height: 1.15; }
+
+/* A single 2D orbit keeps icon orientation stable in Safari and Chromium. */
+.tech-satellite { --orbit-radius: 210px; }
+@media (min-width: 768px) and (max-width: 1100px) {
+  .tech-satellite { --orbit-radius: 145px; }
+}
+@media (max-width: 767px) {
+  .tech-satellite { --orbit-radius: 130px; }
+}
+@media (max-width: 359px) {
+  .tech-satellite { --orbit-radius: 110px; }
+}
+@keyframes satellite-orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+}

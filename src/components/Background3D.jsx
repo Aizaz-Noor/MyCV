@@ -79,6 +79,19 @@ function Sculpture({ lowPower }) {
     </>
   );
 }
+function FirstFrame({ onReady }) {
+  const scheduled = useRef(false);
+  const frame = useRef(null);
+  useFrame(() => {
+    if (scheduled.current) return;
+    scheduled.current = true;
+    // useFrame runs before drawing; the next animation frame confirms that the
+    // first scene has actually been drawn, rather than only creating a canvas.
+    frame.current = requestAnimationFrame(onReady);
+  });
+  useEffect(() => () => cancelAnimationFrame(frame.current), []);
+  return null;
+}
 export default function Background3D({ onReady }) {
   const ref = useRef(null);
   const lowPower = (navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency <= 4) || (navigator.deviceMemory > 0 && navigator.deviceMemory <= 4);
@@ -86,16 +99,22 @@ export default function Background3D({ onReady }) {
   const { enabled } = usePortfolioMotion();
   useEffect(() => {
     let inView = false;
-    const update = () => setVisible(inView && !document.hidden);
+    const update = () => {
+      const rect = ref.current?.getBoundingClientRect();
+      if (rect) inView = rect.bottom > 0 && rect.top < innerHeight;
+      setVisible(inView && !document.hidden);
+    };
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       update();
     });
     observer.observe(ref.current);
     document.addEventListener("visibilitychange", update);
+    window.addEventListener("pageshow", update);
     return () => {
       observer.disconnect();
       document.removeEventListener("visibilitychange", update);
+      window.removeEventListener("pageshow", update);
     };
   }, []);
   return (
@@ -105,13 +124,13 @@ export default function Background3D({ onReady }) {
         camera={{ position: [0, 0, 6.7], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: "default" }}
         frameloop={visible && enabled ? "always" : "demand"}
-        onCreated={onReady}
       >
         <ambientLight intensity={1.4} />
         <directionalLight position={[3, 4, 5]} intensity={4} color="#f1f5f9" />
         <pointLight position={[-3, 1, 2]} intensity={35} color="#cbd5e1" />
         <pointLight position={[1, -3, 1]} intensity={20} color="#818cf8" />
         <Sculpture lowPower={lowPower} />
+        <FirstFrame onReady={onReady} />
       </Canvas>
     </div>
   );

@@ -23,7 +23,25 @@ export default function MotionProvider({ children }) {
     }
   }, [paused]);
   useEffect(() => {
-    const updateVisibility = () => setHidden(document.hidden);
+    const updateVisibility = () => {
+      setHidden(document.hidden);
+      // Safari can restore a page at a different scroll position from BFCache.
+      shell.current?.querySelectorAll(".kinetic-art, .tech-ticker").forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        element.classList.toggle("motion-offscreen", rect.bottom <= 0 || rect.top >= innerHeight);
+      });
+    };
+    let restorationFrame;
+    const restorePage = () => {
+      updateVisibility();
+      cancelAnimationFrame(restorationFrame);
+      restorationFrame = requestAnimationFrame(() => {
+        updateVisibility();
+      });
+    };
+    const hidePage = () => setHidden(true);
+    window.addEventListener("pagehide", hidePage);
+    window.addEventListener("pageshow", restorePage);
     document.addEventListener("visibilitychange", updateVisibility);
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries)
@@ -37,6 +55,9 @@ export default function MotionProvider({ children }) {
       .forEach((element) => observer.observe(element));
     return () => {
       document.removeEventListener("visibilitychange", updateVisibility);
+      window.removeEventListener("pagehide", hidePage);
+      window.removeEventListener("pageshow", restorePage);
+      cancelAnimationFrame(restorationFrame);
       observer.disconnect();
     };
   }, []);

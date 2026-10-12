@@ -17,8 +17,7 @@ for (const width of [320, 390, 768]) {
     await expect(light).toHaveCSS("animation-name", "ambient-drift");
     await expect(light).toHaveCSS("animation-play-state", "running");
     const before = await light.evaluate(el => getComputedStyle(el).transform);
-    await page.waitForTimeout(250);
-    expect(await light.evaluate(el => getComputedStyle(el).transform)).not.toBe(before);
+    await expect.poll(() => light.evaluate(el => getComputedStyle(el).transform)).not.toBe(before);
     expect(await page.locator(".ambient-dots i").evaluateAll(nodes => nodes.filter(el => getComputedStyle(el).display !== "none").length)).toBe(16);
     expect(await page.locator(".ios-nav").evaluate(el => getComputedStyle(el).backdropFilter || getComputedStyle(el).webkitBackdropFilter)).toContain("28px");
     await page.screenshot({ path: testInfo.outputPath("mobile-hero.png"), animations: "disabled" });

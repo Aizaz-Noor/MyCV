@@ -5,7 +5,7 @@ for (const width of [320,390,768,1440]) {
     await page.setViewportSize({width,height:900});
     let release;
     const gate = new Promise(resolve => { release = resolve; });
-    await page.route('**/src/main.jsx', async route => { await gate; await route.continue(); });
+    await page.route('**/src/main.jsx*', async route => { await gate; await route.continue(); });
     await page.goto('/', {waitUntil:'commit'});
     const loader = page.locator('#startup-screen');
     await expect(loader).toBeVisible();
@@ -25,7 +25,7 @@ for (const width of [320,390,768,1440]) {
   });
 }
 test('startup failure releases readable fallback instead of trapping visitors', async ({page}) => {
-  await page.route('**/src/main.jsx', route => route.abort());
+  await page.route('**/src/main.jsx*', route => route.abort());
   await page.goto('/');
   await expect(page.locator('#startup-screen')).toHaveCount(0, {timeout:5000});
   await expect(page.locator('#root > header h1')).toBeVisible();
@@ -70,7 +70,7 @@ test('saved animation pause also keeps the startup monogram still', async ({page
   await page.addInitScript(()=>localStorage.setItem('portfolio-motion-paused','true'));
   let release;
   const gate = new Promise(resolve=>{release=resolve;});
-  await page.route('**/src/main.jsx',async route=>{await gate;await route.continue();});
+  await page.route('**/src/main.jsx*',async route=>{await gate;await route.continue();});
   await page.goto('/',{waitUntil:'commit'});
   await expect(page.locator('#startup-screen')).toBeVisible();
   await expect(page.locator('.startup-monogram span').first()).toHaveCSS('animation-name','none');
