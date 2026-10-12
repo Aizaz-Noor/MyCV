@@ -677,3 +677,21 @@
 }
 
 /* Applied only during page restoration, before paint; phases are preserved. */
+
+/* Device motion preferences have a touch-accessible explanation. */
+.motion-help {
+  position: fixed;
+  right: max(14px, env(safe-area-inset-right, 0px));
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  width: min(320px, calc(100vw - 28px));
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #141923;
+  box-shadow: 0 10px 30px #02030a66;
+  color: var(--text-1);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.motion-help p { margin-top: 10px; }

@@ -51,7 +51,12 @@ for (const width of [320, 390, 768]) {
     await page.goto("/");
     const indicator = page.getByRole("button", { name: "Animations off: device reduced-motion setting" });
     await expect(indicator).toBeVisible();
-    await expect(indicator).toBeDisabled();
+    await expect(indicator).toBeEnabled();
+    await indicator.tap();
+    await expect(page.locator("#motion-help")).toContainText("Settings > Accessibility > Motion");
+    await expect(indicator).toHaveAttribute("aria-expanded", "true");
+    await indicator.tap();
+    await expect(page.locator("#motion-help")).toHaveCount(0);
     await expect(indicator).toHaveText("Reduced motion");
     await expect(page.locator(".portfolio-shell")).toHaveAttribute("data-motion", "paused");
     await expect(page.locator("canvas")).toHaveCount(0);
