@@ -15,6 +15,8 @@ for (const width of [320,390,768,1440]) {
     release();
     await expect(loader).toHaveCount(0, {timeout:5000});
     await expect(page.locator('#root')).toHaveCSS('visibility','visible');
+    // The startup fail-safe can dismiss the loader before the app mounts.
+    await expect(page.locator('#main-content > section')).toHaveCount(order.length);
     expect(await page.locator('#main-content > section').evaluateAll(nodes => nodes.map(node => node.id))).toEqual(order);
     const nav = width < 1024 ? '.ios-mobile-links' : '.ios-desktop-links';
     expect(await page.locator(`${nav} a`).evaluateAll(nodes => nodes.map(node => node.hash.slice(1)))).toEqual(order);
