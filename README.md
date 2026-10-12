@@ -1,48 +1,45 @@
-# Aizaz Noor — portfolio
+# Aizaz Noor — Portfolio
 
-A portfolio for a software engineering student and freelance developer based in Lahore, Pakistan. Explore web applications, desktop software, and the decisions behind them.
+**First public release · 1.0.0**
 
-**[Live portfolio](https://aizaznoorkhuwaja.vercel.app/)** · **[GitHub](https://github.com/Aizaz-Noor)** · **[LinkedIn](https://www.linkedin.com/in/aizaz-noor/)**
+A personal portfolio by a software engineering student and freelance developer based in Lahore, Pakistan. Explore selected web and desktop projects, the decisions behind them, and ways to collaborate.
 
-![Desktop portfolio with glass navigation, editorial typography, and an animated 3D hero](docs/images/portfolio-desktop.png)
+**[Visit the portfolio](https://aizaznoorkhuwaja.vercel.app/)** · [GitHub](https://github.com/Aizaz-Noor) · [LinkedIn](https://www.linkedin.com/in/aizaz-noor/)
 
-## The story
+![Desktop portfolio showing the an. monogram, glass navigation and animated hero](docs/images/portfolio-desktop.png)
 
-Hero → About → Selected projects → Experience → Toolkit → Credentials → Contact.
+## Highlights
 
-The opening introduces the `an.` monogram, then reveals the hero after the interface and critical fonts are ready. It has a short fade, honors reduced motion and saved animation pause, and releases the readable fallback after three seconds if the app cannot start. It never waits for GitHub data, project images, or desktop WebGL. Deep links skip the deliberate introductory pause.
+- **Work with context:** project stories explain the problem, approach, outcome, and individual contributions, with source and demo links.
+- **Interactive previews:** inspect real application screenshots in keyboard-accessible dialogs.
+- **Considered motion:** a monogram introduction, desktop 3D artwork, scroll reveals, orbiting technology icons, and a persistent animation pause control.
+- **Portrait interaction:** a grayscale photograph reveals color beneath the pointer, with a static color fallback on touch devices.
+- **Responsive experience:** layouts for mobile and desktop, reduced-motion support, and readable content when JavaScript is unavailable.
+- **Get in touch:** validated contact form, public GitHub activity, credentials, and a résumé available from the hero.
 
-## Explore
-
-- **Project stories:** the problem, approach, outcome, and relevant source/demo links. NovaWorks credits Code Nomads and describes Aizaz's role. Tandem's multi-adapter speed gains remain unverified.
-- **Actual interface previews:** selectable screenshots and full-size dialogs with keyboard dismissal and focus restoration.
-- **Motion with controls:** deferred desktop 3D, lighter mobile CSS graphics, orbiting icons, a technology ribbon, and scroll reveals. Persistent pause and reduced-motion support let visitors choose their experience.
-- **Portrait reveal:** color follows the desktop pointer over a grayscale photo. Touch, reduced-motion, paused-animation, and unsupported-mask conditions receive a static color portrait.
-- **Background and skills:** biography, experience, toolkit, credentials, and a public contribution calendar loaded when nearby.
-- **Contact and résumé:** validated Web3Forms delivery; English résumé preview and download in the hero.
+The page follows a simple story: introduction → about → selected work → experience → toolkit → credentials → contact.
 
 <details>
 <summary>Mobile preview</summary>
 
-<img src="docs/images/portfolio-mobile.png" width="390" alt="Mobile portfolio with compact navigation and the Aizaz Noor hero" />
+<img src="docs/images/portfolio-mobile.png" width="390" alt="Mobile portfolio with compact navigation and introduction" />
 
 </details>
 
-## Technology
+## Built with
 
-| Area | Implementation |
+| Area | Tools |
 | --- | --- |
 | Application | React 19, JavaScript, Vite 8 |
-| Styling and motion | CSS, Web Animations API, requestAnimationFrame |
-| Desktop graphics | Three.js, React Three Fiber; dynamically imported |
-| Icons and fonts | React Icons; self-hosted Manrope and Instrument Serif |
-| Integrations | Web3Forms; public GitHub activity service |
-| Verification | Node test runner, Playwright, axe-core, ESLint |
-| Delivery | GitHub Actions and static Vercel deployment |
+| Visuals | CSS, Web Animations API, Three.js, React Three Fiber |
+| Typography and icons | Self-hosted Manrope and Instrument Serif, React Icons |
+| Integrations | Web3Forms, public GitHub activity service |
+| Quality checks | ESLint, Node test runner, Playwright, axe-core |
+| Deployment | GitHub Actions, Vercel |
 
 ## Run locally
 
-Requires Node.js `^20.19.0 || >=22.12.0` and npm.
+Use Node.js `^20.19.0 || >=22.12.0` and npm.
 
 ```sh
 git clone https://github.com/Aizaz-Noor/MyCV.git
@@ -51,74 +48,48 @@ npm ci
 npm run dev
 ```
 
-Open Vite's printed URL, normally `http://localhost:5173`. If PowerShell blocks `npm.ps1`, use `npm.cmd`.
+Open the URL printed by Vite, normally `http://localhost:5173`. On Windows, use `npm.cmd` if PowerShell blocks `npm.ps1`.
 
-The contact form accepts `VITE_WEB3FORMS_ACCESS_KEY` and retains its existing public fallback key. Browser keys are public; configure domain restrictions and abuse controls in Web3Forms. Never place server secrets in `VITE_` variables. The recipient account is managed outside this repository.
+For your own contact account, set `VITE_WEB3FORMS_ACCESS_KEY` in a local `.env` file. The application retains its existing public fallback key. Vite exposes these values to browsers; never use them for server secrets. Configure recipient settings and domain restrictions in Web3Forms.
 
-## Checks and preview
+## Validate and preview
 
 ```sh
 npm run lint
 npm test
 npm run build
-npm audit
+npm audit --audit-level=low
 npx playwright install chromium
 npm run test:browser
 npm run preview
 ```
 
-The browser suite starts a server on port 4173. It covers 320, 390, 768, and 1440px layouts; keyboard navigation; project previews and résumé focus; mocked contact responses; no-JavaScript content; graphics failure recovery; motion pause persistence; offscreen suspension; portrait interactions/fallbacks; and desktop/mobile accessibility scans.
+Browser tests cover responsive layouts, navigation, dialogs, contact validation, motion preferences, startup recovery, portrait interactions, and automated accessibility checks. See [development notes](docs/DEVELOPMENT.md) for setup, architecture, and verification limits.
 
-For installed Windows Chrome:
+## Project structure
 
-```powershell
-$env:PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-npm.cmd run test:browser
+```text
+src/
+  components/   Shared UI, dialogs, graphics and motion
+  context/      Shared motion preferences
+  data/         Project content and attribution
+  hooks/        Navigation and graphics lifecycle
+  pages/        Portfolio sections
+  services/     Contact delivery and GitHub activity
+public/         Images, credentials, résumé and licensed fonts
+e2e/            Browser regression tests
+tests/          Service unit tests
+docs/           Preview images and maintenance notes
 ```
-
-Chromium emulation and automated accessibility scans do not establish native Safari performance or complete WCAG conformance. Also check a physical phone, keyboard navigation, 200% text zoom, reduced motion, high contrast, and dialog focus. Mock contact requests during tests instead of sending real messages.
-
-## Source and customization
-
-| Location | Purpose |
-| --- | --- |
-| `src/pages/` | Portfolio sections and biography |
-| `src/components/` | Navigation, dialogs, graphics, shared presentation |
-| `src/hooks/` | Motion preferences and optional graphics |
-| `src/services/` | Contact validation/delivery and GitHub activity |
-| `src/data/projects.js` | Curated project content, links, image dimensions, attribution |
-| `public/projects/` | Actual product interface captures |
-| `public/fonts/` | Self-hosted fonts, provenance, and licenses |
-| `scripts/` and `launch/` | Reproducible launch media and LinkedIn copy |
-
-Keep screenshots, links, claims, and contributor attribution in sync when editing content.
-
-## Accessibility and performance
-
-Content works independently of optional graphics. Mobile and reduced-motion visitors skip desktop WebGL. Graphics pause offscreen and in hidden tabs. The HTML contains an English no-JavaScript fallback; preview images are lazy-loaded; fonts use `font-display: swap`. The portrait avoids React updates on every pointer move.
-
-The desktop 3D chunk still produces Vite's size warning. Mobile glass blur is reduced; large mobile ambient gradients stay still; only eight mobile background particles remain visible. Desktop geometry and maximum pixel density are lower, weaker devices use a lighter tier, and Save-Data/2G visitors skip WebGL. The closed contribution details table does not mount its 365 rows. Follow-up work includes physical-device profiling and benchmarking responsive image formats. No Lighthouse score or real-user Core Web Vitals result is claimed. See the [performance follow-up](audit/mobile-footer-performance.md).
-
-The interface is English-only. Old language preferences do not change it. Résumé access stays in the hero rather than the navbar/menu.
 
 ## Deployment
 
-Pushing `main` runs [GitHub Actions checks](.github/workflows/checks.yml) and triggers the connected Vercel deployment. Confirm CI and production deployment separately, then check the public URL. Vercel and contact-provider accounts are configured outside this repository.
+Pushes to `main` run [GitHub Actions checks](.github/workflows/checks.yml) and trigger the connected Vercel deployment. The production build is generated with `npm run build` in `dist/`. Confirm both CI and the public deployment after changes.
 
-## Documentation
+## Release and attribution
 
-- [LinkedIn launch package](launch/README.md) and [caption options](launch/linkedin-captions.md)
-- [Original audit](audit/portfolio-audit.md) and [remediation](audit/remediation.md)
-- [Story, logo startup, and performance release](audit/story-startup-performance.md)
-- [Motion implementation](audit/motion-upgrade.md) and [portrait reveal](audit/portrait-reveal.md)
-- [Screenshot provenance](audit/project-image-provenance.json)
-- [Section refinements](audit/section-refinements.md) and [glass components](audit/ios-integration.md)
-- [Font provenance](public/fonts/README.md)
+See the [1.0.0 release notes](CHANGELOG.md), [screenshot provenance](docs/project-image-provenance.json), and [font licenses and sources](public/fonts/README.md).
 
-Launch media captures a specific build; the live site may evolve after publication. Large generated exports stay out of Git. The launch guide explains regeneration.
+NovaWorks is a Code Nomads team project; the portfolio identifies Aizaz's contribution. Tandem's multi-adapter speed gains remain unverified. Screenshots preserve their actual interface context.
 
-## Attribution and license
-
-NovaWorks is a Code Nomads team project; this portfolio describes Aizaz's contribution rather than claiming sole authorship. Project screenshots retain their actual interface data and context. Manrope and Instrument Serif include SIL Open Font Licenses in `public/fonts/`; icons and dependencies retain their respective licenses.
-
-This repository does not currently declare a software license. Do not assume it is MIT-licensed.
+This repository does not currently declare a software license. Fonts include their SIL Open Font Licenses; dependencies retain their respective licenses.
