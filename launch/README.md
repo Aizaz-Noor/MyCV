@@ -55,4 +55,3 @@ Set `PORTFOLIO_CAPTURE_URL` to capture another deployment. Generated recordings,
 ## Validation scope
 
 Capture assertions verify the hero, screenshot dialog, pointer reveal, mobile footer, and mobile overflow. The initial desktop capture reported no uncaught page errors. Visual inspection covers the image set and sampled video frames; ffprobe verifies codec, dimensions, duration, and frame rate. This does not measure real-user Core Web Vitals or native Safari rendering. The video uses the website's existing animations without artificially accelerating them.
-
